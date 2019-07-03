@@ -177,7 +177,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">coefficients</span><span class="p">),</span> <span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="n">basis</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="c1">#should be a list containing instances of Parameter</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">getMean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">getVariance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sobol</span> <span class="o">=</span> <span class="n">getAllSobol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="n">max_sobol_order</span><span class="p">)</span>
@@ -193,10 +193,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">quad_wts</span> <span class="o">=</span> <span class="n">quadrature_weights</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span> <span class="o">=</span> <span class="n">getSkewness</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quad_wts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_evals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span> <span class="o">=</span> <span class="n">getKurtosis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quad_wts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_evals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
-    
+
 <div class="viewcode-block" id="Statistics.getSobol"><a class="viewcode-back" href="../../_documentation/stats.html#equadratures.stats.Statistics.getSobol">[docs]</a>    <span class="k">def</span> <span class="nf">getSobol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get Sobol&#39; indices at specified order. </span>
+<span class="sd">        Get Sobol&#39; indices at specified order.</span>
 
 <span class="sd">        :param order int: The order at which Sobol&#39; indices are computed. By default, computes first order Sobol&#39; indices.</span>
 
@@ -206,17 +206,17 @@
 <span class="sd">        **Sample usage:**</span>
 
 <span class="sd">        .. code-block:: python</span>
-<span class="sd">        </span>
+
 <span class="sd">            stats = Statistics(coeffcients, basis)</span>
-<span class="sd">            fosi = stats.getSobol(1)        </span>
-<span class="sd">        </span>
+<span class="sd">            fosi = stats.getSobol(1)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sobol</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">order</span><span class="p">}</span></div>
-        
-        
+
+
 <div class="viewcode-block" id="Statistics.getCondSkewness"><a class="viewcode-back" href="../../_documentation/stats.html#equadratures.stats.Statistics.getCondSkewness">[docs]</a>    <span class="k">def</span> <span class="nf">getCondSkewness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get conditional skewness indices at specified order. </span>
+<span class="sd">        Get conditional skewness indices at specified order.</span>
 
 <span class="sd">        :param order int: The order at which conditional skewness indices are computed. By default, computes first order conditional skewness.</span>
 
@@ -228,13 +228,13 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            stats = Statistics(coeffcients, basis)</span>
-<span class="sd">            first_order_skewness = stats.getCondSkewness(1)        </span>
-<span class="sd">        </span>
+<span class="sd">            first_order_skewness = stats.getCondSkewness(1)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">CondSkewness</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quad_wts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_evals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Statistics.getCondKurtosis"><a class="viewcode-back" href="../../_documentation/stats.html#equadratures.stats.Statistics.getCondKurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">getCondKurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get conditional kurtosis indices at specified order. </span>
+<span class="sd">        Get conditional kurtosis indices at specified order.</span>
 
 <span class="sd">        :param order int: The order at which conditional kurtosis indices are computed. By default, computes first order conditional kurtosis.</span>
 
@@ -246,11 +246,11 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            stats = Statistics(coeffcients, basis)</span>
-<span class="sd">            first_order_kurtosis = stats.getCondKurtosis(1)        </span>
-<span class="sd">        </span>
+<span class="sd">            first_order_kurtosis = stats.getCondKurtosis(1)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">CondKurtosis</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quad_wts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_evals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">)</span></div>
-    
+
     <span class="c1">#Calculates the total sensitivity based on list of input dicts</span>
     <span class="c1">#Assumes they are ordered so that the first element is the first order indices!</span>
     <span class="nd">@staticmethod</span>
@@ -262,13 +262,13 @@
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">list_of_indices_dicts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
                         <span class="n">TSI</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">TSI</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">list_of_indices_dicts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-                        
+
         <span class="k">return</span> <span class="n">TSI</span></div>
-        
+
 <span class="c1"># Private functions!</span>
 <span class="k">def</span> <span class="nf">getMean</span><span class="p">(</span><span class="n">coefficients</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">coefficients</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        
+
 <span class="k">def</span> <span class="nf">getVariance</span><span class="p">(</span><span class="n">coefficients</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mf">0.</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)):</span>
@@ -289,12 +289,12 @@
         <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">max_order</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">max_order</span> <span class="o">&gt;</span> <span class="n">dimensions</span><span class="p">:</span>
             <span class="n">max_order</span> <span class="o">=</span> <span class="n">dimensions</span>
-        <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_order</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c1">#loop over order           </span>
+        <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">max_order</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="c1">#loop over order</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">),</span><span class="n">order</span><span class="p">):</span>
-                <span class="c1">#initialize each index to be 0                </span>
+                <span class="c1">#initialize each index to be 0</span>
                 <span class="n">combo_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                
-                
+
+
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">basis_entries</span><span class="p">):</span> <span class="c1">#loop over rows</span>
                 <span class="n">row</span> <span class="o">=</span> <span class="n">basis</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
                 <span class="n">non_zero_entries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">row</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -304,53 +304,53 @@
         <span class="n">check_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">combo_index</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">check_sum</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">1e-2</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Possible discrepancy in calculation, sum of indices = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">check_sum</span><span class="p">))</span>
-        
+
         <span class="k">return</span> <span class="n">combo_index</span>
 
-<span class="c1"># Return global skewness        </span>
-<span class="k">def</span> <span class="nf">getSkewness</span><span class="p">(</span><span class="n">quad_wts</span><span class="p">,</span> <span class="n">weighted_evals</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">variance</span><span class="p">):</span>    
+<span class="c1"># Return global skewness</span>
+<span class="k">def</span> <span class="nf">getSkewness</span><span class="p">(</span><span class="n">quad_wts</span><span class="p">,</span> <span class="n">weighted_evals</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">variance</span><span class="p">):</span>
     <span class="n">total_evals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">#    print weighted_evals[0]</span>
     <span class="n">third_total_evals</span> <span class="o">=</span> <span class="n">total_evals</span><span class="o">**</span><span class="mi">3</span>
-<span class="c1">#    print third_total_evals.shape </span>
-<span class="c1">#    print quad_wts.shape </span>
-    
+<span class="c1">#    print third_total_evals.shape</span>
+<span class="c1">#    print quad_wts.shape</span>
+
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">third_total_evals</span><span class="p">,</span><span class="n">quad_wts</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="c1"># Return global kurtosis</span>
-<span class="k">def</span> <span class="nf">getKurtosis</span><span class="p">(</span><span class="n">quad_wts</span><span class="p">,</span> <span class="n">weighted_evals</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">variance</span><span class="p">):</span>    
+<span class="k">def</span> <span class="nf">getKurtosis</span><span class="p">(</span><span class="n">quad_wts</span><span class="p">,</span> <span class="n">weighted_evals</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">variance</span><span class="p">):</span>
     <span class="n">total_evals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">fourth_total_evals</span> <span class="o">=</span> <span class="n">total_evals</span><span class="o">**</span><span class="mi">4</span>
-    
+
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fourth_total_evals</span><span class="p">,</span><span class="n">quad_wts</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Return conditional skewness of specified order, in dictionary format similar to Sobol&#39; indices</span>
-<span class="c1">#Unfortunately, to compute conditional indices, this slow method must be used! </span>
+<span class="c1">#Unfortunately, to compute conditional indices, this slow method must be used!</span>
 <span class="k">def</span> <span class="nf">CondSkewness</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">,</span> <span class="n">weighted_evals</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">skewness</span><span class="p">):</span>
     <span class="c1">#Get all polynomials evaluated at the quad. pts and corresponding wts</span>
-    
+
     <span class="n">dimensions</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">norm_ind</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">norm_ind</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,(</span><span class="n">norm_ind</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
-    
+    <span class="n">norm_ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,(</span><span class="n">norm_ind</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)))</span>
+
     <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="c1">#    for tot_order in range(1,dimensions+1): #loop over order          </span>
+<span class="c1">#    for tot_order in range(1,dimensions+1): #loop over order</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">),</span> <span class="n">order</span><span class="p">):</span>
-        <span class="c1">#initialize each index of the specified order to be 0                </span>
+        <span class="c1">#initialize each index of the specified order to be 0</span>
 <span class="c1">#        if sum(i) != order:</span>
 <span class="c1">#            continue</span>
-<span class="c1">#        combo_index[i] = 0.0   </span>
+<span class="c1">#        combo_index[i] = 0.0</span>
         <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
         <span class="n">index</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">combo_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">index</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
-    
+
     <span class="c1">#1st term</span>
     <span class="n">cubed_evals</span> <span class="o">=</span> <span class="n">weighted_evals</span><span class="o">**</span><span class="mi">3</span>
     <span class="n">integral1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cubed_evals</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">integral1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="n">order</span><span class="p">:</span>
             <span class="n">combo_index</span><span class="p">[</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="n">integral1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">skewness</span><span class="p">)</span>
-    
+
 <span class="c1">#    print combo_index</span>
     <span class="n">valid_indices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">):</span>
@@ -359,10 +359,10 @@
 <span class="c1">#    print valid_indices</span>
     <span class="c1">#2nd term (Can we avoid for loops in the future?)</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">):</span>           
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">):</span>
             <span class="n">summed_norm_index</span> <span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summed_norm_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">order</span><span class="p">:</span>
-                <span class="k">continue</span>            
+                <span class="k">continue</span>
             <span class="c1">#check if selection function is zero, in which case delta = True</span>
             <span class="n">delta</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">):</span>
@@ -379,7 +379,7 @@
 <span class="c1">#            print basis.elements[q]</span>
 <span class="c1">#            print 3* integral2 /(variance**1.5* skewness)</span>
             <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">integral2</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mf">1.5</span><span class="o">*</span> <span class="n">skewness</span><span class="p">)</span>
-    
+
 <span class="c1">#    print combo_index</span>
     <span class="n">temp_ind</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="c1">#3rd term (Can we avoid for loops in the future?)</span>
@@ -390,7 +390,7 @@
                 <span class="n">p</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
                 <span class="n">q</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
-                
+
                 <span class="n">summed_norm_index</span> <span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">r</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summed_norm_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">order</span><span class="p">:</span>
                     <span class="k">continue</span>
@@ -404,15 +404,15 @@
                         <span class="k">break</span>
                 <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
                     <span class="k">continue</span>
-                
+
                 <span class="n">evals3</span> <span class="o">=</span> <span class="n">weighted_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:]</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">q</span><span class="p">,:]</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span>
-                
+
                 <span class="n">integral3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals3</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
-                
+
                 <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">integral3</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mf">1.5</span><span class="o">*</span> <span class="n">skewness</span><span class="p">)</span>
-    
-<span class="c1">#    print combo_index            </span>
-    <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combo_index</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()}</span>
+
+<span class="c1">#    print combo_index</span>
+    <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combo_index</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="k">return</span> <span class="n">combo_index</span>
 
 <span class="c1"># Return conditional kurtosis of specified order, in dictionary format similar to Sobol&#39; indices</span>
@@ -420,12 +420,12 @@
     <span class="c1">#Get all polynomials evaluated at the quad. pts and corresponding wts</span>
     <span class="n">dimensions</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">norm_ind</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">norm_ind</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,(</span><span class="n">norm_ind</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
-    
+    <span class="n">norm_ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,(</span><span class="n">norm_ind</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)))</span>
+
     <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="c1">#    for tot_order in range(1,dimensions+1): #loop over order            </span>
+<span class="c1">#    for tot_order in range(1,dimensions+1): #loop over order</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">),</span> <span class="n">order</span><span class="p">):</span>
-        <span class="c1">#initialize each index to be 0                </span>
+        <span class="c1">#initialize each index to be 0</span>
 <span class="c1">#            if sum(i) != order:</span>
 <span class="c1">#                continue</span>
 <span class="c1">#            combo_index[i] = 0.0</span>
@@ -438,7 +438,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">integral1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="n">order</span><span class="p">:</span>
             <span class="n">combo_index</span><span class="p">[</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="n">integral1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">kurtosis</span><span class="p">)</span>
-    
+
     <span class="n">valid_indices</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">order</span><span class="p">:</span>
@@ -458,8 +458,8 @@
                     <span class="k">break</span>
             <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">evals2</span> <span class="o">=</span> <span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">q</span><span class="p">,:]</span>    
-            <span class="n">integral2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals2</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>            
+            <span class="n">evals2</span> <span class="o">=</span> <span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">q</span><span class="p">,:]</span>
+            <span class="n">integral2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals2</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
             <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">integral2</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">kurtosis</span><span class="p">)</span>
 <span class="c1">#    print combo_index</span>
     <span class="c1">#3rd term (Can we avoid for loops in the future?)</span>
@@ -471,9 +471,9 @@
             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summed_norm_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">order</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">evals3</span> <span class="o">=</span> <span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">q</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">integral3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals3</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>  
+            <span class="n">integral3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals3</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
             <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">integral3</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">kurtosis</span><span class="p">)</span>
-    
+
 <span class="c1">#    print combo_index</span>
     <span class="c1">#4th term (Can we avoid for loops in the future?)</span>
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_indices</span><span class="p">)):</span>
@@ -482,9 +482,9 @@
                 <span class="n">p</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
                 <span class="n">q</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
-                <span class="n">summed_norm_index</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">r</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>                
+                <span class="n">summed_norm_index</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">r</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summed_norm_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">order</span><span class="p">:</span>
-                    <span class="k">continue</span>                
+                    <span class="k">continue</span>
                 <span class="c1">#check if selection function is zero, in which case delta = True</span>
                 <span class="n">delta</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">):</span>
@@ -498,7 +498,7 @@
                 <span class="n">evals4</span> <span class="o">=</span> <span class="p">(</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">q</span><span class="p">,:]</span><span class="o">*</span><span class="n">weighted_evals</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span>
 
                 <span class="n">integral4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals4</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
-                
+
                 <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">integral4</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">kurtosis</span><span class="p">)</span>
 <span class="c1">#    print combo_index</span>
     <span class="c1">#5th term (Can we avoid for loops in the future?) (especially this. Scales poorly!)</span>
@@ -513,13 +513,13 @@
                     <span class="n">t</span> <span class="o">=</span> <span class="n">valid_indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
                     <span class="n">summed_norm_index</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">r</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
                     <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">summed_norm_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">order</span><span class="p">:</span>
-                        <span class="k">continue</span>               
+                        <span class="k">continue</span>
                     <span class="c1">#check if selection function is zero, in which case delta = True</span>
                     <span class="n">delta</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">):</span>
                         <span class="k">if</span> <span class="n">delta_pqrs</span><span class="p">([</span><span class="n">temp_ind</span><span class="p">[</span><span class="n">p</span><span class="p">,:],</span> <span class="n">temp_ind</span><span class="p">[</span><span class="n">q</span><span class="p">,:],</span> <span class="n">temp_ind</span><span class="p">[</span><span class="n">r</span><span class="p">,:],</span> <span class="n">temp_ind</span><span class="p">[</span><span class="n">t</span><span class="p">,:]]):</span>
                             <span class="n">delta</span> <span class="o">=</span> <span class="kc">True</span>
-    
+
                             <span class="k">break</span>
                     <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
                         <span class="k">continue</span>
@@ -527,14 +527,14 @@
                     <span class="n">integral5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">evals5</span><span class="p">,</span> <span class="n">quad_wts</span><span class="p">)</span>
                     <span class="n">summed_norm_index</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">norm_ind</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">q</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">r</span><span class="p">]),</span> <span class="n">norm_ind</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
                     <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo_index</span><span class="p">[</span><span class="n">summed_norm_index</span><span class="p">]</span> <span class="o">+</span> <span class="mi">24</span> <span class="o">*</span> <span class="n">integral5</span> <span class="o">/</span><span class="p">(</span><span class="n">variance</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">kurtosis</span><span class="p">)</span>
-    <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combo_index</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()}</span>
+    <span class="n">combo_index</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combo_index</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 <span class="c1">#    print combo_index</span>
     <span class="k">return</span> <span class="n">combo_index</span>
-    
- 
+
+
 <span class="c1">#Calculates delta^p_{qr} (Geraci)</span>
 <span class="k">def</span> <span class="nf">delta_p_qr</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
-    <span class="c1">#first row = p, then q, then r    </span>
+    <span class="c1">#first row = p, then q, then r</span>
     <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">dimensions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dimensions</span><span class="p">):</span>
@@ -586,7 +586,7 @@
         <span class="n">col_sum</span> <span class="o">=</span> <span class="n">norm_rows</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="n">norm_rows</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="n">norm_rows</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">d</span><span class="p">]</span>
 <span class="c1">#        print &quot;dimesnion = &quot; + str(d)</span>
 <span class="c1">#        print col_sum</span>
-        
+
         <span class="k">if</span> <span class="n">col_sum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">col_sum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
