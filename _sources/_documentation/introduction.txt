@@ -20,10 +20,6 @@ The latest version of the code is version 8.0 and was released in July 2019.
 
 .. image:: https://img.shields.io/pypi/pyversions/ansicolortags.svg
 
-    <a href="https://twitter.com/intent/follow?screen_name=equadratures">
-        <img src="https://img.shields.io/twitter/follow/shields_io.svg?style=social&logo=twitter"
-            alt="follow on Twitter"></a>
-
 Workshops
 --------------
 We routinely organize workshops demonstrating the various capabilities of the code. If this is of interest, please do get in `contact <https://effective-quadratures.github.io/_documentation/contact.html>`__ with us. 
