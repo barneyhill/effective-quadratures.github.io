@@ -9,8 +9,6 @@ Sitemap
    tutorials
    contact
 
-
-
 Indices and tables
 ==================
 
