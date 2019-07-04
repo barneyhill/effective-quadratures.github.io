@@ -22,7 +22,7 @@ The latest version of the code is version 8.0 and was released in July 2019.
 
 Workshops
 --------------
-We routinely organize workshops demonstrating the various capabilities of the code. If this is of interest, please do get in `contact <https://effective-quadratures.github.io/_documentation/contact.html>`__ with us. 
+We routinely organize workshops demonstrating the various capabilities of the code. If this is of interest, please do get in touch by emailing us on contact@effective-quadratures.org
 
 Download and installation
 -----------------------------
