@@ -4,7 +4,6 @@ Effective Quadratures is an open-source library for *uncertainty quantification*
 
 **Key words associated with this code**: polynomial surrogates, polynomial chaos, polynomial variable projection, Gaussian quadrature, Clenshaw Curtis, polynomial least squares, compressed sensing, gradient-enhanced surrogates, supervised learning.
 
-
 Code status
 --------------
 The latest version of the code is version 8.0 and was released in July 2019.
