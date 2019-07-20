@@ -6,7 +6,7 @@ Effective Quadratures is an open-source library for *uncertainty quantification*
 
 Code status
 --------------
-The latest version of the code is version 8.0 and was released in July 2019.
+The latest version of the code is version 8.0 and was released in July 2019. 
 
 .. image:: https://travis-ci.org/Effective-Quadratures/Effective-Quadratures.svg?branch=master
 	:target: https://travis-ci.org/Effective-Quadratures/
@@ -18,10 +18,6 @@ The latest version of the code is version 8.0 and was released in July 2019.
 	:target: https://pypi.org/project/equadratures/
 
 .. image:: https://img.shields.io/pypi/pyversions/ansicolortags.svg
-
-Workshops
---------------
-We routinely organize workshops demonstrating the various capabilities of the code. If this is of interest, please do get in touch by emailing us on contact@effective-quadratures.org
 
 Download and installation
 -----------------------------
@@ -37,11 +33,12 @@ or if you are using python3, then
 	
 	pip3 install equadratures
 
-Alternatively you can visit our `GitHub page <https://github.com/Effective-Quadratures/Effective-Quadratures>`__ and click either on the *Fork Code* button or *Clone or download*. For installation on Mac and Linux systems, simply type the following into the terminal. 
+Alternatively you can visit our `GitHub page <https://github.com/Effective-Quadratures/Effective-Quadratures>`__ and click either on the *Fork Code* button or *Clone or download*. Quick start tutorials are provided on the sidebar to the left. 
 
-.. code::
-	
-	sudo python setup.py install
+Workshops
+--------------
+We routinely organize workshops demonstrating the various capabilities of the code. If this is of interest, please do get in touch by emailing us on contact@effective-quadratures.org
+
 
 References
 -----------
