@@ -1,0 +1,20 @@
+Distributions
+=========================
+Distributions for characterizing the parameters.
+
+.. toctree::
+   :maxdepth: 2
+
+   gaussian
+   truncated_gaussian
+   cauchy 
+   custom
+   beta
+   chebyshev
+   gamma
+   uniform
+   weibull
+   rayleigh
+   exponential 
+   chisquared
+          

@@ -193,7 +193,7 @@ On the other hand, we can use Effective Quadratures to construct accurate surrog
    * - COBYLA
      - 990
      - 0.011 
-   * - Surrogate-based optimization via Effective Quadratures
+   * - Surrogate-based optimisation
      - 20
      - 5.04e-13
 

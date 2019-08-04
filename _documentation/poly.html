@@ -1,240 +1,587 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Polynomials &mdash; Effective Quadratures v8.0 documentation</title>
-  
 
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Polynomial &#8212;   v8.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/logo.png"/>
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Base polynomial" href="polyparent.html" />
-    <link rel="prev" title="Basis" href="basis.html" /> 
-</head>
+    <link rel="next" title="Distributions" href="distributions.html" />
+    <link rel="prev" title="Basis" href="basis.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
-<body class="wy-body-for-nav">
+  </head><body>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: grey" >
-          
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="../_static/logo_white_font.png"></span>
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b>8.0</b></span>
+      </div>
 
-          
-            <a href="index.html" class="icon icon-home"> Effective Quadratures
-          
-
-          
-            
-            <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                8.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
             
             
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a></li>
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Explore <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers-theory-and-applications">Papers (theory and applications)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#get-in-touch">Get in touch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">About us</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Polynomials</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyparent.html">Base polynomial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="polychildren.html">Coefficient computation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gaussian.html">Gaussian</a></li>
+<li class="toctree-l3"><a class="reference internal" href="truncated_gaussian.html">Truncated-Gaussian</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cauchy.html">Cauchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="beta.html">Beta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chebyshev.html">Chebyshev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gamma.html">Gamma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uniform.html">Uniform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="weibull.html">Weibull</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rayleigh.html">Rayleigh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exponential.html">Exponential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chisquared.html">Chi-squared</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Quick start guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Defining a parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Polynomial surrogate optimisation</a></li>
 </ul>
-
+</li>
+</ul>
+</ul>
+</li>
+              
             
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
           
         </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Effective Quadratures</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="modules.html">Modules</a> &raquo;</li>
-        
-      <li>Polynomials</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../_sources/_documentation/poly.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="polynomials">
-<h1>Polynomials<a class="headerlink" href="#polynomials" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="polyparent.html">Base polynomial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polychildren.html">Coefficient computation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyreg.html">Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyint.html">Quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="polycs.html">Compressive sensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="polylsq.html">Least Squares</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="polyparent.html" class="btn btn-neutral float-right" title="Base polynomial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="basis.html" class="btn btn-neutral float-left" title="Basis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
     </div>
-  
+  </div>
 
-  <hr/>
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="module-equadratures.poly">
+<span id="polynomial"></span><h1>Polynomial<a class="headerlink" href="#module-equadratures.poly" title="Permalink to this headline">¶</a></h1>
+<p>The polynomial parent class; one of the main building blocks in Effective Quadratures.</p>
+<dl class="class">
+<dt id="equadratures.poly.Poly">
+<em class="property">class </em><code class="descclassname">equadratures.poly.</code><code class="descname">Poly</code><span class="sig-paren">(</span><em>parameters</em>, <em>basis</em>, <em>method</em>, <em>args=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition of a polynomial object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of parameters, where each element of the list is an instance of the Parameter class.</p></li>
+<li><p><strong>basis</strong> (<a class="reference internal" href="basis.html#equadratures.basis.Basis" title="equadratures.basis.Basis"><em>Basis</em></a>) – An instance of the Basis class corresponding to the multi-index set used.</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The method used for computing the coefficients. Should be one of: <code class="docutils literal notranslate"><span class="pre">compressive-sensing</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code> or <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy and correlations within the samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">string mesh</dt>
+<dd class="field-odd"><p>Avaliable options are: <code class="docutils literal notranslate"><span class="pre">monte-carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">induced-sampling</span></code>, <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> or <code class="docutils literal notranslate"><span class="pre">user-defined</span></code>.
+Note that when the <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code> option is invoked, the sparse pseudospectral approximation method [1]
+is the adopted. One can think of this as being the correct way to use sparse grids in the context of polynomial chaos [2] techniques.</p>
+</dd>
+<dt class="field-even">string subsampling-algorithm</dt>
+<dd class="field-even"><p>The <code class="docutils literal notranslate"><span class="pre">subsampling-algorithm</span></code> input refers to the optimisation technique for subsampling. In the aforementioned four sampling strategies,
+we generate a logarithm factor of samples above the required amount and prune down the samples using an optimisation
+technique (see [1]). Existing optimisation strategies include: <code class="docutils literal notranslate"><span class="pre">qr</span></code>, <code class="docutils literal notranslate"><span class="pre">lu</span></code>, <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>. These refer to QR with column
+pivoting [2], LU with row pivoting [3], singular value decomposition with subset selection [2] and a convex relaxation
+via Newton’s method for determinant maximization [4]. Note that if the <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> option is selected, then subsampling will depend on whether the Basis
+argument is a total order index set, hyperbolic basis or a tensor order index set.</p>
+</dd>
+<dt class="field-odd">float sampling-ratio</dt>
+<dd class="field-odd"><p>Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows
+and columns of the associated Vandermonde-type matrix are equal.</p>
+</dd>
+<dt class="field-even">numpy.ndarray correlation-matrix</dt>
+<dd class="field-even"><p>In the case where the inputs are correlated, a user-defined correlation matrix must be provided. This matrix
+input must be symmetric, positive-definite and be of shape (number_of_inputs, number_of_inputs).</p>
+</dd>
+<dt class="field-odd">numpy.ndarray sample-points</dt>
+<dd class="field-odd"><p>A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</p>
+</dd>
+<dt class="field-even">numpy.ndarray sample-outputs</dt>
+<dd class="field-even"><p>A numpy ndarray with shape (number_of_observations, 1) that corresponds to model evaluations at the sample points. Note that
+if <code class="docutils literal notranslate"><span class="pre">sample-points</span></code> is provided as an input, then the code expects <code class="docutils literal notranslate"><span class="pre">sample-outputs</span></code> too.</p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Sample constructor initialisations</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
 
-  <div role="contentinfo">
+<span class="c1"># Subsampling from a tensor grid</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total order&#39;</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span> <span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mesh&#39;</span><span class="p">:</span><span class="s1">&#39;tensor-grid&#39;</span><span class="p">,</span> <span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">:</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="s1">&#39;sampling-ratio&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+
+<span class="c1"># User-defined data with compressive sensing</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;inputs.txt&#39;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;outputs.txt&#39;</span><span class="p">)</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total order&#39;</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">([</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;compressive-sensing&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X_red</span><span class="p">,</span>                                                                <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">Y_red</span><span class="p">})</span>
+
+<span class="c1"># Using a sparse grid</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;sparse-grid&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">growth_rule</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>References</strong></dt><dd><ol class="arabic simple">
+<li><p>Constantine, P. G., Eldred, M. S., Phipps, E. T., (2012) Sparse Pseudospectral Approximation Method. Computer Methods in Applied Mechanics and Engineering. 1-12. <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0045782512000953">Paper</a></p></li>
+<li><p>Xiu, D., Karniadakis, G. E., (2002) The Wiener-Askey Polynomial Chaos for Stochastic Differential Equations. SIAM Journal on Scientific Computing,  24(2), <a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/S1064827501387826?journalCode=sjoce3">Paper</a></p></li>
+<li><p>Seshadri, P., Iaccarino, G., Ghisu, T., (2018) Quadrature Strategies for Constructing Polynomial Approximations. Uncertainty Modeling for Engineering Applications. Springer, Cham, 2019. 1-25. <a class="reference external" href="https://arxiv.org/pdf/1805.07296.pdf">Preprint</a></p></li>
+<li><p>Seshadri, P., Narayan, A., Sankaran M., (2017) Effectively Subsampled Quadratures for Least Squares Polynomial Approximations. SIAM/ASA Journal on Uncertainty Quantification, 5(1). <a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/16M1057668">Paper</a></p></li>
+<li><p>Bos, L., De Marchi, S., Sommariva, A., Vianello, M., (2010) Computing Multivariate Fekete and Leja points by Numerical Linear Algebra. SIAM Journal on Numerical Analysis, 48(5). <a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/090779024">Paper</a></p></li>
+<li><p>Joshi, S., Boyd, S., (2009) Sensor Selection via Convex Optimization. IEEE Transactions on Signal Processing, 57(2). <a class="reference external" href="https://ieeexplore.ieee.org/document/4663892">Paper</a></p></li>
+</ol>
+</dd>
+</dl>
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_coefficients">
+<code class="descname">get_coefficients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_coefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_coefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the coefficients of the polynomial approximation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>coefficients</strong>: A numpy.ndarray of the coefficients with size (number_of_coefficients, 1).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_mean_and_variance">
+<code class="descname">get_mean_and_variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_mean_and_variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_mean_and_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean and variance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>mean</strong>: The approximated mean of the polynomial fit; output as a float.</p>
+<p><strong>variance</strong>: The approximated variance of the polynomial fit; output as a float.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_multi_index">
+<code class="descname">get_multi_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_multi_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_multi_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the multi-index set of the basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>multi_indices</strong>: A numpy.ndarray of the coefficients with size (cardinality_of_basis, dimensions).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_points">
+<code class="descname">get_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the samples based on the sampling strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>points</strong>: A numpy.ndarray of sampled quadrature points with shape (number_of_samples, dimension).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_points_and_weights">
+<code class="descname">get_points_and_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_points_and_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_points_and_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the samples and weights based on the sampling strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>x</strong>: A numpy.ndarray of sampled quadrature points with shape (number_of_samples, dimension).</p>
+<p><strong>w</strong>: A numpy.ndarray of the corresponding quadrature weights with shape (number_of_samples, 1).</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_poly">
+<code class="descname">get_poly</code><span class="sig-paren">(</span><em>stack_of_points</em>, <em>custom_multi_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_poly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_poly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the value of each polynomial basis function at a set of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number of observations, dimensions) at which the polynomial must be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>polynomial</strong>: A numpy.ndarray of shape (cardinality, number_of_observations) corresponding to the polynomial basis function evaluations
+at the stack_of_points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_poly_grad">
+<code class="descname">get_poly_grad</code><span class="sig-paren">(</span><em>stack_of_points</em>, <em>dim_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_poly_grad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_poly_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the gradient for each of the polynomial basis functions at a set of points,
+with respect to each input variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the gradient must be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Gradients</strong>: A list with d elements, where d corresponds to the dimension of the problem. Each element is a numpy.ndarray of shape
+(cardinality, number_of_observations) corresponding to the gradient polynomial evaluations at the stack_of_points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_poly_hess">
+<code class="descname">get_poly_hess</code><span class="sig-paren">(</span><em>stack_of_points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_poly_hess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_poly_hess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the Hessian for each of the polynomial basis functions at a set of points,
+with respect to each input variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the Hessian must be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Hessian</strong>: A list with d^2 elements, where d corresponds to the dimension of the model. Each element is a numpy.ndarray of shape
+(cardinality, number_of_observations) corresponding to the hessian polynomial evaluations at the stack_of_points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit">
+<code class="descname">get_polyfit</code><span class="sig-paren">(</span><em>stack_of_points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the the polynomial approximation of a function (or model data) at prescribed points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the polynomial fit must be evaluated at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>p</strong>: A numpy.ndarray of shape (1, number_of_observations) corresponding to the polynomial approximation of the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit_function">
+<code class="descname">get_polyfit_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a callable polynomial approximation of a function (or model data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A callable function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit_grad">
+<code class="descname">get_polyfit_grad</code><span class="sig-paren">(</span><em>stack_of_points</em>, <em>dim_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit_grad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the gradient of the polynomial approximation of a function (or model data) at prescribed points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the polynomial fit approximation’s
+gradient must be evaluated at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>p</strong>: A numpy.ndarray of shape (dimensions, number_of_observations) corresponding to the polynomial gradient approximation of the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit_grad_function">
+<code class="descname">get_polyfit_grad_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit_grad_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit_grad_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a callable for the gradients of the polynomial approximation of a function (or model data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A callable function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit_hess">
+<code class="descname">get_polyfit_hess</code><span class="sig-paren">(</span><em>stack_of_points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit_hess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit_hess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the hessian of the polynomial approximation of a function (or model data) at prescribed points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>stack_of_points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the polynomial fit approximation’s
+Hessian must be evaluated at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h</strong>: A numpy.ndarray of shape (dimensions, dimensions, number_of_observations) corresponding to the polynomial Hessian approximation of the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_polyfit_hess_function">
+<code class="descname">get_polyfit_hess_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_polyfit_hess_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_polyfit_hess_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a callable for the hessian of the polynomial approximation of a function (or model data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A callable function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_skewness_and_kurtosis">
+<code class="descname">get_skewness_and_kurtosis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_skewness_and_kurtosis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_skewness_and_kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the skewness and kurtosis of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>skewness</strong>: The approximated skewness of the polynomial fit; output as a float.</p>
+<p><strong>kurtosis</strong>: The approximated kurtosis of the polynomial fit; output as a float.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_sobol_indices">
+<code class="descname">get_sobol_indices</code><span class="sig-paren">(</span><em>highest_sobol_order_to_compute=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_sobol_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_sobol_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Sobol’ indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>highest_sobol_order_to_compute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The order of the Sobol’ indices required.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sobol_indices</strong>: A dict comprising of Sobol’ indices and constitutent mixed orders of the parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_weights">
+<code class="descname">get_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes quadrature weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>weights</strong>: A numpy.ndarray of the corresponding quadrature weights with shape (number_of_samples, 1).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.set_model">
+<code class="descname">set_model</code><span class="sig-paren">(</span><em>model=None</em>, <em>model_grads=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.set_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.set_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the coefficients of the polynomial via the method selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>model</strong> (<em>callable</em>) – The function that needs to be approximated. In the absence of a callable function, the input can be the function evaluated at the quadrature points.</p></li>
+<li><p><strong>model_grads</strong> (<em>callable</em>) – The gradient of the function that needs to be approximated. In the absence of a callable gradient function, the input can be a matrix of gradient evaluations at the quadrature points.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="equadratures.poly.evaluate_model">
+<code class="descclassname">equadratures.poly.</code><code class="descname">evaluate_model</code><span class="sig-paren">(</span><em>points</em>, <em>function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#evaluate_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.evaluate_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the model function at given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the gradient must be evaluated.</p></li>
+<li><p><strong>fungrad</strong> (<em>callable</em>) – A callable argument for the function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>function_values</strong>: A numpy.ndarray of function evaluations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="equadratures.poly.evaluate_model_gradients">
+<code class="descclassname">equadratures.poly.</code><code class="descname">evaluate_model_gradients</code><span class="sig-paren">(</span><em>points</em>, <em>fungrad</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#evaluate_model_gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.evaluate_model_gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the model gradient at given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (number_of_observations, dimensions) at which the gradient must be evaluated.</p></li>
+<li><p><strong>fungrad</strong> (<em>callable</em>) – A callable argument for the function’s gradients.</p></li>
+<li><p><strong>format</strong> (<em>string</em>) – The format in which the output is to be provided: <code class="docutils literal notranslate"><span class="pre">matrix</span></code> will output a numpy.ndarray of shape
+(number_of_observations, dimensions) with gradient values, while <code class="docutils literal notranslate"><span class="pre">vector</span></code> will stack all the
+vectors in this matrix to yield a numpy.ndarray with shape (number_of_observations x dimensions, 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>grad_values</strong>: A numpy.ndarray of gradient evaluations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="equadratures.poly.vector_to_2D_grid">
+<code class="descclassname">equadratures.poly.</code><code class="descname">vector_to_2D_grid</code><span class="sig-paren">(</span><em>coefficients</em>, <em>index_set</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#vector_to_2D_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.vector_to_2D_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handy function that converts a vector of coefficients into a matrix based on index set values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coefficients</strong> (<em>numpy.ndarray</em>) – An ndarray with shape (N, 1) where N corresponds to the number of coefficient values.</p></li>
+<li><p><strong>index_set</strong> (<em>numpy.ndarray</em>) – The multi-index set of the basis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>x</strong>: A numpy.ndarray of x values of the meshgrid.</p>
+<p><strong>y</strong>: A numpy.ndarray of y values of the meshgrid.</p>
+<p><strong>z</strong>: A numpy.ndarray of the coefficient values.</p>
+<p><strong>max_order</strong>: int corresponds to the highest order.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
     <p>
-        &copy; Copyright 2016-2019 by Effective Quadratures
-
+        &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>
