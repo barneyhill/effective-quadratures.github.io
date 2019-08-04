@@ -152,7 +152,7 @@
 <li><p><strong>param_type</strong> (<em>string</em>) – <dl class="simple">
 <dt>The type of distribution that characterizes the parameter. Options include:</dt><dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Arcsine_distribution">chebyshev (arcsine)</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">gaussian</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Truncated_normal_distribution">truncated-Gaussian</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Truncated_normal_distribution">truncated-gaussian</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Beta_distribution">beta</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">cauchy</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential</a>,
@@ -165,12 +165,12 @@ If no string is provided, a <cite>Uniform</cite> distribution is assumed. If the
 </p></li>
 <li><p><strong>shape_parameter_A</strong> (<em>double</em>) – Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a <cite>gaussian</cite> (or <cite>truncated-gaussian</cite>), this represents the mean. In the case of a beta distribution this represents the alpha value. For a uniform distribution this input is not required.</p></li>
 <li><p><strong>shape_parameter_B</strong> (<em>double</em>) – This is the second shape parameter that characterizes the distribution selected. In the case of a <cite>gaussian</cite> or <cite>truncated-gaussian</cite>, this is the variance.</p></li>
-<li><p><strong>data</strong> – <dl class="simple">
-<dt>A numpy.ndarray with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to</dt><dd><p>the data observations. This input should only be used with the <code class="docutils literal notranslate"><span class="pre">custom</span></code> distribution.</p>
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – <dl class="simple">
+<dt>A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to</dt><dd><p>the data observations. This input should only be used with the <code class="docutils literal notranslate"><span class="pre">custom</span></code> distribution.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>endpoints</strong> – A boolean entry. If set to True, then the quadrature points and weights will have end-points.</p></li>
+<li><p><strong>endpoints</strong> – A boolean entry. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</p></li>
 </ul>
 </dd>
 </dl>
