@@ -137,7 +137,7 @@
       
   <div class="section" id="parameter">
 <h1>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h1>
-<p>A parameter—i.e., the definition of a univariate variable <span class="math notranslate nohighlight">\(x\)</span>—is one the main building blocks in Effective Quadratures. It characterized by its distribution (and support) <span class="math notranslate nohighlight">\(\rho(x)\)</span>.</p>
+<p>A parameter—i.e., the definition of a univariate variable—is one the main building blocks in Effective Quadratures. It characterized by its distribution (and support).</p>
 <span class="target" id="module-equadratures.parameter"></span><p>Definition of a univariate parameter.</p>
 <dl class="class">
 <dt id="equadratures.parameter.Parameter">
@@ -146,31 +146,19 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lower</strong> (<em>double</em>) – Lower bound for the parameter.</p></li>
-<li><p><strong>upper</strong> (<em>double</em>) – Upper bound for the parameter.</p></li>
-<li><p><strong>order</strong> (<em>integer</em>) – Order of the parameter.</p></li>
-<li><p><strong>param_type</strong> (<em>string</em>) – <dl class="simple">
-<dt>The type of distribution that characterizes the parameter. Options include:</dt><dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Arcsine_distribution">chebyshev (arcsine)</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">gaussian</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Truncated_normal_distribution">truncated-gaussian</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Beta_distribution">beta</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">cauchy</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">weibull</a>.
-If no string is provided, a <cite>Uniform</cite> distribution is assumed. If the user provides data, and would like to generate orthogonal polynomials (and quadrature rules) based on the data, they can set this option to be Custom.</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>shape_parameter_A</strong> (<em>double</em>) – Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a <cite>gaussian</cite> (or <cite>truncated-gaussian</cite>), this represents the mean. In the case of a beta distribution this represents the alpha value. For a uniform distribution this input is not required.</p></li>
-<li><p><strong>shape_parameter_B</strong> (<em>double</em>) – This is the second shape parameter that characterizes the distribution selected. In the case of a <cite>gaussian</cite> or <cite>truncated-gaussian</cite>, this is the variance.</p></li>
-<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – <dl class="simple">
-<dt>A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to</dt><dd><p>the data observations. This input should only be used with the <code class="docutils literal notranslate"><span class="pre">custom</span></code> distribution.</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>endpoints</strong> – A boolean entry. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</p></li>
+<li><p><strong>lower</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Lower bound for the parameter.</p></li>
+<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Upper bound for the parameter.</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Order of the parameter.</p></li>
+<li><p><strong>param_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The type of distribution that characterizes the parameter. Options include <a class="reference external" href="https://en.wikipedia.org/wiki/Arcsine_distribution">chebyshev (arcsine)</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">gaussian</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Truncated_normal_distribution">truncated-gaussian</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Beta_distribution">beta</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">cauchy</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">weibull</a>. If no string is provided, a <code class="docutils literal notranslate"><span class="pre">uniform</span></code> distribution is assumed. If the user provides data, and would like to generate orthogonal
+polynomials (and quadrature rules) based on the data, they can set this option to be <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></li>
+<li><p><strong>shape_parameter_A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> (or <code class="docutils literal notranslate"><span class="pre">truncated-gaussian</span></code>), this represents the mean. In the case of a beta distribution this represents the alpha value. For a <code class="docutils literal notranslate"><span class="pre">uniform</span></code> distribution this input is not required.</p></li>
+<li><p><strong>shape_parameter_B</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – This is the second shape parameter that characterizes the distribution selected. In the case of a <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> or <code class="docutils literal notranslate"><span class="pre">truncated-gaussian</span></code>, this is the variance.</p></li>
+<li><p><strong>data</strong> (<em>numpy.ndarray</em>) – A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to the data observations. This input should only be used with the <code class="docutils literal notranslate"><span class="pre">custom</span></code> distribution.</p></li>
+<li><p><strong>endpoints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</p></li>
 </ul>
 </dd>
 </dl>

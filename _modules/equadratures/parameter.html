@@ -153,33 +153,28 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class defines a univariate parameter. Below are details of its constructor.</span>
 
-<span class="sd">    :param double lower:</span>
+<span class="sd">    :param float lower:</span>
 <span class="sd">        Lower bound for the parameter.</span>
-<span class="sd">    :param double upper:</span>
+<span class="sd">    :param float upper:</span>
 <span class="sd">        Upper bound for the parameter.</span>
-<span class="sd">    :param integer order:</span>
+<span class="sd">    :param int order:</span>
 <span class="sd">        Order of the parameter.</span>
-<span class="sd">    :param string param_type:</span>
-<span class="sd">        The type of distribution that characterizes the parameter. Options include:</span>
-<span class="sd">		`chebyshev (arcsine) &lt;https://en.wikipedia.org/wiki/Arcsine_distribution&gt;`_,</span>
-<span class="sd">		`gaussian &lt;https://en.wikipedia.org/wiki/Normal_distribution&gt;`_,</span>
-<span class="sd">		`truncated-gaussian &lt;https://en.wikipedia.org/wiki/Truncated_normal_distribution&gt;`_,</span>
-<span class="sd">		`beta &lt;https://en.wikipedia.org/wiki/Beta_distribution&gt;`_,</span>
-<span class="sd">		`cauchy &lt;https://en.wikipedia.org/wiki/Cauchy_distribution&gt;`_,</span>
-<span class="sd">		`exponential &lt;https://en.wikipedia.org/wiki/Exponential_distribution&gt;`_,</span>
-<span class="sd">		`uniform &lt;https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)&gt;`_,</span>
-<span class="sd">		`gamma &lt;https://en.wikipedia.org/wiki/Gamma_distribution&gt;`_,</span>
-<span class="sd">		`weibull &lt;https://en.wikipedia.org/wiki/Weibull_distribution&gt;`_.</span>
-<span class="sd">		If no string is provided, a `Uniform` distribution is assumed. If the user provides data, and would like to generate orthogonal polynomials (and quadrature rules) based on the data, they can set this option to be Custom.</span>
-<span class="sd">    :param double shape_parameter_A:</span>
-<span class="sd">        Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a `gaussian` (or `truncated-gaussian`), this represents the mean. In the case of a beta distribution this represents the alpha value. For a uniform distribution this input is not required.</span>
-<span class="sd">    :param double shape_parameter_B:</span>
-<span class="sd">        This is the second shape parameter that characterizes the distribution selected. In the case of a `gaussian` or `truncated-gaussian`, this is the variance.</span>
+<span class="sd">    :param str param_type:</span>
+
+<span class="sd">		The type of distribution that characterizes the parameter. Options include `chebyshev (arcsine) &lt;https://en.wikipedia.org/wiki/Arcsine_distribution&gt;`_, `gaussian &lt;https://en.wikipedia.org/wiki/Normal_distribution&gt;`_,</span>
+<span class="sd">		`truncated-gaussian &lt;https://en.wikipedia.org/wiki/Truncated_normal_distribution&gt;`_, `beta &lt;https://en.wikipedia.org/wiki/Beta_distribution&gt;`_,</span>
+<span class="sd">		`cauchy &lt;https://en.wikipedia.org/wiki/Cauchy_distribution&gt;`_, `exponential &lt;https://en.wikipedia.org/wiki/Exponential_distribution&gt;`_,</span>
+<span class="sd">		`uniform &lt;https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)&gt;`_, `gamma &lt;https://en.wikipedia.org/wiki/Gamma_distribution&gt;`_,</span>
+<span class="sd">		`weibull &lt;https://en.wikipedia.org/wiki/Weibull_distribution&gt;`_. If no string is provided, a ``uniform`` distribution is assumed. If the user provides data, and would like to generate orthogonal</span>
+<span class="sd">		polynomials (and quadrature rules) based on the data, they can set this option to be ``custom``.</span>
+<span class="sd">    :param float shape_parameter_A:</span>
+<span class="sd">        Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a ``gaussian`` (or ``truncated-gaussian``), this represents the mean. In the case of a beta distribution this represents the alpha value. For a ``uniform`` distribution this input is not required.</span>
+<span class="sd">    :param float shape_parameter_B:</span>
+<span class="sd">        This is the second shape parameter that characterizes the distribution selected. In the case of a ``gaussian`` or ``truncated-gaussian``, this is the variance.</span>
 <span class="sd">    :param numpy.ndarray data:</span>
-<span class="sd">        A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to</span>
-<span class="sd">		the data observations. This input should only be used with the ``custom`` distribution.</span>
-<span class="sd">    :param endpoints:</span>
-<span class="sd">        A boolean entry. If set to ``True``, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</span>
+<span class="sd">		A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to the data observations. This input should only be used with the ``custom`` distribution.</span>
+<span class="sd">    :param bool endpoints:</span>
+<span class="sd">        If set to ``True``, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shape_parameter_A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape_parameter_B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">distribution</span>
