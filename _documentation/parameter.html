@@ -67,21 +67,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -162,6 +147,63 @@ polynomials (and quadrature rules) based on the data, they can set this option t
 </ul>
 </dd>
 </dl>
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the cumulative density function associated with the Parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param numpy.ndarray points</dt>
+<dd class="field-odd"><p>Values of the parameter at which the PDF must be evaluated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the inverse cumulative density function associated with the Parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param numpy.ndarray xx</dt>
+<dd class="field-odd"><p>Values of the cumulative density function for which its inverse needs to be computed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the probability density function associated with the Parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param numpy.ndarray points</dt>
+<dd class="field-odd"><p>Values of the parameter at which the PDF must be evaluated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

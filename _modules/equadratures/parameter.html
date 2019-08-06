@@ -65,21 +65,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../_documentation/tutorials.html">Tutorials</a><ul>
@@ -185,11 +170,10 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">endpoints</span> <span class="o">=</span> <span class="n">endpoints</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">set_distribution</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">set_moments</span><span class="p">()</span>
-
-	<span class="k">def</span> <span class="nf">set_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">__set_distribution</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">__set_bounds</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">__set_moments</span><span class="p">()</span>
+	<span class="k">def</span> <span class="nf">__set_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="n">choices</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gaussian&#39;</span><span class="p">:</span> <span class="n">Gaussian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_B</span><span class="p">),</span>
 			       <span class="s1">&#39;normal&#39;</span><span class="p">:</span> <span class="n">Gaussian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_B</span><span class="p">),</span>
 			       <span class="s1">&#39;uniform&#39;</span> <span class="p">:</span> <span class="n">Uniform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">),</span>
@@ -207,25 +191,61 @@
 				   <span class="p">}</span>
 		<span class="n">distribution</span> <span class="o">=</span> <span class="n">choices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">distribution_error</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="n">distribution</span>
-	<span class="k">def</span> <span class="nf">set_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">__set_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function that sets the mean and the variance of the distribution.</span>
+
+<span class="sd">        :param Parameter self:</span>
+<span class="sd">            An instance of the Parameter object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">mean</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">variance</span>
-	<span class="k">def</span> <span class="nf">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">__set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function that sets the bounds of the distribution.</span>
+
+<span class="sd">        :param Parameter self:</span>
+<span class="sd">            An instance of the Parameter object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">bounds</span>
-	<span class="k">def</span> <span class="nf">get_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter.get_pdf"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_pdf">[docs]</a>	<span class="k">def</span> <span class="nf">get_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the probability density function associated with the Parameter.</span>
+
+<span class="sd">        :param Parameter self:</span>
+<span class="sd">            An instance of the Parameter object.</span>
+<span class="sd">		:param numpy.ndarray points:</span>
+<span class="sd">			Values of the parameter at which the PDF must be evaluated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">x_range_for_pdf</span>
 			<span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getPDF</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getPDF</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-	<span class="k">def</span> <span class="nf">get_cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getPDF</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Parameter.get_cdf"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_cdf">[docs]</a>	<span class="k">def</span> <span class="nf">get_cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the cumulative density function associated with the Parameter.</span>
+
+<span class="sd">        :param Parameter self:</span>
+<span class="sd">            An instance of the Parameter object.</span>
+<span class="sd">		:param numpy.ndarray points:</span>
+<span class="sd">			Values of the parameter at which the PDF must be evaluated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">x_range_for_pdf</span>
 			<span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getCDF</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getCDF</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-	<span class="k">def</span> <span class="nf">get_icdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xx</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getiCDF</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getCDF</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Parameter.get_icdf"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_icdf">[docs]</a>	<span class="k">def</span> <span class="nf">get_icdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xx</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the inverse cumulative density function associated with the Parameter.</span>
+
+<span class="sd">        :param Parameter self:</span>
+<span class="sd">            An instance of the Parameter object.</span>
+<span class="sd">		:param numpy.ndarray xx:</span>
+<span class="sd">			Values of the cumulative density function for which its inverse needs to be computed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getiCDF</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span></div>
 	<span class="k">def</span> <span class="nf">get_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">getSamples</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 	<span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

@@ -65,21 +65,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_documentation/chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../_documentation/tutorials.html">Tutorials</a><ul>
@@ -328,8 +313,8 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">variance</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">get_mean</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">get_variance</span><span class="p">()</span></div>
 <div class="viewcode-block" id="Poly.get_skewness_and_kurtosis"><a class="viewcode-back" href="../../_documentation/poly.html#equadratures.poly.Poly.get_skewness_and_kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">get_skewness_and_kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the skewness and kurtosis of the model.</span>
@@ -343,7 +328,9 @@
 <span class="sd">            **kurtosis**: The approximated kurtosis of the polynomial fit; output as a float.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quadrature_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quadrature_weights</span><span class="p">)</span>
+        <span class="n">poly_vandermonde_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_poly</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quadrature_points</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">quadrature_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quadrature_weights</span><span class="p">,</span> \
+            <span class="n">poly_vandermonde_matrix</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">skewness</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">kurtosis</span></div>
 <div class="viewcode-block" id="Poly.get_sobol_indices"><a class="viewcode-back" href="../../_documentation/poly.html#equadratures.poly.Poly.get_sobol_indices">[docs]</a>    <span class="k">def</span> <span class="nf">get_sobol_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">highest_sobol_order_to_compute</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -357,7 +344,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">            **sobol_indices**: A dict comprising of Sobol&#39; indices and constitutent mixed orders of the parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">max_sobol_order</span><span class="o">=</span><span class="n">highest_sobol_order_to_compute</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">max_sobol_order</span><span class="o">=</span><span class="n">highest_sobol_order_to_compute</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_object</span><span class="o">.</span><span class="n">sobol</span></div>
 <div class="viewcode-block" id="Poly.set_model"><a class="viewcode-back" href="../../_documentation/poly.html#equadratures.poly.Poly.set_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model_grads</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
