@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -131,8 +135,8 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.rayleigh.Rayleigh.getCDF">
-<code class="descname">getCDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.getCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.getCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.rayleigh.Rayleigh.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.get_cdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Rayleigh cumulative density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -148,8 +152,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.rayleigh.Rayleigh.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.rayleigh.Rayleigh.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the Rayleigh distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -162,8 +166,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.rayleigh.Rayleigh.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.rayleigh.Rayleigh.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Rayleigh inverse cumulative density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.rayleigh.Rayleigh" title="equadratures.distributions.rayleigh.Rayleigh"><em>Rayleigh</em></a>) – An instance of the Rayleigh class.</p></li>
+<li><p><strong>xx</strong> (<em>array</em>) – Points at which the inverse cumulative density function needs to be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse cumulative density function values of the Rayleigh distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.rayleigh.Rayleigh.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Rayleigh probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -179,8 +200,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.rayleigh.Rayleigh.getSamples">
-<code class="descname">getSamples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.getSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.getSamples" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.rayleigh.Rayleigh.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.get_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates samples from the Rayleigh distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -191,23 +212,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A N-by-1 vector that contains the samples.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.rayleigh.Rayleigh.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/rayleigh.html#Rayleigh.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.rayleigh.Rayleigh.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Rayleigh inverse cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.rayleigh.Rayleigh" title="equadratures.distributions.rayleigh.Rayleigh"><em>Rayleigh</em></a>) – An instance of the Rayleigh class.</p></li>
-<li><p><strong>xx</strong> (<em>array</em>) – Points at which the inverse cumulative density function needs to be evaluated.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse cumulative density function values of the Rayleigh distribution.</p>
 </dd>
 </dl>
 </dd></dl>

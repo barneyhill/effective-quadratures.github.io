@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -139,8 +143,8 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getCDF">
-<code class="descname">getCDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_cdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Chebyshev cumulative density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -159,8 +163,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the Chebyshev (arcsine) distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -173,8 +177,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Arcisine inverse cumulative density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<em>Arcsine</em>) – An instance of Arcisine class.</p></li>
+<li><p><strong>xx</strong> – A matrix of points at which the inverse cumulative density function needs to be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse cumulative density function values of the Arcisine distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Chebyshev probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -193,8 +214,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getRecurrenceCoefficients">
-<code class="descname">getRecurrenceCoefficients</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getRecurrenceCoefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getRecurrenceCoefficients" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_recurrence_coefficients">
+<code class="descname">get_recurrence_coefficients</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_recurrence_coefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_recurrence_coefficients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recurrence coefficients for the Chebyshev distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,8 +231,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getSamples">
-<code class="descname">getSamples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getSamples" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.chebyshev.Chebyshev.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.get_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates samples from the Arcsine distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -219,23 +240,6 @@
 <li><p><strong>self</strong> (<em>arcsine</em>) – An instance of Arcsine class.</p></li>
 <li><p><strong>m</strong> (<em>integer</em>) – Number of random samples. If not provided, a default of 5e05 is assumed.</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.chebyshev.Chebyshev.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/chebyshev.html#Chebyshev.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.chebyshev.Chebyshev.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Arcisine inverse cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<em>Arcsine</em>) – An instance of Arcisine class.</p></li>
-<li><p><strong>xx</strong> – A matrix of points at which the inverse cumulative density function needs to be evaluated.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse cumulative density function values of the Arcisine distribution.</p>
 </dd>
 </dl>
 </dd></dl>

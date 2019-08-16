@@ -57,30 +57,17 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers">Papers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers-theory-and-applications">Papers (theory and applications)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#get-in-touch">Get in touch</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">About us</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="samples.html">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
@@ -174,14 +161,14 @@
 <span class="n">f</span> <span class="o">=</span> <span class="n">ObjFun</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">fparam</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">fParameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">fparam</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Total order&#39;</span><span class="p">)</span>
-<span class="n">fpoly</span> <span class="o">=</span> <span class="n">Polyreg</span><span class="p">(</span><span class="n">fParameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">training_inputs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">training_outputs</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
+<span class="n">fpoly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">fParameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">f</span><span class="p">})</span>
 <span class="c1">#Construct g1 using Legendre polynomials with a total order basis</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">ConFun1</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">g1param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">g1Parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">g1param</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Total order&#39;</span><span class="p">)</span>
-<span class="n">g1poly</span> <span class="o">=</span> <span class="n">Polyreg</span><span class="p">(</span><span class="n">g1Parameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">training_inputs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">training_outputs</span><span class="o">=</span><span class="n">g1</span><span class="p">)</span>
+<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
+<span class="n">g1poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">g1Parameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">g1</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>The coefficient of determination (R-squared) value of the fit of both of these functions can be computed via:</p>
@@ -198,17 +185,17 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialise optimization problem by specifying optimization method</span>
 <span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addObjective</span><span class="p">(</span><span class="n">Poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add nonlinear inequality constraints lb &lt;= g1poly &lt;= ub</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addNonLinearIneqCon</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">Poly</span><span class="o">=</span><span class="n">g1poly</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_nonlinear_ineq_con</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;poly&#39;</span><span class="p">:</span> <span class="n">g1poly</span><span class="p">,</span> <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]})</span>
 <span class="c1">#Add linear equality constraints Ax = b</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addLinearEqCon</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]))</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_linear_eq_con</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]))</span>
 <span class="c1">#Add lower and upper bounds</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addBounds</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_bounds</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 <span class="c1">#Initialize starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimizePoly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above code returns the solution <span class="math notranslate nohighlight">\(-2.13e-14\)</span> found at <span class="math notranslate nohighlight">\(x = [1,1]\)</span>, which very closely responds to the true optimal solution of <span class="math notranslate nohighlight">\(0\)</span>.</p>
@@ -228,23 +215,23 @@
     <span class="k">return</span> <span class="n">g_Hess</span>
 
 <span class="c1">#Construct lambda functions of the constraint, its derivative, and its Hessian</span>
-<span class="n">g1Func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ConFun1</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">g1Grad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ConFun1_Deriv</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-<span class="n">g1Hess</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">ConFun1_Hess</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="n">g1Func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">g1Grad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1_Deriv</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="n">g1Hess</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1_Hess</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 <span class="c1">#Initialise optimization problem by specifying optimization method</span>
 <span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addObjective</span><span class="p">(</span><span class="n">Poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add lower and upper bounds</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addBounds</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_bounds</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 <span class="c1">#Add linear equality constraints Ax = b</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addLinearEqCon</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]))</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_linear_eq_con</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]))</span>
 <span class="c1">#Add nonlinear inequality constraints lb &lt;= g1Func &lt;= ub</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addNonLinearIneqCon</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">Function</span><span class="o">=</span><span class="n">g1Func</span><span class="p">,</span> <span class="n">jacFunction</span><span class="o">=</span><span class="n">g1Grad</span><span class="p">,</span> <span class="n">hessFunction</span><span class="o">=</span><span class="n">g1Hess</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_nonlinear_ineq_con</span><span class="p">(</span><span class="n">custom</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="n">g1Func</span><span class="p">,</span> <span class="s1">&#39;jac_function&#39;</span><span class="p">:</span> <span class="n">g1Grad</span><span class="p">,</span> <span class="s1">&#39;hessFunction&#39;</span><span class="p">:</span> <span class="n">g1Hess</span><span class="p">)</span>
 <span class="c1">#Initialize starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimizePoly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above code returns the solution <span class="math notranslate nohighlight">\(4.76e-14\)</span> found at <span class="math notranslate nohighlight">\(x = [1,1]\)</span>.</p>
@@ -274,19 +261,19 @@
 <span class="n">g2</span> <span class="o">=</span> <span class="n">ConFun2</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">g2param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">g2Parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">g2param</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Total order&#39;</span><span class="p">)</span>
-<span class="n">g2poly</span> <span class="o">=</span> <span class="n">Polyreg</span><span class="p">(</span><span class="n">fParameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">training_inputs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">training_outputs</span><span class="o">=</span><span class="n">g2</span><span class="p">)</span>
+<span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
+<span class="n">g2poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">g2Parameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">g2</span><span class="p">})</span>
 
 <span class="c1">#Initialise optimization problem by specifying optimization method</span>
 <span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addObjective</span><span class="p">(</span><span class="n">Poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">Poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add nonlinear inequality constraints lb &lt;= g2poly &lt;= ub</span>
-<span class="n">Opt</span><span class="o">.</span><span class="n">addNonLinearIneqCon</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="mf">2.0</span><span class="p">],</span> <span class="n">Poly</span><span class="o">=</span><span class="n">g2poly</span><span class="p">)</span>
+<span class="n">Opt</span><span class="o">.</span><span class="n">add_nonlinear_ineq_con</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;poly&#39;</span><span class="p">:</span> <span class="n">g2poly</span><span class="p">,</span> <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]})</span>
 <span class="c1">#Initialize starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimizePoly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="colwidths-given docutils align-center" id="id2">

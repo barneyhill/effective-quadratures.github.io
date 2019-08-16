@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -131,8 +135,19 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.custom.Custom.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.custom.Custom.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.get_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the CDF of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<em>Distribution</em>) – An instance of the distribution class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.custom.Custom.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A destription of custom distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -145,8 +160,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.custom.Custom.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.custom.Custom.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>A custom inverse cumulative distribution function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.custom.Custom" title="equadratures.distributions.custom.Custom"><em>Custom</em></a>) – An instance of Custom class.</p></li>
+<li><p><strong>xx</strong> (<em>array</em>) – An array of points in which the inverse cumulative density function needs to be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse cumulative density function values of the Custom distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.custom.Custom.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A custom probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -164,8 +196,8 @@ To obtain a probability density function from finite samples, this function uses
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.custom.Custom.getRecurrenceCoefficients">
-<code class="descname">getRecurrenceCoefficients</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.getRecurrenceCoefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.getRecurrenceCoefficients" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.custom.Custom.get_recurrence_coefficients">
+<code class="descname">get_recurrence_coefficients</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.get_recurrence_coefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.get_recurrence_coefficients" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recurrence coefficients for the custom distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -176,23 +208,6 @@ To obtain a probability density function from finite samples, this function uses
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Recurrence coefficients associated with the custom distribution.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.custom.Custom.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/custom.html#Custom.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.custom.Custom.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>A custom inverse cumulative distribution function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.custom.Custom" title="equadratures.distributions.custom.Custom"><em>Custom</em></a>) – An instance of Custom class.</p></li>
-<li><p><strong>xx</strong> (<em>array</em>) – An array of points in which the inverse cumulative density function needs to be evaluated.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse cumulative density function values of the Custom distribution.</p>
 </dd>
 </dl>
 </dd></dl>

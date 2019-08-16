@@ -58,30 +58,17 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers">Papers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers-theory-and-applications">Papers (theory and applications)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#get-in-touch">Get in touch</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">About us</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="samples.html">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
@@ -137,16 +124,16 @@
       
   <div class="section" id="defining-a-parameter">
 <h1>Defining a parameter<a class="headerlink" href="#defining-a-parameter" title="Permalink to this headline">¶</a></h1>
-<p>A <strong>parameter</strong> is one of the main building blocks in Effective Quadratures. Let <span class="math notranslate nohighlight">\(\zeta\)</span> be a parameter defined on a domain <span class="math notranslate nohighlight">\(\mathcal{D} \in \mathbb{R}\)</span>. The support of the domain <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> may be:</p>
+<p>A <strong>parameter</strong> is one of the main building blocks in Effective Quadratures. Let <span class="math notranslate nohighlight">\(s\)</span> be a parameter defined on a domain <span class="math notranslate nohighlight">\(\mathcal{D} \in \mathbb{R}\)</span>. The support of the domain <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> may be:</p>
 <ul class="simple">
 <li><p>closed <span class="math notranslate nohighlight">\([a,b]\)</span>;</p></li>
 <li><p>semi-infinite <span class="math notranslate nohighlight">\((-\infty, b)\)</span> or <span class="math notranslate nohighlight">\([a, \infty)\)</span>;</p></li>
 <li><p>infinite <span class="math notranslate nohighlight">\((-\infty, \infty)\)</span>.</p></li>
 </ul>
-<p>Further, let us assume that this parameter is characterized by a positive weight function <span class="math notranslate nohighlight">\(\rho(\zeta)\)</span>, which may be interpreted as the probability density function (PDF) of <span class="math notranslate nohighlight">\(\zeta\)</span>, which readily implies that</p>
+<p>Further, let us assume that this parameter is characterized by a positive weight function <span class="math notranslate nohighlight">\(\rho(s)\)</span>, which may be interpreted as the probability density function (PDF) of <span class="math notranslate nohighlight">\(s\)</span>, which readily implies that</p>
 <div class="math notranslate nohighlight">
-\[\int_{\mathcal{D}}\rho\left(\zeta\right)d\zeta=1.\]</div>
-<p>We now demonstrate some basic functionality of this parameter. First consider the case where <span class="math notranslate nohighlight">\(\rho(\zeta) = \mathcal{N} (0, 1)\)</span> is a standard Gaussian distribution with a mean of 0.0 and a variance of 1.0. We then plot its PDF and cumulative density function (CDF) and demonstrate how we can generate random samples from this distribution.</p>
+\[\int_{\mathcal{D}}\rho\left(s\right)d\zeta=1.\]</div>
+<p>We now demonstrate some basic functionality of this parameter. First consider the case where <span class="math notranslate nohighlight">\(\rho(s) = \mathcal{N} (0, 1)\)</span> is a standard Gaussian distribution with a mean of 0.0 and a variance of 1.0. We then plot its PDF and cumulative density function (CDF) and demonstrate how we can generate random samples from this distribution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -154,9 +141,9 @@
 </pre></div>
 </div>
 <p>Now for some plots; first let us plot the PDF,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z</span><span class="p">,</span> <span class="n">pdf</span> <span class="o">=</span> <span class="n">zeta</span><span class="o">.</span><span class="n">getPDF</span><span class="p">()</span>
-<span class="n">z</span><span class="p">,</span> <span class="n">cdf</span> <span class="o">=</span> <span class="n">zeta</span><span class="o">.</span><span class="n">getCDF</span><span class="p">()</span>
-<span class="n">z_samples</span> <span class="o">=</span> <span class="n">zeta</span><span class="o">.</span><span class="n">getSamples</span><span class="p">(</span><span class="mi">6000</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s_values</span><span class="p">,</span> <span class="n">pdf</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_pdf</span><span class="p">()</span>
+<span class="n">s_values</span><span class="p">,</span> <span class="n">cdf</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_cdf</span><span class="p">()</span>
+<span class="n">s_samples</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_samples</span><span class="p">()(</span><span class="mi">6000</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>

@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="next" title="Dimension reduction with polynomials" href="subspaces.html" />
     <link rel="prev" title="Basis" href="basis.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -67,6 +67,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -125,7 +129,7 @@
 <p>The polynomial parent class; one of the main building blocks in Effective Quadratures.</p>
 <dl class="class">
 <dt id="equadratures.poly.Poly">
-<em class="property">class </em><code class="descclassname">equadratures.poly.</code><code class="descname">Poly</code><span class="sig-paren">(</span><em>parameters</em>, <em>basis</em>, <em>method</em>, <em>args=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">equadratures.poly.</code><code class="descname">Poly</code><span class="sig-paren">(</span><em>parameters</em>, <em>basis</em>, <em>method=None</em>, <em>sampling_args=None</em>, <em>solver_args=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Definition of a polynomial object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -134,29 +138,24 @@
 <li><p><strong>basis</strong> (<a class="reference internal" href="basis.html#equadratures.basis.Basis" title="equadratures.basis.Basis"><em>Basis</em></a>) – An instance of the Basis class corresponding to the multi-index set used.</p></li>
 <li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The method used for computing the coefficients. Should be one of: <code class="docutils literal notranslate"><span class="pre">compressive-sensing</span></code>,
 <code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code> or <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>.</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy and
-correlations within the samples.</p>
-<dl class="field-list simple">
-<dt class="field-odd">string mesh</dt>
-<dd class="field-odd"><p>Avaliable options are: <code class="docutils literal notranslate"><span class="pre">monte-carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">induced-sampling</span></code>, <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> or <code class="docutils literal notranslate"><span class="pre">user-defined</span></code>.
-Note that when the <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code> option is invoked, the sparse pseudospectral approximation method [1]
+<li><p><strong>sampling_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy.
+:string mesh: Avaliable options are: <code class="docutils literal notranslate"><span class="pre">monte-carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">induced-sampling</span></code>, <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">induced</span></code>, or <code class="docutils literal notranslate"><span class="pre">user-defined</span></code>.</p>
+<blockquote>
+<div><p>Note that when the <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code> option is invoked, the sparse pseudospectral approximation method [1]
 is the adopted. One can think of this as being the correct way to use sparse grids in the context of polynomial chaos [2] techniques.</p>
-</dd>
-<dt class="field-even">string subsampling-algorithm</dt>
-<dd class="field-even"><p>The <code class="docutils literal notranslate"><span class="pre">subsampling-algorithm</span></code> input refers to the optimisation technique for subsampling. In the aforementioned four sampling strategies,
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">string subsampling-algorithm</dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">subsampling-algorithm</span></code> input refers to the optimisation technique for subsampling. In the aforementioned four sampling strategies,
 we generate a logarithm factor of samples above the required amount and prune down the samples using an optimisation
 technique (see [1]). Existing optimisation strategies include: <code class="docutils literal notranslate"><span class="pre">qr</span></code>, <code class="docutils literal notranslate"><span class="pre">lu</span></code>, <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>. These refer to QR with column
 pivoting [2], LU with row pivoting [3], singular value decomposition with subset selection [2] and a convex relaxation
 via Newton’s method for determinant maximization [4]. Note that if the <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> option is selected, then subsampling will depend on whether the Basis
 argument is a total order index set, hyperbolic basis or a tensor order index set.</p>
 </dd>
-<dt class="field-odd">float sampling-ratio</dt>
-<dd class="field-odd"><p>Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows
+<dt class="field-even">float sampling-ratio</dt>
+<dd class="field-even"><p>Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows
 and columns of the associated Vandermonde-type matrix are equal.</p>
-</dd>
-<dt class="field-even">numpy.ndarray correlation-matrix</dt>
-<dd class="field-even"><p>In the case where the inputs are correlated, a user-defined correlation matrix must be provided. This matrix
-input must be symmetric, positive-definite and be of shape (number_of_inputs, number_of_inputs).</p>
 </dd>
 <dt class="field-odd">numpy.ndarray sample-points</dt>
 <dd class="field-odd"><p>A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</p>
@@ -166,6 +165,13 @@ input must be symmetric, positive-definite and be of shape (number_of_inputs, nu
 if <code class="docutils literal notranslate"><span class="pre">sample-points</span></code> is provided as an input, then the code expects <code class="docutils literal notranslate"><span class="pre">sample-outputs</span></code> too.</p>
 </dd>
 </dl>
+</p></li>
+<li><p><strong>solver_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific solver used for computing the coefficients.
+:numpy.ndarray noise-level: The noise level to be used. Can take in both scalar- and vector-valued inputs.
+:bool verbose: The default value is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; when set to <code class="docutils literal notranslate"><span class="pre">True</span></code> details on the convergence of the solution will be provided. Note for direct methods, this</p>
+<blockquote>
+<div><p>will simply output the condition number of the matrix.</p>
+</div></blockquote>
 </p></li>
 </ul>
 </dd>
@@ -177,14 +183,14 @@ if <code class="docutils literal notranslate"><span class="pre">sample-points</s
 <span class="c1"># Subsampling from a tensor grid</span>
 <span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">basis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total order&#39;</span><span class="p">)</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span> <span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mesh&#39;</span><span class="p">:</span><span class="s1">&#39;tensor-grid&#39;</span><span class="p">,</span> <span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">:</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="s1">&#39;sampling-ratio&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span> <span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mesh&#39;</span><span class="p">:</span><span class="s1">&#39;tensor-grid&#39;</span><span class="p">,</span> <span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">:</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="s1">&#39;sampling-ratio&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
 
 <span class="c1"># User-defined data with compressive sensing</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;inputs.txt&#39;</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;outputs.txt&#39;</span><span class="p">)</span>
 <span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">basis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total order&#39;</span><span class="p">)</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">([</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;compressive-sensing&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X_red</span><span class="p">,</span>                                                                <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">Y_red</span><span class="p">})</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">([</span><span class="n">param</span><span class="p">,</span> <span class="n">param</span><span class="p">],</span> <span class="n">basis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;compressive-sensing&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X_red</span><span class="p">,</span>                                                                <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">Y_red</span><span class="p">})</span>
 
 <span class="c1"># Using a sparse grid</span>
 <span class="n">param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -218,6 +224,40 @@ if <code class="docutils literal notranslate"><span class="pre">sample-points</s
 </dd></dl>
 
 <dl class="method">
+<dt id="equadratures.poly.Poly.get_conditional_kurtosis_indices">
+<code class="descname">get_conditional_kurtosis_indices</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_conditional_kurtosis_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_conditional_kurtosis_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the kurtosis indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The highest order of the kurtosis indices required.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>kurtosis_indices</strong>: A dict comprising of kurtosis indices and constitutent mixed orders of the parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_conditional_skewness_indices">
+<code class="descname">get_conditional_skewness_indices</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_conditional_skewness_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_conditional_skewness_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the skewness indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The highest order of the skewness indices required.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>skewness_indices</strong>: A dict comprising of skewness indices and constitutent mixed orders of the parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="equadratures.poly.Poly.get_mean_and_variance">
 <code class="descname">get_mean_and_variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_mean_and_variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_mean_and_variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the mean and variance of the model.</p>
@@ -229,6 +269,17 @@ if <code class="docutils literal notranslate"><span class="pre">sample-points</s
 <dd class="field-even"><p><p><strong>mean</strong>: The approximated mean of the polynomial fit; output as a float.</p>
 <p><strong>variance</strong>: The approximated variance of the polynomial fit; output as a float.</p>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_model_evaluations">
+<code class="descname">get_model_evaluations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_model_evaluations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_model_evaluations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the points at which the model was evaluated at.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -446,7 +497,7 @@ Hessian must be evaluated at.</p></li>
 
 <dl class="method">
 <dt id="equadratures.poly.Poly.get_sobol_indices">
-<code class="descname">get_sobol_indices</code><span class="sig-paren">(</span><em>highest_sobol_order_to_compute=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_sobol_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_sobol_indices" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_sobol_indices</code><span class="sig-paren">(</span><em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_sobol_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_sobol_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the Sobol’ indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -457,6 +508,20 @@ Hessian must be evaluated at.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>sobol_indices</strong>: A dict comprising of Sobol’ indices and constitutent mixed orders of the parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_total_sobol_indices">
+<code class="descname">get_total_sobol_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_total_sobol_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_total_sobol_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the total Sobol’ indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>total_sobol_indices</strong>: Sobol</p>
 </dd>
 </dl>
 </dd></dl>

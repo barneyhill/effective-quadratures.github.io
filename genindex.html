@@ -66,6 +66,10 @@
 <li class="toctree-l2"><a class="reference internal" href="_documentation/parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_documentation/basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_documentation/poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_documentation/subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_documentation/optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_documentation/polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_documentation/correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="_documentation/tutorials.html">Tutorials</a><ul>
@@ -128,8 +132,9 @@
  | <a href="#C"><strong>C</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#J"><strong>J</strong></a>
- | <a href="#N"><strong>N</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -143,19 +148,19 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addBounds">addBounds() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_bounds">add_bounds() (equadratures.optimisation.Optimisation method)</a>
 </li>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addLinearEqCon">addLinearEqCon() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_linear_eq_con">add_linear_eq_con() (equadratures.optimisation.Optimisation method)</a>
 </li>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addLinearIneqCon">addLinearIneqCon() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_linear_ineq_con">add_linear_ineq_con() (equadratures.optimisation.Optimisation method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addNonLinearEqCon">addNonLinearEqCon() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_nonlinear_eq_con">add_nonlinear_eq_con() (equadratures.optimisation.Optimisation method)</a>
 </li>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addNonLinearIneqCon">addNonLinearIneqCon() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_nonlinear_ineq_con">add_nonlinear_ineq_con() (equadratures.optimisation.Optimisation method)</a>
 </li>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.addObjective">addObjective() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.add_objective">add_objective() (equadratures.optimisation.Optimisation method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -175,8 +180,6 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf.C2U">C2U() (equadratures.nataf.Nataf method)</a>
-</li>
       <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy">Cauchy (class in equadratures.distributions.cauchy)</a>
 </li>
       <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev">Chebyshev (class in equadratures.distributions.chebyshev)</a>
@@ -185,7 +188,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared">Chisquared (class in equadratures.distributions.chisquared)</a>
 </li>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf.CorrelationMatrix">CorrelationMatrix() (equadratures.nataf.Nataf method)</a>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations">Correlations (class in equadratures.correlations)</a>
 </li>
       <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom">Custom (class in equadratures.distributions.custom)</a>
 </li>
@@ -198,6 +201,8 @@
       <li><a href="_documentation/modules.html#module-equadratures">equadratures (module)</a>
 </li>
       <li><a href="_documentation/basis.html#module-equadratures.basis">equadratures.basis (module)</a>
+</li>
+      <li><a href="_documentation/correlated.html#module-equadratures.correlations">equadratures.correlations (module)</a>
 </li>
       <li><a href="_documentation/beta.html#module-equadratures.distributions.beta">equadratures.distributions.beta (module)</a>
 </li>
@@ -215,27 +220,25 @@
 </li>
       <li><a href="_documentation/gaussian.html#module-equadratures.distributions.gaussian">equadratures.distributions.gaussian (module)</a>
 </li>
-      <li><a href="_documentation/rayleigh.html#module-equadratures.distributions.rayleigh">equadratures.distributions.rayleigh (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_documentation/rayleigh.html#module-equadratures.distributions.rayleigh">equadratures.distributions.rayleigh (module)</a>
+</li>
       <li><a href="_documentation/truncated_gaussian.html#module-equadratures.distributions.truncated_gaussian">equadratures.distributions.truncated_gaussian (module)</a>
 </li>
       <li><a href="_documentation/uniform.html#module-equadratures.distributions.uniform">equadratures.distributions.uniform (module)</a>
 </li>
       <li><a href="_documentation/weibull.html#module-equadratures.distributions.weibull">equadratures.distributions.weibull (module)</a>
 </li>
-      <li><a href="_documentation/dr.html#module-equadratures.dr">equadratures.dr (module)</a>
-</li>
-      <li><a href="_documentation/nataf.html#module-equadratures.nataf">equadratures.nataf (module)</a>
-</li>
-      <li><a href="_documentation/optimisation.html#module-equadratures.optimization">equadratures.optimization (module)</a>
+      <li><a href="_documentation/optimisation.html#module-equadratures.optimisation">equadratures.optimisation (module)</a>
 </li>
       <li><a href="_documentation/parameter.html#module-equadratures.parameter">equadratures.parameter (module)</a>
 </li>
       <li><a href="_documentation/poly.html#module-equadratures.poly">equadratures.poly (module)</a>
 </li>
       <li><a href="_documentation/polynet.html#module-equadratures.polynet">equadratures.polynet (module)</a>
+</li>
+      <li><a href="_documentation/subspaces.html#module-equadratures.subspaces">equadratures.subspaces (module)</a>
 </li>
       <li><a href="_documentation/poly.html#equadratures.poly.evaluate_model">evaluate_model() (in module equadratures.poly)</a>
 </li>
@@ -255,9 +258,25 @@
 </li>
       <li><a href="_documentation/basis.html#equadratures.basis.Basis.get_basis">get_basis() (equadratures.basis.Basis method)</a>
 </li>
-      <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_cdf">get_cdf() (equadratures.distributions.uniform.Uniform method)</a>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_cdf">get_cdf() (equadratures.distributions.beta.Beta method)</a>
 
       <ul>
+        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.get_cdf">(equadratures.distributions.cauchy.Cauchy method)</a>
+</li>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_cdf">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.get_cdf">(equadratures.distributions.chisquared.Chisquared method)</a>
+</li>
+        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.get_cdf">(equadratures.distributions.custom.Custom method)</a>
+</li>
+        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.get_cdf">(equadratures.distributions.gamma.Gamma method)</a>
+</li>
+        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.get_cdf">(equadratures.distributions.gaussian.Gaussian method)</a>
+</li>
+        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.get_cdf">(equadratures.distributions.rayleigh.Rayleigh method)</a>
+</li>
+        <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_cdf">(equadratures.distributions.uniform.Uniform method)</a>
+</li>
         <li><a href="_documentation/weibull.html#equadratures.distributions.weibull.Weibull.get_cdf">(equadratures.distributions.weibull.Weibull method)</a>
 </li>
         <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_cdf">(equadratures.parameter.Parameter method)</a>
@@ -265,17 +284,63 @@
       </ul></li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_coefficients">get_coefficients() (equadratures.poly.Poly method)</a>
 </li>
-      <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_description">get_description() (equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+      <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_conditional_kurtosis_indices">get_conditional_kurtosis_indices() (equadratures.poly.Poly method)</a>
+</li>
+      <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_conditional_skewness_indices">get_conditional_skewness_indices() (equadratures.poly.Poly method)</a>
+</li>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_from_uncorrelated">get_correlated_from_uncorrelated() (equadratures.correlations.Correlations method)</a>
+</li>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_samples">get_correlated_samples() (equadratures.correlations.Correlations method)</a>
+</li>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations.get_correlation_matrix">get_correlation_matrix() (equadratures.correlations.Correlations method)</a>
+</li>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_description">get_description() (equadratures.distributions.beta.Beta method)</a>
 
       <ul>
+        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.get_description">(equadratures.distributions.cauchy.Cauchy method)</a>
+</li>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_description">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.get_description">(equadratures.distributions.chisquared.Chisquared method)</a>
+</li>
+        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.get_description">(equadratures.distributions.custom.Custom method)</a>
+</li>
+        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.get_description">(equadratures.distributions.gamma.Gamma method)</a>
+</li>
+        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.get_description">(equadratures.distributions.gaussian.Gaussian method)</a>
+</li>
+        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.get_description">(equadratures.distributions.rayleigh.Rayleigh method)</a>
+</li>
+        <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_description">(equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+</li>
+        <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_description">(equadratures.distributions.uniform.Uniform method)</a>
+</li>
         <li><a href="_documentation/weibull.html#equadratures.distributions.weibull.Weibull.get_description">(equadratures.distributions.weibull.Weibull method)</a>
 </li>
-      </ul></li>
-      <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_iCDF">get_iCDF() (equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+        <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_description">(equadratures.parameter.Parameter method)</a>
 </li>
-      <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">get_icdf() (equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+      </ul></li>
+      <li><a href="_documentation/basis.html#equadratures.basis.Basis.get_elements">get_elements() (equadratures.basis.Basis method)</a>
+</li>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_icdf">get_icdf() (equadratures.distributions.beta.Beta method)</a>
 
       <ul>
+        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.get_icdf">(equadratures.distributions.cauchy.Cauchy method)</a>
+</li>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_icdf">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.get_icdf">(equadratures.distributions.chisquared.Chisquared method)</a>
+</li>
+        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.get_icdf">(equadratures.distributions.custom.Custom method)</a>
+</li>
+        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.get_icdf">(equadratures.distributions.gamma.Gamma method)</a>
+</li>
+        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.get_icdf">(equadratures.distributions.gaussian.Gaussian method)</a>
+</li>
+        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.get_icdf">(equadratures.distributions.rayleigh.Rayleigh method)</a>
+</li>
+        <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">(equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+</li>
         <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_icdf">(equadratures.distributions.uniform.Uniform method)</a>
 </li>
         <li><a href="_documentation/weibull.html#equadratures.distributions.weibull.Weibull.get_icdf">(equadratures.distributions.weibull.Weibull method)</a>
@@ -283,13 +348,37 @@
         <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_icdf">(equadratures.parameter.Parameter method)</a>
 </li>
       </ul></li>
+      <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_jacobi_eigenvectors">get_jacobi_eigenvectors() (equadratures.parameter.Parameter method)</a>
+</li>
+      <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_jacobi_matrix">get_jacobi_matrix() (equadratures.parameter.Parameter method)</a>
+</li>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces.get_linear_inequalities">get_linear_inequalities() (equadratures.subspaces.Subspaces method)</a>
+</li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_mean_and_variance">get_mean_and_variance() (equadratures.poly.Poly method)</a>
+</li>
+      <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_model_evaluations">get_model_evaluations() (equadratures.poly.Poly method)</a>
 </li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_multi_index">get_multi_index() (equadratures.poly.Poly method)</a>
 </li>
-      <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_pdf">get_pdf() (equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_pdf">get_pdf() (equadratures.distributions.beta.Beta method)</a>
 
       <ul>
+        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.get_pdf">(equadratures.distributions.cauchy.Cauchy method)</a>
+</li>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_pdf">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.get_pdf">(equadratures.distributions.chisquared.Chisquared method)</a>
+</li>
+        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.get_pdf">(equadratures.distributions.custom.Custom method)</a>
+</li>
+        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.get_pdf">(equadratures.distributions.gamma.Gamma method)</a>
+</li>
+        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.get_pdf">(equadratures.distributions.gaussian.Gaussian method)</a>
+</li>
+        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.get_pdf">(equadratures.distributions.rayleigh.Rayleigh method)</a>
+</li>
+        <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_pdf">(equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+</li>
         <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_pdf">(equadratures.distributions.uniform.Uniform method)</a>
 </li>
         <li><a href="_documentation/weibull.html#equadratures.distributions.weibull.Weibull.get_pdf">(equadratures.distributions.weibull.Weibull method)</a>
@@ -297,6 +386,8 @@
         <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_pdf">(equadratures.parameter.Parameter method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_points">get_points() (equadratures.poly.Poly method)</a>
 </li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_points_and_weights">get_points_and_weights() (equadratures.poly.Poly method)</a>
@@ -319,129 +410,77 @@
 </li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_polyfit_hess_function">get_polyfit_hess_function() (equadratures.poly.Poly method)</a>
 </li>
-      <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_recurrence_coefficients">get_recurrence_coefficients() (equadratures.distributions.uniform.Uniform method)</a>
-</li>
-      <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_samples">get_samples() (equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_recurrence_coefficients">get_recurrence_coefficients() (equadratures.distributions.beta.Beta method)</a>
 
       <ul>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_recurrence_coefficients">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.get_recurrence_coefficients">(equadratures.distributions.custom.Custom method)</a>
+</li>
+        <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_recurrence_coefficients">(equadratures.distributions.uniform.Uniform method)</a>
+</li>
+        <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_recurrence_coefficients">(equadratures.parameter.Parameter method)</a>
+</li>
+      </ul></li>
+      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.get_samples">get_samples() (equadratures.distributions.beta.Beta method)</a>
+
+      <ul>
+        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.get_samples">(equadratures.distributions.cauchy.Cauchy method)</a>
+</li>
+        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.get_samples">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+</li>
+        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.get_samples">(equadratures.distributions.chisquared.Chisquared method)</a>
+</li>
+        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.get_samples">(equadratures.distributions.gamma.Gamma method)</a>
+</li>
+        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.get_samples">(equadratures.distributions.gaussian.Gaussian method)</a>
+</li>
+        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.get_samples">(equadratures.distributions.rayleigh.Rayleigh method)</a>
+</li>
+        <li><a href="_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_samples">(equadratures.distributions.truncated_gaussian.TruncatedGaussian method)</a>
+</li>
         <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform.get_samples">(equadratures.distributions.uniform.Uniform method)</a>
+</li>
+        <li><a href="_documentation/parameter.html#equadratures.parameter.Parameter.get_samples">(equadratures.parameter.Parameter method)</a>
 </li>
       </ul></li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_skewness_and_kurtosis">get_skewness_and_kurtosis() (equadratures.poly.Poly method)</a>
 </li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_sobol_indices">get_sobol_indices() (equadratures.poly.Poly method)</a>
 </li>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces.get_subspace">get_subspace() (equadratures.subspaces.Subspaces method)</a>
+</li>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces.get_subspace_polynomial">get_subspace_polynomial() (equadratures.subspaces.Subspaces method)</a>
+</li>
+      <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_total_sobol_indices">get_total_sobol_indices() (equadratures.poly.Poly method)</a>
+</li>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_from_correlated">get_uncorrelated_from_correlated() (equadratures.correlations.Correlations method)</a>
+</li>
+      <li><a href="_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_samples">get_uncorrelated_samples() (equadratures.correlations.Correlations method)</a>
+</li>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.get_unique_rows">get_unique_rows() (in module equadratures.subspaces)</a>
+</li>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.get_weights">get_weights() (equadratures.poly.Poly method)</a>
 </li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getCDF">getCDF() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.getCDF">(equadratures.distributions.cauchy.Cauchy method)</a>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces.get_zonotope_vertices">get_zonotope_vertices() (equadratures.subspaces.Subspaces method)</a>
 </li>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getCDF">(equadratures.distributions.chebyshev.Chebyshev method)</a>
+      <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getCDF">getCDF() (equadratures.distributions.exponential.Exponential method)</a>
 </li>
-        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.getCDF">(equadratures.distributions.chisquared.Chisquared method)</a>
+      <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getDescription">getDescription() (equadratures.distributions.exponential.Exponential method)</a>
 </li>
-        <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getCDF">(equadratures.distributions.exponential.Exponential method)</a>
+      <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getiCDF">getiCDF() (equadratures.distributions.exponential.Exponential method)</a>
 </li>
-        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.getCDF">(equadratures.distributions.gamma.Gamma method)</a>
+      <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getPDF">getPDF() (equadratures.distributions.exponential.Exponential method)</a>
 </li>
-        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.getCDF">(equadratures.distributions.gaussian.Gaussian method)</a>
+      <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getSamples">getSamples() (equadratures.distributions.exponential.Exponential method)</a>
 </li>
-        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.getCDF">(equadratures.distributions.rayleigh.Rayleigh method)</a>
-</li>
-      </ul></li>
   </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf.getCorrelatedSamples">getCorrelatedSamples() (equadratures.nataf.Nataf method)</a>
-</li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getDescription">getDescription() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.getDescription">(equadratures.distributions.cauchy.Cauchy method)</a>
-</li>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getDescription">(equadratures.distributions.chebyshev.Chebyshev method)</a>
-</li>
-        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.getDescription">(equadratures.distributions.chisquared.Chisquared method)</a>
-</li>
-        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.getDescription">(equadratures.distributions.custom.Custom method)</a>
-</li>
-        <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getDescription">(equadratures.distributions.exponential.Exponential method)</a>
-</li>
-        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.getDescription">(equadratures.distributions.gamma.Gamma method)</a>
-</li>
-        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.getDescription">(equadratures.distributions.gaussian.Gaussian method)</a>
-</li>
-        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.getDescription">(equadratures.distributions.rayleigh.Rayleigh method)</a>
-</li>
-      </ul></li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getiCDF">getiCDF() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.getiCDF">(equadratures.distributions.cauchy.Cauchy method)</a>
-</li>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getiCDF">(equadratures.distributions.chebyshev.Chebyshev method)</a>
-</li>
-        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.getiCDF">(equadratures.distributions.chisquared.Chisquared method)</a>
-</li>
-        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.getiCDF">(equadratures.distributions.custom.Custom method)</a>
-</li>
-        <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getiCDF">(equadratures.distributions.exponential.Exponential method)</a>
-</li>
-        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.getiCDF">(equadratures.distributions.gamma.Gamma method)</a>
-</li>
-        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.getiCDF">(equadratures.distributions.gaussian.Gaussian method)</a>
-</li>
-        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.getiCDF">(equadratures.distributions.rayleigh.Rayleigh method)</a>
-</li>
-      </ul></li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getPDF">getPDF() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.getPDF">(equadratures.distributions.cauchy.Cauchy method)</a>
-</li>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getPDF">(equadratures.distributions.chebyshev.Chebyshev method)</a>
-</li>
-        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.getPDF">(equadratures.distributions.chisquared.Chisquared method)</a>
-</li>
-        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.getPDF">(equadratures.distributions.custom.Custom method)</a>
-</li>
-        <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getPDF">(equadratures.distributions.exponential.Exponential method)</a>
-</li>
-        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.getPDF">(equadratures.distributions.gamma.Gamma method)</a>
-</li>
-        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.getPDF">(equadratures.distributions.gaussian.Gaussian method)</a>
-</li>
-        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.getPDF">(equadratures.distributions.rayleigh.Rayleigh method)</a>
-</li>
-      </ul></li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getRecurrenceCoefficients">getRecurrenceCoefficients() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getRecurrenceCoefficients">(equadratures.distributions.chebyshev.Chebyshev method)</a>
-</li>
-        <li><a href="_documentation/custom.html#equadratures.distributions.custom.Custom.getRecurrenceCoefficients">(equadratures.distributions.custom.Custom method)</a>
-</li>
-      </ul></li>
-      <li><a href="_documentation/beta.html#equadratures.distributions.beta.Beta.getSamples">getSamples() (equadratures.distributions.beta.Beta method)</a>
-
-      <ul>
-        <li><a href="_documentation/cauchy.html#equadratures.distributions.cauchy.Cauchy.getSamples">(equadratures.distributions.cauchy.Cauchy method)</a>
-</li>
-        <li><a href="_documentation/chebyshev.html#equadratures.distributions.chebyshev.Chebyshev.getSamples">(equadratures.distributions.chebyshev.Chebyshev method)</a>
-</li>
-        <li><a href="_documentation/chisquared.html#equadratures.distributions.chisquared.Chisquared.getSamples">(equadratures.distributions.chisquared.Chisquared method)</a>
-</li>
-        <li><a href="_documentation/exponential.html#equadratures.distributions.exponential.Exponential.getSamples">(equadratures.distributions.exponential.Exponential method)</a>
-</li>
-        <li><a href="_documentation/gamma.html#equadratures.distributions.gamma.Gamma.getSamples">(equadratures.distributions.gamma.Gamma method)</a>
-</li>
-        <li><a href="_documentation/gaussian.html#equadratures.distributions.gaussian.Gaussian.getSamples">(equadratures.distributions.gaussian.Gaussian method)</a>
-</li>
-        <li><a href="_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh.getSamples">(equadratures.distributions.rayleigh.Rayleigh method)</a>
-</li>
-      </ul></li>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf.getUncorrelatedSamples">getUncorrelatedSamples() (equadratures.nataf.Nataf method)</a>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces.hit_and_run_sample">hit_and_run_sample() (equadratures.subspaces.Subspaces static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -449,19 +488,15 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/dr.html#equadratures.dr.jacobian_vec">jacobian_vec() (in module equadratures.dr)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/dr.html#equadratures.dr.jacobian_vp">jacobian_vp() (in module equadratures.dr)</a>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.jacobian_vec">jacobian_vec() (in module equadratures.subspaces)</a>
 </li>
   </ul></td>
 </tr></table>
 
-<h2 id="N">N</h2>
+<h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf">Nataf (class in equadratures.nataf)</a>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.linear_program_ineq">linear_program_ineq() (in module equadratures.subspaces)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -469,11 +504,11 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization">Optimization (class in equadratures.optimization)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation">Optimisation (class in equadratures.optimisation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/optimisation.html#equadratures.optimization.Optimization.optimizePoly">optimizePoly() (equadratures.optimization.Optimization method)</a>
+      <li><a href="_documentation/optimisation.html#equadratures.optimisation.Optimisation.optimise_poly">optimise_poly() (equadratures.optimisation.Optimisation method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -505,11 +540,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/poly.html#equadratures.poly.Poly.set_model">set_model() (equadratures.poly.Poly method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/basis.html#equadratures.basis.Basis.set_orders">set_orders() (equadratures.basis.Basis method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/basis.html#equadratures.basis.Basis.sort">sort() (equadratures.basis.Basis method)</a>
+</li>
+      <li><a href="_documentation/subspaces.html#equadratures.subspaces.Subspaces">Subspaces (class in equadratures.subspaces)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -525,10 +562,6 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/nataf.html#equadratures.nataf.Nataf.U2C">U2C() (equadratures.nataf.Nataf method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/uniform.html#equadratures.distributions.uniform.Uniform">Uniform (class in equadratures.distributions.uniform)</a>
 </li>
   </ul></td>
@@ -536,10 +569,6 @@
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_documentation/dr.html#equadratures.dr.vandermonde">vandermonde() (in module equadratures.dr)</a>
-</li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_documentation/poly.html#equadratures.poly.vector_to_2D_grid">vector_to_2D_grid() (in module equadratures.poly)</a>
 </li>

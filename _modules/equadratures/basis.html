@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../_documentation/tutorials.html">Tutorials</a><ul>
@@ -208,6 +212,7 @@
 <span class="sd">        :param integer number_of_elements_to_delete: The number of multi-indices the user would like to delete.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="n">index_entries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>
         <span class="n">total_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardinality</span>
         <span class="n">new_elements</span> <span class="o">=</span> <span class="n">total_elements</span> <span class="o">-</span> <span class="n">number_of_elements_to_delete</span>
@@ -260,8 +265,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;invalid value for basis_type!&#39;</span><span class="p">)</span>
             <span class="n">basis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">basis</span></div></div>
+        <span class="k">return</span> <span class="n">basis</span></div>
+<div class="viewcode-block" id="Basis.get_elements"><a class="viewcode-back" href="../../_documentation/basis.html#equadratures.basis.Basis.get_elements">[docs]</a>    <span class="k">def</span> <span class="nf">get_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the elements of an index set.</span>
 
+<span class="sd">        :param Basis object: An instance of the Basis class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span></div></div>
 
 
 <span class="c1">#---------------------------------------------------------------------------------------------------</span>

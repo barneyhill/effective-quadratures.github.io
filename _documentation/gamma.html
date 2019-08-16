@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -134,8 +138,8 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.gamma.Gamma.getCDF">
-<code class="descname">getCDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.getCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.getCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.gamma.Gamma.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.get_cdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gamma cumulative density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -154,8 +158,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.gamma.Gamma.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.gamma.Gamma.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the gamma distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -168,8 +172,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.gamma.Gamma.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.gamma.Gamma.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>A gamma inverse cumulative density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<em>gamma</em>) – An instance of Gamma class.</p></li>
+<li><p><strong>xx</strong> – An array of points at which the inverse of cumulative density function needs to be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse cumulative density function values of the Gamma distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.gamma.Gamma.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gamma probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -188,8 +209,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.gamma.Gamma.getSamples">
-<code class="descname">getSamples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.getSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.getSamples" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.gamma.Gamma.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.get_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates samples from the Gamma distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -200,23 +221,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A N-by-1 vector that contains the samples.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.gamma.Gamma.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/gamma.html#Gamma.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.gamma.Gamma.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>A gamma inverse cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<em>gamma</em>) – An instance of Gamma class.</p></li>
-<li><p><strong>xx</strong> – An array of points at which the inverse of cumulative density function needs to be evaluated.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse cumulative density function values of the Gamma distribution.</p>
 </dd>
 </dl>
 </dd></dl>

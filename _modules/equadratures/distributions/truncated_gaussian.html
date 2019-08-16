@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../_documentation/parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_documentation/basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_documentation/poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_documentation/subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_documentation/optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_documentation/polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_documentation/correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../_documentation/tutorials.html">Tutorials</a><ul>
@@ -188,24 +192,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Please digit an input for getPDF method&#39;</span><span class="p">)</span></div>
-<div class="viewcode-block" id="TruncatedGaussian.get_icdf"><a class="viewcode-back" href="../../../_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">[docs]</a>    <span class="k">def</span> <span class="nf">get_icdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A truncated Gaussian cumulative density function.</span>
-
-<span class="sd">        :param truncated Gaussian self:</span>
-<span class="sd">            An instance of the Gaussian class.</span>
-<span class="sd">        :param matrix points:</span>
-<span class="sd">            Matrix of points for defining the cumulative density function; default value is 500.</span>
-<span class="sd">        :return:</span>
-<span class="sd">            An array of N values over the support of the truncated Gaussian.</span>
-<span class="sd">        :return:</span>
-<span class="sd">            Gaussian cumulative density values.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Please digit an input for getCDF method&#39;</span><span class="p">)</span></div>
-<div class="viewcode-block" id="TruncatedGaussian.get_iCDF"><a class="viewcode-back" href="../../../_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_iCDF">[docs]</a>    <span class="k">def</span> <span class="nf">get_iCDF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xx</span><span class="p">):</span>
+<div class="viewcode-block" id="TruncatedGaussian.get_icdf"><a class="viewcode-back" href="../../../_documentation/truncated_gaussian.html#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">[docs]</a>    <span class="k">def</span> <span class="nf">get_icdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xx</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; A truncated gaussian inverse cumulative density function,</span>
 <span class="sd">        :param truncnorm:</span>
 <span class="sd">            An instance of Truncated-Gaussian class.</span>

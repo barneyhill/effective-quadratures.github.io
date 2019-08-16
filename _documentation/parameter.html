@@ -67,6 +67,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -138,7 +142,8 @@
 <a class="reference external" href="https://en.wikipedia.org/wiki/Truncated_normal_distribution">truncated-gaussian</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Beta_distribution">beta</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">cauchy</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential</a>,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma</a>,
-<a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">weibull</a>. If no string is provided, a <code class="docutils literal notranslate"><span class="pre">uniform</span></code> distribution is assumed. If the user provides data, and would like to generate orthogonal
+<a class="reference external" href="https://en.wikipedia.org/wiki/Weibull_distribution">weibull</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Rayleigh_distribution">rayleigh</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pareto_distribution">pareto</a>. If no string is provided, a <code class="docutils literal notranslate"><span class="pre">uniform</span></code> distribution is assumed. If the user provides data, and would like to generate orthogonal
 polynomials (and quadrature rules) based on the data, they can set this option to be <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></li>
 <li><p><strong>shape_parameter_A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Most of the aforementioned distributions are characterized by two shape parameters. For instance, in the case of a <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> (or <code class="docutils literal notranslate"><span class="pre">truncated-gaussian</span></code>), this represents the mean. In the case of a beta distribution this represents the alpha value. For a <code class="docutils literal notranslate"><span class="pre">uniform</span></code> distribution this input is not required.</p></li>
 <li><p><strong>shape_parameter_B</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – This is the second shape parameter that characterizes the distribution selected. In the case of a <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> or <code class="docutils literal notranslate"><span class="pre">truncated-gaussian</span></code>, this is the variance.</p></li>
@@ -167,15 +172,66 @@ polynomials (and quadrature rules) based on the data, they can set this option t
 </dd></dl>
 
 <dl class="method">
+<dt id="equadratures.parameter.Parameter.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Provides a description of the Parameter.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – An instance of the Parameter object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="equadratures.parameter.Parameter.get_icdf">
-<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_icdf" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>cdf_values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_icdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the inverse cumulative density function associated with the Parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
 <dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param numpy.ndarray xx</dt>
+<dt class="field-odd">param numpy.ndarray cdf_values</dt>
 <dd class="field-odd"><p>Values of the cumulative density function for which its inverse needs to be computed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_jacobi_eigenvectors">
+<code class="descname">get_jacobi_eigenvectors</code><span class="sig-paren">(</span><em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_jacobi_eigenvectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_jacobi_eigenvectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the eigenvectors of the Jacobi matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param int order</dt>
+<dd class="field-odd"><p>Order of the recurrence coefficients.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_jacobi_matrix">
+<code class="descname">get_jacobi_matrix</code><span class="sig-paren">(</span><em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_jacobi_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_jacobi_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Jacobi matrix—a tridiagonal matrix of the recurrence coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param int order</dt>
+<dd class="field-odd"><p>Order of the recurrence coefficients.</p>
 </dd>
 </dl>
 </dd>
@@ -195,6 +251,44 @@ polynomials (and quadrature rules) based on the data, they can set this option t
 <dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
 <dt class="field-odd">param numpy.ndarray points</dt>
 <dd class="field-odd"><p>Values of the parameter at which the PDF must be evaluated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_recurrence_coefficients">
+<code class="descname">get_recurrence_coefficients</code><span class="sig-paren">(</span><em>order=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_recurrence_coefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_recurrence_coefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the recurrence coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param int order</dt>
+<dd class="field-odd"><p>Order of the recurrence coefficients.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.parameter.Parameter.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>number_of_samples_required</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/parameter.html#Parameter.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.parameter.Parameter.get_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates samples from the distribution associated with the Parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.parameter.Parameter" title="equadratures.parameter.Parameter"><em>Parameter</em></a>) – <dl class="simple">
+<dt>An instance of the Parameter object.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param int number_of_samples_required</dt>
+<dd class="field-odd"><p>Number of samples that are required.</p>
 </dd>
 </dl>
 </dd>

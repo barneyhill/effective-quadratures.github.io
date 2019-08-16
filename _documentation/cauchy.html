@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -134,8 +138,8 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.cauchy.Cauchy.getCDF">
-<code class="descname">getCDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.getCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.getCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.cauchy.Cauchy.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.get_cdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Cauchy cumulative density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -154,8 +158,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.cauchy.Cauchy.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.cauchy.Cauchy.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the Cauchy distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -168,8 +172,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.cauchy.Cauchy.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.cauchy.Cauchy.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>An inverse Cauchy cumulative density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.cauchy.Cauchy" title="equadratures.distributions.cauchy.Cauchy"><em>Cauchy</em></a>) – An instance of the Cauchy class.</p></li>
+<li><p><strong>xx</strong> (<em>array</em>) – A numpy array of uniformly distributed samples between [0, 1].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse CDF samples associated with the Cauchy distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.cauchy.Cauchy.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Cauchy probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -188,8 +209,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.cauchy.Cauchy.getSamples">
-<code class="descname">getSamples</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.getSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.getSamples" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.cauchy.Cauchy.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.get_samples" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Generates samples from the Gaussian distribution.</p>
 </div></blockquote>
@@ -202,23 +223,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A N-by-1 vector that contains the samples.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.cauchy.Cauchy.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/cauchy.html#Cauchy.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.cauchy.Cauchy.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>An inverse Cauchy cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.cauchy.Cauchy" title="equadratures.distributions.cauchy.Cauchy"><em>Cauchy</em></a>) – An instance of the Cauchy class.</p></li>
-<li><p><strong>xx</strong> (<em>array</em>) – A numpy array of uniformly distributed samples between [0, 1].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse CDF samples associated with the Cauchy distribution.</p>
 </dd>
 </dl>
 </dd></dl>

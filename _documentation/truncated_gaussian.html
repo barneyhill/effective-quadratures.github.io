@@ -65,6 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -159,8 +163,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_iCDF">
-<code class="descname">get_iCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/truncated_gaussian.html#TruncatedGaussian.get_iCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_iCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/truncated_gaussian.html#TruncatedGaussian.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>A truncated gaussian inverse cumulative density function,
 :param truncnorm:</p>
 <blockquote>
@@ -172,26 +176,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Inverse cumulative density function values of the Truncated Gaussian distributuion.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf">
-<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/truncated_gaussian.html#TruncatedGaussian.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.truncated_gaussian.TruncatedGaussian.get_icdf" title="Permalink to this definition">¶</a></dt>
-<dd><p>A truncated Gaussian cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Gaussian self</strong> (<em>truncated</em>) – An instance of the Gaussian class.</p></li>
-<li><p><strong>points</strong> (<em>matrix</em>) – Matrix of points for defining the cumulative density function; default value is 500.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An array of N values over the support of the truncated Gaussian.</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Gaussian cumulative density values.</p>
 </dd>
 </dl>
 </dd></dl>
