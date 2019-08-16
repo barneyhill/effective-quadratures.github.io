@@ -135,16 +135,16 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>basis_type</strong> (<em>string</em>) – The type of index set to be used. Options include: <code class="docutils literal notranslate"><span class="pre">univariate</span></code>, <code class="docutils literal notranslate"><span class="pre">total-order</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code>,
-<code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">hyperbolic-basis</span></code> and <code class="docutils literal notranslate"><span class="pre">euclidean-degree</span></code>; all basis are isotropic.</p></li>
+<code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">hyperbolic-basis</span></code> and <a href="#id1"><span class="problematic" id="id2">``</span></a>euclidean-degree``(see [1, 2]); all basis are isotropic.</p></li>
 <li><p><strong>orders</strong> (<em>ndarray</em>) – List of integers corresponding to the highest polynomial order in each direction.</p></li>
 <li><p><strong>growth_rule</strong> (<em>string</em>) – The type of growth rule associated with sparse grids.
-Options include: <a href="#id1"><span class="problematic" id="id2">`</span></a>linear’ and <a href="#id3"><span class="problematic" id="id4">`</span></a>exponential’. This input is only required when using a sparse grid.</p></li>
-<li><p><strong>q</strong> (<em>double</em>) – The <a href="#id5"><span class="problematic" id="id6">`</span></a>q’ parameter is used to control the number of basis terms used in a hyperbolic basis.
+Options include: <code class="docutils literal notranslate"><span class="pre">linear</span></code> and <code class="docutils literal notranslate"><span class="pre">exponential</span></code>. This input is only required when using a sparse grid.</p></li>
+<li><p><strong>q</strong> (<em>double</em>) – The <code class="docutils literal notranslate"><span class="pre">q</span></code> parameter is used to control the number of basis terms used in a hyperbolic basis.
 It varies between 0.0 to 1.0. A value of 1.0 yields a total order basis.</p></li>
 </ul>
 </dd>
 </dl>
-<p><strong>Notes:</strong></p>
+<p><strong>References:</strong></p>
 <p>For details on the Euclidean degree see: <a class="reference external" href="https://arxiv.org/pdf/1608.02216v1.pdf">Trefethen 2016</a>.
 Note that all index sets are sorted in the constructor automatically, by their total orders. We will be adding non-isotropic index sets in a future release. Stay tuned!</p>
 <dl class="method">
@@ -154,6 +154,9 @@ Note that all index sets are sorted in the constructor automatically, by their t
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>object</strong> (<a class="reference internal" href="#equadratures.basis.Basis" title="equadratures.basis.Basis"><em>Basis</em></a>) – An instance of the Basis class.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>basis</strong>: Basis</p>
 </dd>
 </dl>
 </dd></dl>

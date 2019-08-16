@@ -11,6 +11,7 @@ Current developers and contributors are:
 - 2019 - Present: **James Gross** (University of Cambridge)
 - 2018 - Present: **Irene Virdis** (University of Cagliari)
 - 2018 - Present: **Zachary del Rosario** (Stanford University)
+- 2019 - Present: **He Zhou** (University of Cambridge)
 - 2019 - Present: **Dr Ashley Scillitoe** (The Alan Turing Institute)
 
 Our advisory board:
