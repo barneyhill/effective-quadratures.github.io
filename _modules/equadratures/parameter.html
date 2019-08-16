@@ -161,7 +161,16 @@
 <span class="sd">		A data-set with shape (number_of_data_points, 2), where the first column comprises of parameter values, while the second column corresponds to the data observations. This input should only be used with the ``custom`` distribution.</span>
 <span class="sd">    :param bool endpoints:</span>
 <span class="sd">        If set to ``True``, then the quadrature points and weights will have end-points, based on Gauss-Lobatto quadrature rules.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+
+<span class="sd">    **Sample constructor initialisations**::</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from equadratures import *</span>
+
+<span class="sd">        s = Parameter(distribution=&#39;uniform&#39;, lower=-1., upper=2., order=3)</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shape_parameter_A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape_parameter_B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">distribution</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
@@ -177,6 +186,7 @@
 	<span class="k">def</span> <span class="nf">__set_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Private function that sets the distribution.</span>
+
 <span class="sd">        :param Parameter self:</span>
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -222,6 +232,12 @@
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param numpy.ndarray points:</span>
 <span class="sd">			Values of the parameter at which the PDF must be evaluated.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **x**: A numpy.ndarray of points at which the PDF is evaluated.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **pdf**: A numpy.ndarray of the PDF values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">x_range_for_pdf</span>
@@ -236,6 +252,12 @@
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param numpy.ndarray points:</span>
 <span class="sd">			Values of the parameter at which the PDF must be evaluated.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**x**: A numpy.ndarray of equidistant ordered samples over the parameter&#39;s support.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**cdf_values**: A numpy.ndarray of the cdf values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">x_range_for_pdf</span>
@@ -244,12 +266,15 @@
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">get_cdf</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Parameter.get_icdf"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_icdf">[docs]</a>	<span class="k">def</span> <span class="nf">get_icdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cdf_values</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the inverse cumulative density function associated with the Parameter.</span>
+<span class="sd">        Computes the inverse cumulative density function (CDF) associated with the Parameter.</span>
 
 <span class="sd">        :param Parameter self:</span>
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param numpy.ndarray cdf_values:</span>
 <span class="sd">			Values of the cumulative density function for which its inverse needs to be computed.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**icdf_values**: A numpy.ndarray of the inverse CDF values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">get_icdf</span><span class="p">(</span><span class="n">cdf_values</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Parameter.get_samples"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_samples">[docs]</a>	<span class="k">def</span> <span class="nf">get_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_samples_required</span><span class="p">):</span>
@@ -264,10 +289,13 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">number_of_samples_required</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Parameter.get_description"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_description">[docs]</a>	<span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Provides a description of the Parameter.</span>
+<span class="sd">        Provides a description of the Parameter.</span>
 
 <span class="sd">        :param Parameter self:</span>
 <span class="sd">            An instance of the Parameter object.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        	**description**: A string description of the parameter.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">get_description</span><span class="p">()</span></div>
 <div class="viewcode-block" id="Parameter.get_recurrence_coefficients"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_recurrence_coefficients">[docs]</a>	<span class="k">def</span> <span class="nf">get_recurrence_coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -278,6 +306,9 @@
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param int order:</span>
 <span class="sd">			Order of the recurrence coefficients.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**ab**: A numpy.ndarray of shape (order+1, 2) of the recurrence coefficients.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">get_recurrence_coefficients</span><span class="p">(</span><span class="n">order</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Parameter.get_jacobi_eigenvectors"><a class="viewcode-back" href="../../_documentation/parameter.html#equadratures.parameter.Parameter.get_jacobi_eigenvectors">[docs]</a>	<span class="k">def</span> <span class="nf">get_jacobi_eigenvectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -288,6 +319,9 @@
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param int order:</span>
 <span class="sd">			Order of the recurrence coefficients.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**eigenvectors**: A numpy.ndarray of the eigenvectors of the Jacobi matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span>
@@ -309,6 +343,9 @@
 <span class="sd">            An instance of the Parameter object.</span>
 <span class="sd">		:param int order:</span>
 <span class="sd">			Order of the recurrence coefficients.</span>
+
+<span class="sd">		:return:</span>
+<span class="sd">        	**jacobi_matrix**: A numpy.ndarray corresponding to the Jacobi matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">ab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_recurrence_coefficients</span><span class="p">()</span>
