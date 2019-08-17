@@ -132,42 +132,47 @@
 <span class="sd">    Basis class constructor.</span>
 
 <span class="sd">    :param string basis_type: The type of index set to be used. Options include: ``univariate``, ``total-order``, ``tensor-grid``,</span>
-<span class="sd">        ``sparse-grid``, ``hyperbolic-basis`` and ``euclidean-degree``(see [1, 2]); all basis are isotropic.</span>
+<span class="sd">        ``sparse-grid``, ``hyperbolic-basis`` [1] and ``euclidean-degree`` [2]; all basis are isotropic.</span>
 <span class="sd">    :param ndarray orders: List of integers corresponding to the highest polynomial order in each direction.</span>
 <span class="sd">    :param string growth_rule: The type of growth rule associated with sparse grids.</span>
 <span class="sd">        Options include: ``linear`` and ``exponential``. This input is only required when using a sparse grid.</span>
-<span class="sd">    :param double q: The ``q`` parameter is used to control the number of basis terms used in a hyperbolic basis.</span>
+<span class="sd">    :param double q: The ``q`` parameter is used to control the number of basis terms used in a hyperbolic basis (see [1]).</span>
 <span class="sd">        It varies between 0.0 to 1.0. A value of 1.0 yields a total order basis.</span>
 
-<span class="sd">    **References:**</span>
 
-<span class="sd">    For details on the Euclidean degree see: `Trefethen 2016 &lt;https://arxiv.org/pdf/1608.02216v1.pdf&gt;`_.</span>
-<span class="sd">    Note that all index sets are sorted in the constructor automatically, by their total orders. We will be adding non-isotropic index sets in a future release. Stay tuned!</span>
+<span class="sd">    **Sample constructor initialisations**::</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from equadratures import *</span>
+
+<span class="sd">        # Total order basis</span>
+<span class="sd">        mybasis = Basis(method=&#39;total-order&#39;, orders=[3,3,3])</span>
+<span class="sd">        mybasis2 = Basis(method=&#39;euclidean-degree&#39;, orders=[2,2])</span>
+<span class="sd">        mybasis3 = Basis(method=&#39;sparse-grid&#39;, growth_rule=&#39;linear&#39;, level=3)</span>
+
+<span class="sd">    **References**</span>
+<span class="sd">        1. Blatman, G., Sudret, B., (2011) Adaptive Sparse Polynomial Chaos Expansion Based on Least Angle Regression. Journal of Computational Physics, 230(6), 2345-2367.</span>
+<span class="sd">        2. Trefethen, L., (2017) Multivariate Polynomial Approximation in the Hypercube. Proceedings of the American Mathematical Society, 145(11), 4837-4844. `Pre-print &lt;https://arxiv.org/pdf/1608.02216v1.pdf&gt;`_.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basis_type</span><span class="p">,</span> <span class="n">orders</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">growth_rule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
         <span class="c1"># Required</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">basis_type</span> <span class="o">=</span> <span class="n">basis_type</span> <span class="c1"># string</span>
-
         <span class="c1"># Check for the levels (only for sparse grids)</span>
         <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
-
         <span class="c1"># Check for the growth rule (only for sparse grids)</span>
         <span class="k">if</span> <span class="n">growth_rule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">growth_rule</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">growth_rule</span> <span class="o">=</span> <span class="n">growth_rule</span>
-
         <span class="c1"># For hyperbolic basis index set, there is a &quot;q&quot; parameter:</span>
         <span class="k">if</span> <span class="n">q</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">q</span>
-
         <span class="c1"># Orders</span>
         <span class="k">if</span> <span class="n">orders</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">orders</span> <span class="o">=</span> <span class="p">[]</span>
@@ -251,7 +256,7 @@
 <span class="sd">        :param Basis object: An instance of the Basis class.</span>
 
 <span class="sd">        :return:</span>
-<span class="sd">            **basis**: Basis</span>
+<span class="sd">            **basis**: Elements associated with the multi-index set. For ``total-order``, ``tensor-grid``, ``hyperbolic-basis``, ``hyperbolic-basis`` and ``euclidean-degree`` these correspond to the multi-index set elements within the set. For a ``sparse-grid`` the output will comprise of three arguments: (i) list of tensor grid orders (anisotropic), (ii) the positive and negative weights, and (iii) the individual sparse grid multi-index elements.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis_type</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;total-order&quot;</span><span class="p">:</span>
@@ -274,10 +279,11 @@
 <span class="sd">        Returns the elements of an index set.</span>
 
 <span class="sd">        :param Basis object: An instance of the Basis class.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **elements**: The multi-index elements of the basis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span></div></div>
-
-
 <span class="c1">#---------------------------------------------------------------------------------------------------</span>
 <span class="c1"># PRIVATE FUNCTIONS</span>
 <span class="c1">#---------------------------------------------------------------------------------------------------</span>

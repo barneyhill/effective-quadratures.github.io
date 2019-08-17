@@ -138,40 +138,34 @@
 <li><p><strong>basis</strong> (<a class="reference internal" href="basis.html#equadratures.basis.Basis" title="equadratures.basis.Basis"><em>Basis</em></a>) – An instance of the Basis class corresponding to the multi-index set used.</p></li>
 <li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The method used for computing the coefficients. Should be one of: <code class="docutils literal notranslate"><span class="pre">compressive-sensing</span></code>,
 <code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code> or <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>.</p></li>
-<li><p><strong>sampling_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy.
-:string mesh: Avaliable options are: <code class="docutils literal notranslate"><span class="pre">monte-carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">induced-sampling</span></code>, <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">induced</span></code>, or <code class="docutils literal notranslate"><span class="pre">user-defined</span></code>.</p>
-<blockquote>
-<div><p>Note that when the <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code> option is invoked, the sparse pseudospectral approximation method [1]
-is the adopted. One can think of this as being the correct way to use sparse grids in the context of polynomial chaos [2] techniques.</p>
-</div></blockquote>
+<li><p><strong>sampling_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy.</p>
 <dl class="field-list simple">
-<dt class="field-odd">string subsampling-algorithm</dt>
-<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">subsampling-algorithm</span></code> input refers to the optimisation technique for subsampling. In the aforementioned four sampling strategies,
-we generate a logarithm factor of samples above the required amount and prune down the samples using an optimisation
-technique (see [1]). Existing optimisation strategies include: <code class="docutils literal notranslate"><span class="pre">qr</span></code>, <code class="docutils literal notranslate"><span class="pre">lu</span></code>, <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>. These refer to QR with column
-pivoting [2], LU with row pivoting [3], singular value decomposition with subset selection [2] and a convex relaxation
-via Newton’s method for determinant maximization [4]. Note that if the <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> option is selected, then subsampling will depend on whether the Basis
-argument is a total order index set, hyperbolic basis or a tensor order index set.</p>
+<dt class="field-odd">string mesh</dt>
+<dd class="field-odd"><p>Avaliable options are: <code class="docutils literal notranslate"><span class="pre">monte-carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code>, <code class="docutils literal notranslate"><span class="pre">induced</span></code>, or <code class="docutils literal notranslate"><span class="pre">user-defined</span></code>. Note that when the <code class="docutils literal notranslate"><span class="pre">sparse-grid</span></code> option is invoked, the sparse pseudospectral approximation method [1] is the adopted. One can think of this as being the correct way to use sparse grids in the context of polynomial chaos [2] techniques.</p>
 </dd>
-<dt class="field-even">float sampling-ratio</dt>
-<dd class="field-even"><p>Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows
-and columns of the associated Vandermonde-type matrix are equal.</p>
+<dt class="field-even">string subsampling-algorithm</dt>
+<dd class="field-even"><p>The <code class="docutils literal notranslate"><span class="pre">subsampling-algorithm</span></code> input refers to the optimisation technique for subsampling. In the aforementioned four sampling strategies, we generate a logarithm factor of samples above the required amount and prune down the samples using an optimisation technique (see [1]). Existing optimisation strategies include: <code class="docutils literal notranslate"><span class="pre">qr</span></code>, <code class="docutils literal notranslate"><span class="pre">lu</span></code>, <code class="docutils literal notranslate"><span class="pre">svd</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>. These refer to QR with column pivoting [2], LU with row pivoting [3], singular value decomposition with subset selection [2] and a convex relaxation via Newton’s method for determinant maximization [4]. Note that if the <code class="docutils literal notranslate"><span class="pre">tensor-grid</span></code> option is selected, then subsampling will depend on whether the Basis argument is a total order index set, hyperbolic basis or a tensor order index set.</p>
 </dd>
-<dt class="field-odd">numpy.ndarray sample-points</dt>
-<dd class="field-odd"><p>A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</p>
+<dt class="field-odd">float sampling-ratio</dt>
+<dd class="field-odd"><p>Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows and columns of the associated Vandermonde-type matrix are equal.</p>
 </dd>
-<dt class="field-even">numpy.ndarray sample-outputs</dt>
-<dd class="field-even"><p>A numpy ndarray with shape (number_of_observations, 1) that corresponds to model evaluations at the sample points. Note that
-if <code class="docutils literal notranslate"><span class="pre">sample-points</span></code> is provided as an input, then the code expects <code class="docutils literal notranslate"><span class="pre">sample-outputs</span></code> too.</p>
+<dt class="field-even">numpy.ndarray sample-points</dt>
+<dd class="field-even"><p>A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</p>
+</dd>
+<dt class="field-odd">numpy.ndarray sample-outputs</dt>
+<dd class="field-odd"><p>A numpy ndarray with shape (number_of_observations, 1) that corresponds to model evaluations at the sample points. Note that if <code class="docutils literal notranslate"><span class="pre">sample-points</span></code> is provided as an input, then the code expects <code class="docutils literal notranslate"><span class="pre">sample-outputs</span></code> too.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>solver_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific solver used for computing the coefficients.
-:numpy.ndarray noise-level: The noise level to be used. Can take in both scalar- and vector-valued inputs.
-:bool verbose: The default value is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; when set to <code class="docutils literal notranslate"><span class="pre">True</span></code> details on the convergence of the solution will be provided. Note for direct methods, this</p>
-<blockquote>
-<div><p>will simply output the condition number of the matrix.</p>
-</div></blockquote>
+<li><p><strong>solver_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific solver used for computing the coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">numpy.ndarray noise-level</dt>
+<dd class="field-odd"><p>The noise level to be used. Can take in both scalar- and vector-valued inputs.</p>
+</dd>
+<dt class="field-even">bool verbose</dt>
+<dd class="field-even"><p>The default value is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; when set to <code class="docutils literal notranslate"><span class="pre">True</span></code> details on the convergence of the solution will be provided. Note for direct methods, this will simply output the condition number of the matrix.</p>
+</dd>
+</dl>
 </p></li>
 </ul>
 </dd>
