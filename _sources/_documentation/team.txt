@@ -25,7 +25,7 @@ Past developers and contributors:
 
 - **Ari Frankel** (formerly at Stanford University)
 - **Shaowu Yuchi** (formerly at University of Cambridge)
-- **Jonathan Mak** (The Alan Turing Institute)
+- **Jonathan Mak** (formerly at The Alan Turing Institute)
 
 
 In line with our values, we follow the `NumFOCUS Code of Conduct <https://numfocus.org/code-of-conduct>`__. 
