@@ -133,25 +133,15 @@
 
 <div class="viewcode-block" id="Correlations"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations">[docs]</a><span class="k">class</span> <span class="nc">Correlations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The class defines a Nataf transformation.</span>
-
-<span class="sd">    The input correlated marginals are mapped from their physical space to a new</span>
+<span class="sd">    The class defines a Nataf transformation. The input correlated marginals are mapped from their physical space to a new</span>
 <span class="sd">    standard normal space, in which points are uncorrelated.</span>
-<span class="sd">    Attributes of the class:</span>
-<span class="sd">    :param list D:</span>
-<span class="sd">            List of parameters (distributions), interpreted here as the marginals.</span>
-<span class="sd">    :param numpy-matrix R:</span>
-<span class="sd">            The correlation matrix associated with the joint distribution.</span>
-<span class="sd">    :param object std:</span>
-<span class="sd">            A standard normal distribution</span>
-<span class="sd">    :param numpy-matrix A:</span>
-<span class="sd">            The Cholesky decomposition of Fictive matrix R0,</span>
-<span class="sd">            associated with the set of normal intermediate</span>
-<span class="sd">            correlated distributions.</span>
 
-<span class="sd">    References for theory:</span>
-<span class="sd">        Melchers, R., E. (Robert E.), 1945- Structural reliability analysis</span>
-<span class="sd">        and predictions - 2nd edition - John Wiley &amp; Sons Ltd.</span>
+<span class="sd">    :param list D: List of parameters (distributions), interpreted here as the marginals.</span>
+<span class="sd">    :param numpy.ndarray R: The correlation matrix associated with the joint distribution.</span>
+
+<span class="sd">    **References**</span>
+<span class="sd">        1. Melchers, R. E., (1945) Structural reliability analysis and predictions. John Wiley and Sons, second edition.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">D</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -208,16 +198,14 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The fictive matrix is:&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">R0</span><span class="p">)</span>
 <div class="viewcode-block" id="Correlations.get_uncorrelated_from_correlated"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_from_correlated">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncorrelated_from_correlated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;  Method for mapping correlated variables to a new standard space.</span>
-<span class="sd">             The imput matrix must have [Nxm] dimension, where m is the number</span>
-<span class="sd">             of correlated marginals.</span>
-<span class="sd">             :param numpy-matrix X:</span>
-<span class="sd">                    A N-by-M Matrix where input marginals are organized along columns</span>
-<span class="sd">                    M represents the number of correlated marginals</span>
-<span class="sd">             :return:</span>
-<span class="sd">                    A N-by-M Matrix which contains standardized uncorrelated data.</span>
-<span class="sd">                    The transformation of each i-th input marginal is stored along</span>
-<span class="sd">                    the i-th column of the output matrix.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for mapping correlated variables to a new standard space.</span>
+
+<span class="sd">        :param Correlations self: An instance of the Correlations object.</span>
+<span class="sd">        :param numpy.ndarray X: A numpy ndarray of shape (N,M) where input marginals are organized along columns; M represents the number of correlated marginals</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **xu**: A numpy.ndarray of shape (N, M), which contains standardized uncorrelated data. The transformation of each i-th input marginal is stored along the i-th column of the output matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
@@ -228,35 +216,22 @@
                     <span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">):</span>
                     <span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-
-        <span class="c1">#-----------------------------------------------#</span>
-        <span class="c1">#plt.figure()</span>
-        <span class="c1">#plt.grid(linewidth=0.5, color=&#39;k&#39;)</span>
-        <span class="c1">#plt.plot(X[:,0], w1[:,0], &#39;ro&#39;, label=&#39;first&#39;)</span>
-        <span class="c1">#plt.plot(X[:,1], w1[:,1], &#39;bx&#39;, label=&#39;second&#39;)</span>
-        <span class="c1">#plt.title(&#39;from nataf class: w1 VS X input&#39;)</span>
-        <span class="c1">#plt.legend(loc=&#39;upper left&#39;)</span>
-        <span class="c1">#plt.show()</span>
-        <span class="c1">#-----------------------------------------------#</span>
         <span class="n">sU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
                 <span class="n">sU</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">get_icdf</span><span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
-
         <span class="n">sU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sU</span><span class="p">)</span>
         <span class="n">sU</span> <span class="o">=</span> <span class="n">sU</span><span class="o">.</span><span class="n">T</span>
-
         <span class="n">xu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">,</span><span class="n">sU</span><span class="p">)</span>
         <span class="n">xu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xu</span><span class="p">)</span>
         <span class="n">xu</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">T</span>
-
         <span class="k">return</span> <span class="n">xu</span></div>
-
 <div class="viewcode-block" id="Correlations.get_correlated_from_uncorrelated"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_from_uncorrelated">[docs]</a>    <span class="k">def</span> <span class="nf">get_correlated_from_uncorrelated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Method for mapping uncorrelated variables from standard normal space</span>
-<span class="sd">            to a new physical space in which variables are correlated.</span>
-<span class="sd">            Input matrix must have [mxN] dimension, where m is the number of input marginals.</span>
-<span class="sd">            :param numpy-matrix X:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for mapping uncorrelated variables from standard normal space to a new physical space in which variables are correlated.</span>
+
+<span class="sd">        :param Correlations self: An instance of the Correlations object.</span>
+<span class="sd">        :param numpy-matrix X:</span>
 <span class="sd">                    A Matrix of M-by-N dimensions, in which uncorrelated marginals</span>
 <span class="sd">                    are organized along rows.</span>
 <span class="sd">            :return:</span>
