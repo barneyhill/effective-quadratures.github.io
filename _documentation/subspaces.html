@@ -181,8 +181,41 @@ currently only valid for method <code class="docutils literal notranslate"><span
 
 <dl class="method">
 <dt id="equadratures.subspaces.Subspaces.get_linear_inequalities">
-<code class="descname">get_linear_inequalities</code><span class="sig-paren">(</span><em>Y=None</em>, <em>X=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces.get_linear_inequalities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces.get_linear_inequalities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the linear inequalities defining the zontope vertices.</p>
+<code class="descname">get_linear_inequalities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces.get_linear_inequalities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces.get_linear_inequalities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the linear inequalities defining the zontope vertices, i.e., Ax&lt;=b.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.subspaces.Subspaces" title="equadratures.subspaces.Subspaces"><em>Subspaces</em></a>) – An instance of the Subspaces object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>A</strong>: The matrix for setting the linear inequalities.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>b</strong>: The right-hand-side vector for setting the linear inequalities.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="equadratures.subspaces.Subspaces.get_samples_constraining_active_coordinates">
+<em class="property">static </em><code class="descname">get_samples_constraining_active_coordinates</code><span class="sig-paren">(</span><em>self</em>, <em>inactive_samples</em>, <em>active_coordinates</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces.get_samples_constraining_active_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces.get_samples_constraining_active_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hit and run type sampling strategy for generating samples at a given coordinate in the active subspace
+by varying its coordinates along the inactive subspace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.subspaces.Subspaces" title="equadratures.subspaces.Subspaces"><em>Subspaces</em></a>) – An instance of the Subspaces object.</p></li>
+<li><p><strong>inactive_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of inactive samples required.</p></li>
+<li><p><strong>active_coordiantes</strong> (<em>numpy.ndarray</em>) – The active subspace coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>X</strong>: An numpy.ndarray of the full-space coordinates.</p>
+</dd>
+</dl>
+<p><strong>Note:</strong>
+This routine has been adapted from Paul Constantine’s hit_and_run() function; see reference below.</p>
+<p>Constantine, P., Howard, R., Glaws, A., Grey, Z., Diaz, P., Fletcher, L., (2016) Python Active-Subspaces Utility Library. Journal of Open Source Software, 1(5), 79. <a class="reference external" href="http://joss.theoj.org/papers/10.21105/joss.00079">Paper</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -226,65 +259,14 @@ subspace.</p>
 <dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.subspaces.Subspaces" title="equadratures.subspaces.Subspaces"><em>Subspaces</em></a>) – An instance of the Subspaces object.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>subspace</strong>: A numpy.ndarray of shape (dimens</p>
+<dd class="field-even"><p><strong>vertices</strong>: A numpy.ndarray of shape (number of vertices, <code class="docutils literal notranslate"><span class="pre">subspace_dimension</span></code>).</p>
 </dd>
 </dl>
+<p><strong>Note:</strong>
+This routine has been adapted from Paul Constantine’s zonotope_vertices() function; see reference below.</p>
+<p>Constantine, P., Howard, R., Glaws, A., Grey, Z., Diaz, P., Fletcher, L., (2016) Python Active-Subspaces Utility Library. Journal of Open Source Software, 1(5), 79. <a class="reference external" href="http://joss.theoj.org/papers/10.21105/joss.00079">Paper</a>.</p>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="equadratures.subspaces.Subspaces.hit_and_run_sample">
-<em class="property">static </em><code class="descname">hit_and_run_sample</code><span class="sig-paren">(</span><em>N</em>, <em>y</em>, <em>W1</em>, <em>W2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces.hit_and_run_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces.hit_and_run_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>A hit and run method for sampling the inactive variables from a polytope.
-Points are then converted back to the full space coordinates.
-Parameters
-———-
-:param int N:</p>
-<blockquote>
-<div><p>the number of inactive variable samples</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong> (<em>ndarray</em>) – the value of the active variables</p></li>
-<li><p><strong>W1</strong> (<em>ndarray</em>) – d-by-r matrix that contains the eigenvector bases of the r-dimensional
-active subspace</p></li>
-<li><p><strong>W2</strong> (<em>ndarray</em>) – d-by-(d-r) matrix that contains the eigenvector bases of the
-(d-r)-dimensional inactive subspace</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Z: N-by-(d-r) matrix that contains values of the inactive variable that
-correspond to the given <cite>y</cite>
-X: N-by-d matrix for the sampled points in full space coordinates.</p>
-</dd>
-</dl>
-<p><a class="reference external" href="https://github.com/paulcon/active_subspaces/blob/master/active_subspaces/domains.py">https://github.com/paulcon/active_subspaces/blob/master/active_subspaces/domains.py</a></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="equadratures.subspaces.get_unique_rows">
-<code class="descclassname">equadratures.subspaces.</code><code class="descname">get_unique_rows</code><span class="sig-paren">(</span><em>X0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#get_unique_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.get_unique_rows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that returns unique rows from ndarray.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X0</strong> (<em>matrix</em>) – A matrix which may have multiple equivalent rows</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A matrix X1 containing only the unique rows of X0</p>
-</dd>
-</dl>
-<p><a class="reference external" href="http://stackoverflow.com/questions/16970982/find-unique-rows-in-numpy-array">http://stackoverflow.com/questions/16970982/find-unique-rows-in-numpy-array</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="equadratures.subspaces.linear_program_ineq">
-<code class="descclassname">equadratures.subspaces.</code><code class="descname">linear_program_ineq</code><span class="sig-paren">(</span><em>c</em>, <em>A</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#linear_program_ineq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.linear_program_ineq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper for scipy.optimize.linprog,
-adapted from <a class="reference external" href="https://github.com/paulcon/active_subspaces/blob/master/active_subspaces/utils/qp_solver.py">https://github.com/paulcon/active_subspaces/blob/master/active_subspaces/utils/qp_solver.py</a></p>
 </dd></dl>
 
 </div>
