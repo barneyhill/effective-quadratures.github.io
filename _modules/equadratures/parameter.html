@@ -135,12 +135,12 @@
 <span class="kn">from</span> <span class="nn">equadratures.distributions.rayleigh</span> <span class="k">import</span> <span class="n">Rayleigh</span>
 <span class="kn">from</span> <span class="nn">equadratures.distributions.chisquared</span> <span class="k">import</span> <span class="n">Chisquared</span>
 <span class="kn">from</span> <span class="nn">equadratures.distributions.truncated_gaussian</span> <span class="k">import</span> <span class="n">TruncatedGaussian</span>
-<span class="c1">#from equadratures.distributions.pareto import Pareto</span>
+<span class="kn">from</span> <span class="nn">equadratures.distributions.pareto</span> <span class="k">import</span> <span class="n">Pareto</span>
 <span class="c1">#from equadratures.distributions.lognormal import Lognormal</span>
 <span class="c1">#from equadratures.distributions.studentt import Studentt</span>
 <span class="c1">#from equadratures.distributions.logistic import Logistic</span>
 <span class="c1">#from equadratures.distributions.gumbel import Gumbel</span>
-<span class="c1">#from equadratures.distributions.chi import Chi</span>
+<span class="kn">from</span> <span class="nn">equadratures.distributions.chi</span> <span class="k">import</span> <span class="n">Chi</span>
 <span class="kn">from</span> <span class="nn">equadratures.distributions.custom</span> <span class="k">import</span> <span class="n">Custom</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -217,7 +217,9 @@
                    <span class="s1">&#39;arcsine&#39;</span><span class="p">:</span> <span class="n">Chebyshev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">),</span>
                    <span class="s1">&#39;chebyshev&#39;</span><span class="p">:</span> <span class="n">Chebyshev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">),</span>
                    <span class="s1">&#39;rayleigh&#39;</span> <span class="p">:</span> <span class="n">Rayleigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">),</span>
-                   <span class="s1">&#39;chisquared&#39;</span> <span class="p">:</span> <span class="n">Chisquared</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">),</span>
+                   <span class="s1">&#39;chi-squared&#39;</span> <span class="p">:</span> <span class="n">Chisquared</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">),</span>
+                   <span class="s1">&#39;chi&#39;</span> <span class="p">:</span> <span class="n">Chi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">),</span>
+                   <span class="s1">&#39;pareto&#39;</span> <span class="p">:</span> <span class="n">Pareto</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">),</span>
                    <span class="s1">&#39;truncated-gaussian&#39;</span><span class="p">:</span> <span class="n">TruncatedGaussian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_parameter_B</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
                    <span class="p">}</span>
         <span class="n">distribution</span> <span class="o">=</span> <span class="n">choices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">distribution_error</span><span class="p">)</span>

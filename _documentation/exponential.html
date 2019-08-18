@@ -135,8 +135,8 @@
 </dd>
 </dl>
 <dl class="method">
-<dt id="equadratures.distributions.exponential.Exponential.getCDF">
-<code class="descname">getCDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.getCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.getCDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.exponential.Exponential.get_cdf">
+<code class="descname">get_cdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.get_cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.get_cdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>An exponential cumulative density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -155,8 +155,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.exponential.Exponential.getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.getDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.exponential.Exponential.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.get_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the Exponential distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -169,8 +169,25 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.exponential.Exponential.getPDF">
-<code class="descname">getPDF</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.getPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.getPDF" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.exponential.Exponential.get_icdf">
+<code class="descname">get_icdf</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.get_icdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.get_icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>An inverse exponential cumulative density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.exponential.Exponential" title="equadratures.distributions.exponential.Exponential"><em>Exponential</em></a>) – An instance of the Exponential class.</p></li>
+<li><p><strong>xx</strong> (<em>array</em>) – A numpy array of uniformly distributed samples between [0,1].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inverse CDF samples associated with the exponential distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.distributions.exponential.Exponential.get_pdf">
+<code class="descname">get_pdf</code><span class="sig-paren">(</span><em>points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.get_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.get_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>An exponential probability density function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -189,8 +206,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.distributions.exponential.Exponential.getSamples">
-<code class="descname">getSamples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.getSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.getSamples" title="Permalink to this definition">¶</a></dt>
+<dt id="equadratures.distributions.exponential.Exponential.get_samples">
+<code class="descname">get_samples</code><span class="sig-paren">(</span><em>m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.get_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.get_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates samples from the Exponential distribution.</p>
 <blockquote>
 <div><dl class="field-list simple">
@@ -205,23 +222,6 @@
 </dd>
 </dl>
 </div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.distributions.exponential.Exponential.getiCDF">
-<code class="descname">getiCDF</code><span class="sig-paren">(</span><em>xx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/distributions/exponential.html#Exponential.getiCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.distributions.exponential.Exponential.getiCDF" title="Permalink to this definition">¶</a></dt>
-<dd><p>An inverse exponential cumulative density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.distributions.exponential.Exponential" title="equadratures.distributions.exponential.Exponential"><em>Exponential</em></a>) – An instance of the Exponential class.</p></li>
-<li><p><strong>xx</strong> (<em>array</em>) – A numpy array of uniformly distributed samples between [0,1].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Inverse CDF samples associated with the exponential distribution.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
