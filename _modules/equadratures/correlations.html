@@ -140,7 +140,7 @@
 <span class="sd">    :param numpy.ndarray R: The correlation matrix associated with the joint distribution.</span>
 
 <span class="sd">    **References**</span>
-<span class="sd">        1. Melchers, R. E., (1945) Structural reliability analysis and predictions. John Wiley and Sons, second edition.</span>
+<span class="sd">        1. Melchers, R. E., (1945) Structural Reliability Analysis and Predictions. John Wiley and Sons, second edition.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -231,13 +231,10 @@
 <span class="sd">        Method for mapping uncorrelated variables from standard normal space to a new physical space in which variables are correlated.</span>
 
 <span class="sd">        :param Correlations self: An instance of the Correlations object.</span>
-<span class="sd">        :param numpy-matrix X:</span>
-<span class="sd">                    A Matrix of M-by-N dimensions, in which uncorrelated marginals</span>
-<span class="sd">                    are organized along rows.</span>
-<span class="sd">            :return:</span>
-<span class="sd">                    A N-by-M matrix in which the result of the inverse transformation</span>
-<span class="sd">                    applied to the i-th marginal is stored along the i-th column</span>
-<span class="sd">                    of the ouput matrix.</span>
+<span class="sd">        :param numpy.ndarray X: Samples of uncorrelated points from the marginals; of shape (N,M)</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **C**: A numpy.ndarray of shape (N, M), which contains the correlated samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
 
@@ -259,12 +256,14 @@
                 <span class="n">Xc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
         <span class="k">return</span> <span class="n">Xc</span></div>
 <div class="viewcode-block" id="Correlations.get_uncorrelated_samples"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncorrelated_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Method for sampling uncorrelated data:</span>
-<span class="sd">            :param integer N:</span>
-<span class="sd">                    represents the number of the samples inside a range</span>
-<span class="sd">            :return:</span>
-<span class="sd">                    A N-by-M matrix, each i-th column contains the points</span>
-<span class="sd">                    which belong to the i-th distribution stored into list D.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for generating uncorrelated samples.</span>
+
+<span class="sd">        :param int N: Number of uncorrelated samples required.</span>
+<span class="sd">        :param numpy.ndarray X: Samples of uncorrelated points from the marginals; of shape (N,M)</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **C**: A numpy.ndarray of shape (N, M), which contains the uncorrelated samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">distro</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -286,15 +285,14 @@
              <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;One input must be given to &quot;get Correlated Samples&quot; method&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">distro</span></div>
 <div class="viewcode-block" id="Correlations.get_correlated_samples"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_correlated_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Method for sampling correlated data:</span>
-<span class="sd">            :param integer N:</span>
-<span class="sd">                represents the number of the samples inside a range</span>
-<span class="sd">                points represents the array we want to correlate.</span>
-<span class="sd">            :return:</span>
-<span class="sd">                A N-by-M matrix in which correlated samples are organized</span>
-<span class="sd">                along columns: the result of the run of the present method</span>
-<span class="sd">                for the i-th marginal into the input matrix is stored</span>
-<span class="sd">                along the i-th column of the output matrix.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for generating correlated samples.</span>
+
+<span class="sd">        :param int N: Number of correlated samples required.</span>
+<span class="sd">        :param numpy.ndarray X: Samples of correlated points from the marginals; of shape (N,M)</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **C**: A numpy.ndarray of shape (N, M), which contains the correlated samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -320,55 +318,7 @@
             <span class="k">return</span> <span class="n">correlated</span>
 
         <span class="k">else</span><span class="p">:</span>
-             <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;One input must be given to &quot;get Correlated Samples&quot; method: please choose between sampling N points or giving an array of uncorrelated data &#39;</span><span class="p">)</span></div>
-<div class="viewcode-block" id="Correlations.get_correlation_matrix"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_correlation_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_correlation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; The following calculations check the correlation</span>
-<span class="sd">            matrix of input arrays and determine the covariance</span>
-<span class="sd">            matrix: The input matrix mush have [Nxm] dimensions where</span>
-<span class="sd">            m is the number of the marginals.</span>
-<span class="sd">            :param X:</span>
-<span class="sd">                Matrix of correlated data</span>
-<span class="sd">            :param D:</span>
-<span class="sd">                diagonal matrix which cointains the variances</span>
-<span class="sd">            :param S:</span>
-<span class="sd">                covariance matrix</span>
-<span class="sd">            :return:</span>
-<span class="sd">                A correlation matrix R</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span>
-                    <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">diff1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span> <span class="c1"># (x_j - mu_j)</span>
-        <span class="n">diff2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span> <span class="c1"># (x_k - mu_k)</span>
-        <span class="n">prod_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-        <span class="n">prod_square1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-        <span class="n">prod_square2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-
-        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">j</span><span class="o">==</span><span class="n">k</span><span class="p">:</span>
-                    <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-                        <span class="n">diff1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
-                        <span class="n">diff2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
-                        <span class="n">prod_n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="p">(</span><span class="n">diff1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">diff2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">])</span>
-                        <span class="n">prod_square1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">diff1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
-                        <span class="n">prod_square2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">diff2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
-
-                    <span class="n">den1</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prod_square1</span><span class="p">)</span>
-                    <span class="n">den2</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prod_square2</span><span class="p">)</span>
-                    <span class="n">den11</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">den1</span><span class="p">)</span>
-                    <span class="n">den22</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">den2</span><span class="p">)</span>
-                    <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prod_n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">den11</span><span class="o">*</span><span class="n">den22</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">R</span></div></div>
+             <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;One input must be given to &quot;get Correlated Samples&quot; method: please choose between sampling N points or giving an array of uncorrelated data &#39;</span><span class="p">)</span></div></div>
 </pre></div>
 
     </div>

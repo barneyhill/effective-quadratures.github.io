@@ -142,7 +142,7 @@ standard normal space, in which points are uncorrelated.</p>
 </dl>
 <dl class="simple">
 <dt><strong>References</strong></dt><dd><ol class="arabic simple">
-<li><p>Melchers, R. E., (1945) Structural reliability analysis and predictions. John Wiley and Sons, second edition.</p></li>
+<li><p>Melchers, R. E., (1945) Structural Reliability Analysis and Predictions. John Wiley and Sons, second edition.</p></li>
 </ol>
 </dd>
 </dl>
@@ -154,19 +154,11 @@ standard normal space, in which points are uncorrelated.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.correlations.Correlations" title="equadratures.correlations.Correlations"><em>Correlations</em></a>) – An instance of the Correlations object.</p></li>
-<li><p><strong>X</strong> (<em>numpy-matrix</em>) – <blockquote>
-<div><p>A Matrix of M-by-N dimensions, in which uncorrelated marginals
-are organized along rows.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">return</dt>
-<dd class="field-odd"><p>A N-by-M matrix in which the result of the inverse transformation
-applied to the i-th marginal is stored along the i-th column
-of the ouput matrix.</p>
-</dd>
-</dl>
-</p></li>
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – Samples of uncorrelated points from the marginals; of shape (N,M)</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>C</strong>: A numpy.ndarray of shape (N, M), which contains the correlated samples.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -174,42 +166,16 @@ of the ouput matrix.</p>
 <dl class="method">
 <dt id="equadratures.correlations.Correlations.get_correlated_samples">
 <code class="descname">get_correlated_samples</code><span class="sig-paren">(</span><em>N=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.get_correlated_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.get_correlated_samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for sampling correlated data:
-:param integer N:</p>
-<blockquote>
-<div><p>represents the number of the samples inside a range
-points represents the array we want to correlate.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A N-by-M matrix in which correlated samples are organized
-along columns: the result of the run of the present method
-for the i-th marginal into the input matrix is stored
-along the i-th column of the output matrix.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.correlations.Correlations.get_correlation_matrix">
-<code class="descname">get_correlation_matrix</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.get_correlation_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.get_correlation_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>The following calculations check the correlation
-matrix of input arrays and determine the covariance
-matrix: The input matrix mush have [Nxm] dimensions where
-m is the number of the marginals.
-:param X:</p>
-<blockquote>
-<div><p>Matrix of correlated data</p>
-</div></blockquote>
+<dd><p>Method for generating correlated samples.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>D</strong> – diagonal matrix which cointains the variances</p></li>
-<li><p><strong>S</strong> – covariance matrix</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of correlated samples required.</p></li>
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – Samples of correlated points from the marginals; of shape (N,M)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A correlation matrix R</p>
+<dd class="field-even"><p><strong>C</strong>: A numpy.ndarray of shape (N, M), which contains the correlated samples.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -234,15 +200,16 @@ m is the number of the marginals.
 <dl class="method">
 <dt id="equadratures.correlations.Correlations.get_uncorrelated_samples">
 <code class="descname">get_uncorrelated_samples</code><span class="sig-paren">(</span><em>N=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.get_uncorrelated_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.get_uncorrelated_samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for sampling uncorrelated data:
-:param integer N:</p>
-<blockquote>
-<div><p>represents the number of the samples inside a range</p>
-</div></blockquote>
+<dd><p>Method for generating uncorrelated samples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A N-by-M matrix, each i-th column contains the points
-which belong to the i-th distribution stored into list D.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of uncorrelated samples required.</p></li>
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – Samples of uncorrelated points from the marginals; of shape (N,M)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>C</strong>: A numpy.ndarray of shape (N, M), which contains the uncorrelated samples.</p>
 </dd>
 </dl>
 </dd></dl>

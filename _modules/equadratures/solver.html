@@ -154,7 +154,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;numerical-integration&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">orthogonal_linear_system</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;least-squares-with-gradients&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">constrained_least_squares</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">constrained_least_squares</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span></div>
 <span class="k">def</span> <span class="nf">least_squares</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
@@ -178,8 +178,28 @@
 <span class="k">def</span> <span class="nf">orthogonal_linear_system</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">coefficients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">coefficients</span>
-<span class="k">def</span> <span class="nf">constrained_least_squares</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">constrained_least_squares</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
+    <span class="c1"># Size of matrices!</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Check that the number of elements in b are equivalent to the number of rows in A</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">!=</span> <span class="n">p</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;solver: error: mismatch in sizes of A and b&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">s</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;solver: error: mismatch in sizes of C and d&#39;</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">least_squares</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">])),</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">])),</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="c1">#elif technique.lower() == &#39;direct-elimination&#39;:</span>
+    <span class="c1">#    x, cond = directElimination(C, d, A, b)</span>
+    <span class="c1">#elif technique.lower() == &#39;null-space&#39;:</span>
+    <span class="c1">#    x, cond = nullSpaceMethod(C, d, A, b)</span>
+    <span class="c1">#else:</span>
+    <span class="c1">#    raise(ValueError, &#39;solveCLSQ: Incorrect choice for technique. Choose between weighted, direct-elimination or null-space, please.&#39;)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="c1">#, cond</span>
+
 <span class="k">def</span> <span class="nf">basis_pursuit_denoising</span><span class="p">(</span><span class="n">Ao</span><span class="p">,</span> <span class="n">bo</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">Ao</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">bo</span><span class="p">)</span>
