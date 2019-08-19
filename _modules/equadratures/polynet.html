@@ -136,9 +136,20 @@
 
 <span class="sd">    :param numpy.ndarray sample_points: Sample training data inputs.</span>
 <span class="sd">    :param numpy.ndarray sample_outputs: Sample training data outputs.</span>
-<span class="sd">    :param int num_ridges: The number of ridges.</span>
+<span class="sd">    :param int num_ridges: The number of ridges used in the neural network/</span>
+<span class="sd">    :param int max_iters: The maximum number of iterations for the gradient descent optimisation algorithm.</span>
+<span class="sd">    :param double learning_rate: The learning rate used in the optimisation.</span>
+<span class="sd">    :param numpy.ndarray W: An initial ridge for the optimisation algorithm.</span>
+<span class="sd">    :param numpy.ndarray coeffs: Coefficients for the polynomial 1D-ridge functions.</span>
+<span class="sd">    :param string opt: The optimisation strategy used. Options include: ``sd`` for steepest descent, ``mom`` for a momentum-rate-based approach or ``adapt`` for an adaptive learning rate based approach.</span>
+<span class="sd">    :param double momentum_rate: The momentum rate used.</span>
+<span class="sd">    :param int poly_deg: The degree of the polynomials used throughout the neural network.</span>
+<span class="sd">    :param bool verbose: A verbose flag.</span>
 
 <span class="sd">    **Sample constructor initialisations**::</span>
+
+<span class="sd">        net = Polynet(X,Y,num_ridges,max_iters=20000, learning_rate=1e-4, momentum_rate=.001, opt=&#39;adapt&#39;)</span>
+<span class="sd">        net.fit()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_points</span><span class="p">,</span> <span class="n">sample_outputs</span><span class="p">,</span> <span class="n">num_ridges</span><span class="p">,</span> <span class="n">max_iters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
                  <span class="n">W</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coeffs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">momentum_rate</span> <span class="o">=</span> <span class="o">.</span><span class="mi">001</span><span class="p">,</span> <span class="n">opt</span> <span class="o">=</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="n">poly_deg</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
@@ -201,7 +212,17 @@
                 <span class="n">current_coeffs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">,:]</span>
                 <span class="n">reshaped_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">current_coeffs</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_coeffs</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly_array</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="n">reshaped_coeffs</span>
-    <span class="k">def</span> <span class="nf">evaluate_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Polynet.evaluate_fit"><a class="viewcode-back" href="../../_documentation/polynet.html#equadratures.polynet.Polynet.evaluate_fit">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluates the trained network on provided data.</span>
+
+<span class="sd">        :param Polynet self:</span>
+<span class="sd">            An instance of the Polynet object.</span>
+
+<span class="sd">        :param numpy.ndarray x:</span>
+<span class="sd">            A set of testing inputs of shape (M, d), where M represents the number of testing points and d the dimensionality of the input data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># evaluate nn</span>
         <span class="c1"># if train, update with training data and also updates Z</span>
         <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:]</span>
@@ -222,7 +243,7 @@
         <span class="k">if</span> <span class="n">train</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[:]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[:]</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_final</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_final</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
     <span class="k">def</span> <span class="nf">update_delta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># EBP</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta</span>
@@ -258,7 +279,14 @@
                 <span class="n">current_poly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly_array</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">i</span><span class="p">]</span>
                 <span class="n">phi</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">current_poly</span><span class="o">.</span><span class="n">get_poly</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[:]</span>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Polynet.fit"><a class="viewcode-back" href="../../_documentation/polynet.html#equadratures.polynet.Polynet.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trains the neural network on the data.</span>
+
+<span class="sd">        :param Polynet self:</span>
+<span class="sd">            An instance of the Polynet object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">W_change</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[:]</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iters</span><span class="p">):</span>
@@ -301,7 +329,7 @@
                 <span class="k">break</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">()</span> <span class="o">/</span> <span class="n">n_data</span> <span class="o">&lt;</span> <span class="mf">1e-4</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;per point loss is &lt; 0.0001, breaking&#39;</span><span class="p">)</span>
-                <span class="k">break</span>
+                <span class="k">break</span></div>
     <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluate_fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_points</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_outputs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">gradient_Wk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
