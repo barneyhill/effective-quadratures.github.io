@@ -68,6 +68,8 @@
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
@@ -123,11 +125,11 @@
       
   <div class="section" id="polynomial-surrogate-optimisation">
 <h1>Polynomial surrogate optimisation<a class="headerlink" href="#polynomial-surrogate-optimisation" title="Permalink to this headline">¶</a></h1>
-<p>In this tutorial, we demonstrate how one may perform optimization of orthogonal polynomials constructed in Effective Quadratures. Orthogonal polynomials <span class="math notranslate nohighlight">\(\psi_{i}\)</span> and their derivatives <span class="math notranslate nohighlight">\(\psi_{i}^{(d)}\)</span> may be found using the standard four-term recurrence</p>
+<p>In this tutorial, we demonstrate how one may perform optimisation of orthogonal polynomials constructed in Effective Quadratures. Orthogonal polynomials <span class="math notranslate nohighlight">\(\psi_{i}\)</span> and their derivatives <span class="math notranslate nohighlight">\(\psi_{i}^{(d)}\)</span> may be found using the standard four-term recurrence</p>
 <div class="math notranslate nohighlight">
 \[\sqrt{\beta_{i+1}} \psi_{i+1}^{(d)} = (r-\alpha_i) \psi_i^{(d)} - \sqrt{\beta_i} \psi_{i-1}^{(d)} + d \psi_i^{(d-1)}\]</div>
-<p>for <span class="math notranslate nohighlight">\(d,i \geq 0\)</span> where <span class="math notranslate nohighlight">\(\psi_i^{(d)} \equiv 0\)</span> for <span class="math notranslate nohighlight">\(n &lt; d, n &lt; 0\)</span>. The recurrence coefficients <span class="math notranslate nohighlight">\(\alpha_i, \beta_i\)</span>, whose values are determined by the user-specified distribution of the weight function, indicate the class of orthogonal polynomial <span class="math notranslate nohighlight">\(\psi_{i}\)</span>. Using this recurrence relation, derivatives of all orders may be calculated by Effective Quadratures very efficiently, allowing the user to have easy access to gradient information for optimization of orthogonal polynomials. Effective Quadratures has a built-in <code class="code docutils literal notranslate"><span class="pre">Optimization</span></code> class that will calculate derivatives of orthogonal polynomials and perform optimization using the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">minimize</a> method from <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">Scipy optimize</a>.</p>
-<p>To demonstrate a simple example, we consider the following constrained optimization problem:</p>
+<p>for <span class="math notranslate nohighlight">\(d,i \geq 0\)</span> where <span class="math notranslate nohighlight">\(\psi_i^{(d)} \equiv 0\)</span> for <span class="math notranslate nohighlight">\(n &lt; d, n &lt; 0\)</span>. The recurrence coefficients <span class="math notranslate nohighlight">\(\alpha_i, \beta_i\)</span>, whose values are determined by the user-specified distribution of the weight function, indicate the class of orthogonal polynomial <span class="math notranslate nohighlight">\(\psi_{i}\)</span>. Using this recurrence relation, derivatives of all orders may be calculated by Effective Quadratures very efficiently, allowing the user to have easy access to gradient information for optimisation of orthogonal polynomials. Effective Quadratures has a built-in <code class="code docutils literal notranslate"><span class="pre">Optimisation</span></code> class that will calculate derivatives of orthogonal polynomials and perform optimisation using the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">minimize</a> method from <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">Scipy optimize</a>.</p>
+<p>To demonstrate a simple example, we consider the following constrained optimisation problem:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 \min_{x,y}      \quad           &amp; (1-x)^2 + 100(y-x^2)^2        \\
@@ -181,9 +183,9 @@
 <a class="reference internal image-reference" href="../_images/Rosenbrock.png"><img alt="../_images/Rosenbrock.png" src="../_images/Rosenbrock.png" style="width: 581.4px; height: 386.4px;" /></a>
 <p class="caption"><span class="caption-text">Figure. Contours of the objective function.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-<p>Now that the nonlinear functions have been constructed using orthogonal polynomials, we can use <code class="code docutils literal notranslate"><span class="pre">Optimization</span></code> to solve the aforementioned optimization problem.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialise optimization problem by specifying optimization method</span>
-<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
+<p>Now that the nonlinear functions have been constructed using orthogonal polynomials, we can use <code class="code docutils literal notranslate"><span class="pre">Optimisation</span></code> to solve the aforementioned optimisation problem.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Initialise optimisation problem by specifying optimisation method</span>
+<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimisation</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add nonlinear inequality constraints lb &lt;= g1poly &lt;= ub</span>
@@ -192,14 +194,14 @@
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_linear_eq_con</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">]))</span>
 <span class="c1">#Add lower and upper bounds</span>
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_bounds</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<span class="c1">#Initialize starting point</span>
+<span class="c1">#Initialise starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="c1">#Solve optimisation problem</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above code returns the solution <span class="math notranslate nohighlight">\(-2.13e-14\)</span> found at <span class="math notranslate nohighlight">\(x = [1,1]\)</span>, which very closely responds to the true optimal solution of <span class="math notranslate nohighlight">\(0\)</span>.</p>
-<p>Alternatively, if one already has access to function and derivatives and does not want to construct a <code class="code docutils literal notranslate"><span class="pre">Polyreg</span></code> object for the function, user-provided functions may be supplied to the optimization routine. The following code demonstrates how to do this for the first constraint of the same optimization problem.</p>
+<p>Alternatively, if one already has access to function and derivatives and does not want to construct a <code class="code docutils literal notranslate"><span class="pre">Polyreg</span></code> object for the function, user-provided functions may be supplied to the optimisation routine. The following code demonstrates how to do this for the first constraint of the same optimisation problem.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ConFun1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -218,8 +220,8 @@
 <span class="n">g1Func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">g1Grad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1_Deriv</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 <span class="n">g1Hess</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">ConFun1_Hess</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-<span class="c1">#Initialise optimization problem by specifying optimization method</span>
-<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
+<span class="c1">#Initialise optimisation problem by specifying optimization method</span>
+<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimisation</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add lower and upper bounds</span>
@@ -230,19 +232,19 @@
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_nonlinear_ineq_con</span><span class="p">(</span><span class="n">custom</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="n">g1Func</span><span class="p">,</span> <span class="s1">&#39;jac_function&#39;</span><span class="p">:</span> <span class="n">g1Grad</span><span class="p">,</span> <span class="s1">&#39;hessFunction&#39;</span><span class="p">:</span> <span class="n">g1Hess</span><span class="p">)</span>
 <span class="c1">#Initialize starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="c1">#Solve optimisation problem</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The above code returns the solution <span class="math notranslate nohighlight">\(4.76e-14\)</span> found at <span class="math notranslate nohighlight">\(x = [1,1]\)</span>.</p>
-<p>The main benefit of using Effective Quadratures for optimization is best realized in cases where derivatives are not known a priori or are very expensive to calculate. Such situations are commonplace in the scientific community e.g. for ‘black-box’ functions whose values are obtained through the use of expensive computer simulations. Derivative-free optimization strategies, such as stochastic optimization or trust-region methods, may be used in such situations; however, the number of function evaluations required may be prohibitively high in some cases. On the other hand, using Effective Quadratures, one can readily construct surrogate models of the function of interest using orthogonal polynomials and then optimize over the surrogate to approximate the optimal solution.</p>
-<p>To demonstrate this, we consider the following constrained optimization problem:</p>
+<p>The main benefit of using Effective Quadratures for optimisation is best realized in cases where derivatives are not known a priori or are very expensive to calculate. Such situations are commonplace in the scientific community e.g. for ‘black-box’ functions whose values are obtained through the use of expensive computer simulations. Derivative-free optimisation strategies, such as stochastic optimisation or trust-region methods, may be used in such situations; however, the number of function evaluations required may be prohibitively high in some cases. On the other hand, using Effective Quadratures, one can readily construct surrogate models of the function of interest using orthogonal polynomials and then optimise over the surrogate to approximate the optimal solution.</p>
+<p>To demonstrate this, we consider the following constrained optimisation problem:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 \min_{x,y}      \quad           &amp; (1-x)^2 + 100(y-x^2)^2        \\
 \textrm{ subject to }   &amp; x^2 + y^2 \leq 2.
 \end{eqnarray}\end{split}\]</div>
-<p>Although, the gradients of these functions can be easily calculated analytically, we will show that if a derivative-free optimization strategy is used, the number of function evaluations can be prohibitively high.</p>
+<p>Although, the gradients of these functions can be easily calculated analytically, we will show that if a derivative-free optimisation strategy is used, the number of function evaluations can be prohibitively high.</p>
 <p>The new constraint can be defined using the following</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ConFun2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -251,7 +253,7 @@
     <span class="k">return</span> <span class="n">g</span>
 </pre></div>
 </div>
-<p>and using <a class="reference external" href="https://en.wikipedia.org/wiki/COBYLA">COBYLA</a> (a very common derivative-free optimization strategy), we can find a solution to this optimization problem using the following code:</p>
+<p>and using <a class="reference external" href="https://en.wikipedia.org/wiki/COBYLA">COBYLA</a> (a very common derivative-free optimisation strategy), we can find a solution to this optimisation problem using the following code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">constraints</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ConFun2</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">}</span>
 <span class="n">sol2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ObjFun</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;COBYLA&#39;</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
 </pre></div>
@@ -264,27 +266,27 @@
 <span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
 <span class="n">g2poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">g2Parameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">g2</span><span class="p">})</span>
 
-<span class="c1">#Initialise optimization problem by specifying optimization method</span>
-<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
+<span class="c1">#Initialise optimization problem by specifying optimisation method</span>
+<span class="n">Opt</span> <span class="o">=</span> <span class="n">Optimisation</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;trust-constr&#39;</span><span class="p">)</span>
 <span class="c1">#Add objective function by specifying Poly object</span>
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="n">Poly</span><span class="o">=</span><span class="n">fpoly</span><span class="p">)</span>
 <span class="c1">#Add nonlinear inequality constraints lb &lt;= g2poly &lt;= ub</span>
 <span class="n">Opt</span><span class="o">.</span><span class="n">add_nonlinear_ineq_con</span><span class="p">(</span><span class="n">poly</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;poly&#39;</span><span class="p">:</span> <span class="n">g2poly</span><span class="p">,</span> <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]})</span>
 <span class="c1">#Initialize starting point</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="c1">#Solve optimization problem</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimize_poly</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="c1">#Solve optimisation problem</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">Opt</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="colwidths-given docutils align-center" id="id2">
-<caption><span class="caption-text">Optimization results</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Optimisation results</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Optimization strategy</p></th>
+<tr class="row-odd"><th class="head"><p>Optimisation strategy</p></th>
 <th class="head"><p>Function evaluations</p></th>
 <th class="head"><p>Solution</p></th>
 </tr>
@@ -300,7 +302,7 @@
 </tr>
 </tbody>
 </table>
-<p>The above table demonstrates the possible benefits of using Effective Quadratures for surrogate-based optimization, as a better solution is obtained with fewer function evaluations. It should be noted that the effectiveness of this approach is highly dependent on the accuracy of the surrogate models. In this rather contrived example, orthogonal polynomials defined over the domain of interest provide a very good approximation of the true function; however, in many other cases, this is not necessarily true. To mitigate this, Effective Quadratures may be coupled with a trust-region method to construct local polynomial approximations, thereby increasing the accuracy in smaller regions of interest.</p>
+<p>The above table demonstrates the possible benefits of using Effective Quadratures for surrogate-based optimisation, as a better solution is obtained with fewer function evaluations. It should be noted that the effectiveness of this approach is highly dependent on the accuracy of the surrogate models. In this rather contrived example, orthogonal polynomials defined over the domain of interest provide a very good approximation of the true function; however, in many other cases, this is not necessarily true. To mitigate this, Effective Quadratures may be coupled with a trust-region method to construct local polynomial approximations, thereby increasing the accuracy in smaller regions of interest.</p>
 </div>
 
 
