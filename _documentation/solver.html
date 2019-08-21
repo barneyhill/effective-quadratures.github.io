@@ -128,13 +128,11 @@
 <dl class="class">
 <dt id="equadratures.solver.Solver">
 <em class="property">class </em><code class="descclassname">equadratures.solver.</code><code class="descname">Solver</code><span class="sig-paren">(</span><em>method</em>, <em>solver_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/solver.html#Solver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.solver.Solver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns solver functions for solving Ax=b</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<em>string</em>) – The method used for solving the linear system. Options include: <code class="docutils literal notranslate"><span class="pre">compressed-sensing</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>, <code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code> and <code class="docutils literal notranslate"><span class="pre">least-squares-with-gradients</span></code>.</p></li>
-<li><p><strong>solver_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific solver.</p>
-<dl class="field-list simple">
+<dd><p>Returns solver functions for solving Ax=b
+:param string method: The method used for solving the linear system. Options include: <code class="docutils literal notranslate"><span class="pre">compressed-sensing</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>, <code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code> and <code class="docutils literal notranslate"><span class="pre">least-squares-with-gradients</span></code>.
+:param dict solver_args: Optional arguments centered around the specific solver.</p>
+<blockquote>
+<div><dl class="field-list simple">
 <dt class="field-odd">param numpy.ndarray noise-level</dt>
 <dd class="field-odd"><p>The noise-level to be used in the basis pursuit de-noising solver.</p>
 </dd>
@@ -142,10 +140,7 @@
 <dd class="field-even"><p>Default value of this input is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; when <code class="docutils literal notranslate"><span class="pre">True</span></code> a string is printed to the screen detailing the solver convergence and condition number of the matrix.</p>
 </dd>
 </dl>
-</p></li>
-</ul>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 </div>

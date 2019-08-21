@@ -658,7 +658,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
         <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="c1">#Use the params list to establish the Poly object</span>
-    <span class="n">Polybasis</span><span class="o">=</span><span class="n">Poly</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">Object</span><span class="p">)</span>
+    <span class="n">Polybasis</span><span class="o">=</span><span class="n">Poly</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">Object</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">)</span>
     <span class="n">V</span><span class="o">=</span><span class="n">Polybasis</span><span class="o">.</span><span class="n">get_poly</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span>
     <span class="n">V</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">V</span><span class="p">,</span><span class="n">Polybasis</span>
