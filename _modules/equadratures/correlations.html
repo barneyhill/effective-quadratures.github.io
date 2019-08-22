@@ -125,33 +125,30 @@
   <h1>Source code for equadratures.correlations</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Utilities for dealing with correlated inputs.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">equadratures.parameter</span> <span class="k">import</span> <span class="n">Parameter</span>
-<span class="kn">from</span> <span class="nn">equadratures.poly</span> <span class="k">import</span> <span class="n">Poly</span>
+<span class="kn">from</span> <span class="nn">equadratures.poly</span> <span class="k">import</span> <span class="n">Poly</span><span class="p">,</span> <span class="n">evaluate_model</span><span class="p">,</span> <span class="n">evaluate_model_gradients</span>
 <span class="kn">from</span> <span class="nn">equadratures.basis</span> <span class="k">import</span> <span class="n">Basis</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">optimize</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 
 <div class="viewcode-block" id="Correlations"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations">[docs]</a><span class="k">class</span> <span class="nc">Correlations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class defines a Nataf transformation. The input correlated marginals are mapped from their physical space to a new</span>
 <span class="sd">    standard normal space, in which points are uncorrelated.</span>
 
-<span class="sd">    :param list D: List of parameters (distributions), interpreted here as the marginals.</span>
-<span class="sd">    :param numpy.ndarray R: The correlation matrix associated with the joint distribution.</span>
+<span class="sd">    :param Poly poly: A polynomial object.</span>
+<span class="sd">    :param numpy.ndarray correlation_matrix: The correlation matrix associated with the joint distribution.</span>
 
 <span class="sd">    **References**</span>
 <span class="sd">        1. Melchers, R. E., (1945) Structural Reliability Analysis and Predictions. John Wiley and Sons, second edition.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">D</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Distributions must be given&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
-        <span class="k">if</span> <span class="n">R</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Correlation matrix must be specified&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poly</span> <span class="o">=</span> <span class="n">poly</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">correlation_matrix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">std</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span><span class="n">shape_parameter_A</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shape_parameter_B</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span>
         <span class="n">inf_lim</span> <span class="o">=</span> <span class="o">-</span><span class="mf">8.0</span>
         <span class="n">sup_lim</span> <span class="o">=</span> <span class="o">-</span> <span class="n">inf_lim</span>
@@ -160,10 +157,8 @@
         <span class="n">Pols</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">([</span><span class="n">p1</span><span class="p">,</span> <span class="n">p1</span><span class="p">],</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">Pols</span><span class="o">.</span><span class="n">get_points</span><span class="p">()</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">Pols</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">sup_lim</span> <span class="o">-</span> <span class="n">inf_lim</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-
         <span class="n">p1</span> <span class="o">=</span> <span class="n">p</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">p2</span> <span class="o">=</span> <span class="n">p</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-
         <span class="n">R0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
@@ -193,10 +188,64 @@
                   <span class="n">R0</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">R0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">R0</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Cholesky decomposition of fictive matrix R0 is:&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The fictive matrix is:&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">R0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Cholesky decomposition of fictive matrix R0 is:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The fictive matrix is:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">R0</span><span class="p">)</span>
+        <span class="n">list_of_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
+            <span class="n">standard_parameter</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">shape_parameter_A</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">shape_parameter_B</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">)</span>
+            <span class="n">list_of_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">standard_parameter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span><span class="o">.</span><span class="n">_set_parameters</span><span class="p">(</span><span class="n">list_of_parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">standard_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span><span class="o">.</span><span class="n">get_points</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_correlated_from_uncorrelated</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">standard_samples</span><span class="p">)</span>
+<div class="viewcode-block" id="Correlations.get_points"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_points">[docs]</a>    <span class="k">def</span> <span class="nf">get_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the correlated samples based on the quadrature rules used in poly.</span>
+
+<span class="sd">        :param Correlations self: An instance of the Correlations object.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **points**: A numpy.ndarray of sampled quadrature points with shape (number_of_samples, dimension).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span></div>
+<div class="viewcode-block" id="Correlations.set_model"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.set_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model_grads</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the coefficients of the polynomial.</span>
+
+<span class="sd">        :param Correlations self:</span>
+<span class="sd">            An instance of the Correlations class.</span>
+<span class="sd">        :param callable model:</span>
+<span class="sd">            The function that needs to be approximated. In the absence of a callable function, the input can be the function evaluated at the quadrature points.</span>
+<span class="sd">        :param callable model_grads:</span>
+<span class="sd">            The gradient of the function that needs to be approximated. In the absence of a callable gradient function, the input can be a matrix of gradient evaluations at the quadrature points.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model_values</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">model_grads_values</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+            <span class="n">model_values</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model_values</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="k">if</span> <span class="n">model_grads</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">model_grads</span><span class="p">):</span>
+                <span class="n">model_grads_values</span> <span class="o">=</span> <span class="n">evaluate_model_gradients</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">,</span> <span class="n">model_grads</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">model_grads_values</span> <span class="o">=</span> <span class="n">model_grads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span><span class="o">.</span><span class="n">set_model</span><span class="p">(</span><span class="n">model_values</span><span class="p">,</span> <span class="n">model_grads_values</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Correlations.get_transformed_poly"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_transformed_poly">[docs]</a>    <span class="k">def</span> <span class="nf">get_transformed_poly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformed polynomial.</span>
+
+<span class="sd">        :param Correlations self:</span>
+<span class="sd">            An instance of the Correlations class.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            **poly**: An instance of the Poly class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span></div>
 <div class="viewcode-block" id="Correlations.get_uncorrelated_from_correlated"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_from_correlated">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncorrelated_from_correlated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for mapping correlated variables to a new standard space.</span>

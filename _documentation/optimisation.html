@@ -130,62 +130,69 @@
 <dl class="class">
 <dt id="equadratures.optimisation.Optimisation">
 <em class="property">class </em><code class="descclassname">equadratures.optimisation.</code><code class="descname">Optimisation</code><span class="sig-paren">(</span><em>method='trust-constr'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class performs unconstrained or constrained optimisation of poly objects or custom functions 
+<dd><p>This class performs unconstrained or constrained optimisation of poly objects or custom functions
 using scipy.optimize.minimize or an in-house trust-region method.
-:param string method:</p>
-<blockquote>
-<div><p>A string specifying the method that will be used for optimisation. All of the available choices come from scipy.optimize.minimize
-(<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">click here</a> for a list of methods and further information).
-In the case of general constrained optimisation, the options are <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code>, and <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>. The default is <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>.</p>
-</div></blockquote>
+:param string method: A string specifying the method that will be used for optimisation. All of the available choices come from scipy.optimize.minimize (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">click here</a> for a list of methods and further information). In the case of general constrained optimisation, the options are <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code>, and <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>. The default is <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>.</p>
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.add_bounds">
 <code class="descname">add_bounds</code><span class="sig-paren">(</span><em>lb</em>, <em>ub</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_bounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds bounds <span class="math notranslate nohighlight">\(lb &lt;= x &lt;=ub\)</span> to the optimisation problem. Only <code class="docutils literal notranslate"><span class="pre">L-BFGS-B</span></code>, <code class="docutils literal notranslate"><span class="pre">TNC</span></code>, <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code>, <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>, <code class="docutils literal notranslate"><span class="pre">trust-region</span></code>, and <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code> methods can handle bounds.
-:param numpy.ndarray lb: 1-by-n matrix that contains lower bounds of x.
-:param numpy.ndarray ub: 1-by-n matrix that contains upper bounds of x.</p>
+<dd><p>Adds bounds <span class="math notranslate nohighlight">\(lb &lt;= x &lt;=ub\)</span> to the optimisation problem. Only <code class="docutils literal notranslate"><span class="pre">L-BFGS-B</span></code>, <code class="docutils literal notranslate"><span class="pre">TNC</span></code>, <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code>, <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>, <code class="docutils literal notranslate"><span class="pre">trust-region</span></code>, and <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code> methods can handle bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lb</strong> (<em>numpy.ndarray</em>) – 1-by-n matrix that contains lower bounds of x.</p></li>
+<li><p><strong>ub</strong> (<em>numpy.ndarray</em>) – 1-by-n matrix that contains upper bounds of x.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.add_linear_eq_con">
 <code class="descname">add_linear_eq_con</code><span class="sig-paren">(</span><em>A</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_linear_eq_con"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_linear_eq_con" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds linear equality constraints  <span class="math notranslate nohighlight">\(Ax = b\)</span> to the optimisation routine. Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code> and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle equality constraints.
-:param numpy.ndarray A: A (M, n) matrix that contains coefficients of the linear equality constraints.
-:param numpy.ndarray b: A (M, 1) matrix that specifies right hand side of the linear equality constraints.</p>
+<dd><p>Adds linear equality constraints  <span class="math notranslate nohighlight">\(Ax = b\)</span> to the optimisation routine. Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code> and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle equality constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – A (M, n) matrix that contains coefficients of the linear equality constraints.</p></li>
+<li><p><strong>b</strong> (<em>numpy.ndarray</em>) – A (M, 1) matrix that specifies right hand side of the linear equality constraints.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.add_linear_ineq_con">
 <code class="descname">add_linear_ineq_con</code><span class="sig-paren">(</span><em>A</em>, <em>b_l</em>, <em>b_u</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_linear_ineq_con"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_linear_ineq_con" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds linear inequality constraints <span class="math notranslate nohighlight">\(b_l &lt;= A x &lt;= b_u\)</span> to the optimisation problem.
-Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>, <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle general constraints.
-:param numpy.ndarray A: An (M,n) matrix that contains coefficients of the linear inequality constraints.
-:param numpy.ndarray b_l: An (M,1) matrix that specifies lower bounds of the linear inequality constraints. If there is no lower bound, set <code class="docutils literal notranslate"><span class="pre">b_l</span> <span class="pre">=</span> <span class="pre">-np.inf</span> <span class="pre">*</span> <span class="pre">np.ones(M)</span></code>.
-:param numpy.ndarray b_u: A (M,1) matrix that specifies upper bounds of the linear inequality constraints. If there is no upper bound, set <code class="docutils literal notranslate"><span class="pre">b_u</span> <span class="pre">=</span> <span class="pre">np.inf</span> <span class="pre">*</span> <span class="pre">np.ones(M)</span></code>.</p>
+Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>, <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle general constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – An (M,n) matrix that contains coefficients of the linear inequality constraints.</p></li>
+<li><p><strong>b_l</strong> (<em>numpy.ndarray</em>) – An (M,1) matrix that specifies lower bounds of the linear inequality constraints. If there is no lower bound, set <code class="docutils literal notranslate"><span class="pre">b_l</span> <span class="pre">=</span> <span class="pre">-np.inf</span> <span class="pre">*</span> <span class="pre">np.ones(M)</span></code>.</p></li>
+<li><p><strong>b_u</strong> (<em>numpy.ndarray</em>) – A (M,1) matrix that specifies upper bounds of the linear inequality constraints. If there is no upper bound, set <code class="docutils literal notranslate"><span class="pre">b_u</span> <span class="pre">=</span> <span class="pre">np.inf</span> <span class="pre">*</span> <span class="pre">np.ones(M)</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.add_nonlinear_eq_con">
 <code class="descname">add_nonlinear_eq_con</code><span class="sig-paren">(</span><em>poly=None</em>, <em>custom=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_nonlinear_eq_con"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_nonlinear_eq_con" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds nonlinear inequality constraints <span class="math notranslate nohighlight">\(g(x) = value\)</span> (for poly option) or <span class="math notranslate nohighlight">\(g(x) = 0\)</span> (for function option) to the optimisation routine.
-Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code> and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle equality constraints. If poly object is providedin the poly dictionary, gradients and Hessians will be computed automatically.
-:param dict poly: Arguments for poly dictionary.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param Poly poly</dt>
-<dd class="field-odd"><p>An instance of the Poly class.</p>
-</dd>
-<dt class="field-even">param float value</dt>
-<dd class="field-even"><p>Value of the nonlinear constraint.</p>
-</dd>
-</dl>
-</div></blockquote>
+Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code> and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle equality constraints. If poly object is providedin the poly dictionary, gradients and Hessians will be computed automatically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Arguments for poly dictionary.
+:param Poly poly: An instance of the Poly class.
+:param float value: Value of the nonlinear constraint.</p></li>
+<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
 :callable function: The constraint function to be called.
 :callable jac_function: The gradient (or derivative) of the constraint.
-:callable hess_function: The Hessian of the constraint function.</p>
+:callable hess_function: The Hessian of the constraint function.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -195,24 +202,18 @@ Only <code class="docutils literal notranslate"><span class="pre">trust-constr</
 <code class="descname">add_nonlinear_ineq_con</code><span class="sig-paren">(</span><em>poly=None</em>, <em>custom=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_nonlinear_ineq_con"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_nonlinear_ineq_con" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds nonlinear inequality constraints <span class="math notranslate nohighlight">\(lb &lt;= g(x) &lt;= ub\)</span> (for poly option) with <span class="math notranslate nohighlight">\(lb\)</span>, <span class="math notranslate nohighlight">\(ub = bounds\)</span> or <span class="math notranslate nohighlight">\(g(x) &gt;= 0\)</span> (for function option) to the optimisation problem. Only <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>, <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, and <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code> methods can handle general constraints.
 If Poly object is provided in the poly dictionary, gradients and Hessians will be computed automatically. If a lambda function is provided in the <code class="docutils literal notranslate"><span class="pre">function</span></code> dictionary, the user may also provide <code class="docutils literal notranslate"><span class="pre">jac_function</span></code> for gradients and <code class="docutils literal notranslate"><span class="pre">hess_function</span></code> for Hessians; otherwise, a 2-point differentiation rule
-will be used to approximate the derivative and a BFGS update will be used to approximate the Hessian.
-:param dict poly: Arguments for poly dictionary.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param Poly poly</dt>
-<dd class="field-odd"><p>An instance of the Poly class.</p>
-</dd>
-<dt class="field-even">param numpy.ndarray bounds</dt>
-<dd class="field-even"><p>An array with two entries specifying the lower and upper bounds of the inequality. If there is no lower bound, set bounds[0] = -np.inf.If there is no upper bound, set bounds[1] = np.inf.</p>
-</dd>
-</dl>
-</div></blockquote>
+will be used to approximate the derivative and a BFGS update will be used to approximate the Hessian.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Arguments for poly dictionary.
+:param Poly poly: An instance of the Poly class.
+:param numpy.ndarray bounds: An array with two entries specifying the lower and upper bounds of the inequality. If there is no lower bound, set bounds[0] = -np.inf.If there is no upper bound, set bounds[1] = np.inf.</p></li>
+<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
 :callable function: The constraint function to be called.
 :callable jac_function: The gradient (or derivative) of the constraint.
-:callable hess_function: The Hessian of the constraint function.</p>
+:callable hess_function: The Hessian of the constraint function.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -220,14 +221,11 @@ will be used to approximate the derivative and a BFGS update will be used to app
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.add_objective">
 <code class="descname">add_objective</code><span class="sig-paren">(</span><em>poly=None</em>, <em>custom=None</em>, <em>maximise=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.add_objective"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.add_objective" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds objective function to be optimised.
-:param poly poly:</p>
-<blockquote>
-<div><p>A Poly object.</p>
-</div></blockquote>
+<dd><p>Adds objective function to be optimised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>poly</strong> (<em>poly</em>) – A Poly object.</p></li>
 <li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Optional arguments centered around the custom option.
 :callable function: The objective function to be called.
 :callable jac_function: The gradient (or derivative) of the objective.
@@ -242,13 +240,16 @@ will be used to approximate the derivative and a BFGS update will be used to app
 <dt id="equadratures.optimisation.Optimisation.optimise">
 <code class="descname">optimise</code><span class="sig-paren">(</span><em>x0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.optimise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.optimise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs optimisation on a specified function, provided the objective has been added using ‘add_objective’ method
-and constraints have been added using the relevant method.
-:param numpy.ndarray x0: Starting point for optimiser.
-:return:</p>
-<blockquote>
-<div><p><strong>sol</strong>: An object containing the optimisation result. Important attributes are: the solution array <code class="docutils literal notranslate"><span class="pre">x</span></code>, a Boolean flag <code class="docutils literal notranslate"><span class="pre">success</span></code> indicating
+and constraints have been added using the relevant method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x0</strong> (<em>numpy.ndarray</em>) – Starting point for optimiser.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sol</strong>: An object containing the optimisation result. Important attributes are: the solution array <code class="docutils literal notranslate"><span class="pre">x</span></code>, a Boolean flag <code class="docutils literal notranslate"><span class="pre">success</span></code> indicating
 if the optimiser exited successfully, and a doc-string <code class="docutils literal notranslate"><span class="pre">message</span></code> describing the cause of the termination.</p>
-</div></blockquote>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

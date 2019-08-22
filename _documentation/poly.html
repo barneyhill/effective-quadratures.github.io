@@ -137,7 +137,7 @@
 <li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of parameters, where each element of the list is an instance of the Parameter class.</p></li>
 <li><p><strong>basis</strong> (<a class="reference internal" href="basis.html#equadratures.basis.Basis" title="equadratures.basis.Basis"><em>Basis</em></a>) – An instance of the Basis class corresponding to the multi-index set used.</p></li>
 <li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The method used for computing the coefficients. Should be one of: <code class="docutils literal notranslate"><span class="pre">compressive-sensing</span></code>,
-<code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code> or <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">numerical-integration</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares</span></code>, <code class="docutils literal notranslate"><span class="pre">least-squares-with-gradients</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum-norm</span></code>.</p></li>
 <li><p><strong>sampling_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – <p>Optional arguments centered around the specific sampling strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">string mesh</dt>
@@ -288,6 +288,17 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>multi_indices</strong>: A numpy.ndarray of the coefficients with size (cardinality_of_basis, dimensions).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="equadratures.poly.Poly.get_parameters">
+<code class="descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#equadratures.poly.Poly" title="equadratures.poly.Poly"><em>Poly</em></a>) – An instance of the Poly object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -508,7 +519,7 @@ Hessian must be evaluated at.</p></li>
 
 <dl class="method">
 <dt id="equadratures.poly.Poly.get_summary">
-<code class="descname">get_summary</code><span class="sig-paren">(</span><em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_summary" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_summary</code><span class="sig-paren">(</span><em>filename=None</em>, <em>tosay=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/poly.html#Poly.get_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.poly.Poly.get_summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple utility that returns file summarising what the polynomial approximation has determined.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
