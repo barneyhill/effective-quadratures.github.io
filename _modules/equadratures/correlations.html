@@ -246,35 +246,6 @@
 <span class="sd">            **poly**: An instance of the Poly class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">polystandard</span></div>
-<div class="viewcode-block" id="Correlations.get_uncorrelated_from_correlated"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_from_correlated">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncorrelated_from_correlated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method for mapping correlated variables to a new standard space.</span>
-
-<span class="sd">        :param Correlations self: An instance of the Correlations object.</span>
-<span class="sd">        :param numpy.ndarray X: A numpy ndarray of shape (N,M) where input marginals are organized along columns; M represents the number of correlated marginals</span>
-
-<span class="sd">        :return:</span>
-<span class="sd">            **xu**: A numpy.ndarray of shape (N, M), which contains standardized uncorrelated data. The transformation of each i-th input marginal is stored along the i-th column of the output matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
-                <span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_cdf</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">):</span>
-                    <span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">):</span>
-                    <span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-        <span class="n">sU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
-                <span class="n">sU</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">get_icdf</span><span class="p">(</span><span class="n">w1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
-        <span class="n">sU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sU</span><span class="p">)</span>
-        <span class="n">sU</span> <span class="o">=</span> <span class="n">sU</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">xu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">,</span><span class="n">sU</span><span class="p">)</span>
-        <span class="n">xu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xu</span><span class="p">)</span>
-        <span class="n">xu</span> <span class="o">=</span> <span class="n">xu</span><span class="o">.</span><span class="n">T</span>
-        <span class="k">return</span> <span class="n">xu</span></div>
 <div class="viewcode-block" id="Correlations.get_correlated_from_uncorrelated"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_from_uncorrelated">[docs]</a>    <span class="k">def</span> <span class="nf">get_correlated_from_uncorrelated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for mapping uncorrelated variables from standard normal space to a new physical space in which variables are correlated.</span>
@@ -304,35 +275,6 @@
                 <span class="n">t</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">Xc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
         <span class="k">return</span> <span class="n">Xc</span></div>
-<div class="viewcode-block" id="Correlations.get_uncorrelated_samples"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_uncorrelated_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncorrelated_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method for generating uncorrelated samples.</span>
-
-<span class="sd">        :param int N: Number of uncorrelated samples required.</span>
-<span class="sd">        :param numpy.ndarray X: Samples of uncorrelated points from the marginals; of shape (N,M)</span>
-
-<span class="sd">        :return:</span>
-<span class="sd">            **C**: A numpy.ndarray of shape (N, M), which contains the uncorrelated samples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">distro</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)):</span>
-                    <span class="n">distro1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-
-                    <span class="c1"># check dimensions ------------------#</span>
-                    <span class="n">distro1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">distro1</span><span class="p">)</span>
-                    <span class="n">dimension</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">distro1</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">dimension</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">N</span><span class="p">:</span>
-                        <span class="n">distro1</span> <span class="o">=</span> <span class="n">distro1</span><span class="o">.</span><span class="n">T</span>
-                    <span class="c1">#------------------------------------#</span>
-                    <span class="n">distro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distro1</span><span class="p">)</span>
-
-            <span class="n">distro</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">distro</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">),</span><span class="n">N</span><span class="p">))</span>
-            <span class="n">distro</span> <span class="o">=</span> <span class="n">distro</span><span class="o">.</span><span class="n">T</span>
-
-        <span class="k">else</span><span class="p">:</span>
-             <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;One input must be given to &quot;get Correlated Samples&quot; method&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">distro</span></div>
 <div class="viewcode-block" id="Correlations.get_correlated_samples"><a class="viewcode-back" href="../../_documentation/correlated.html#equadratures.correlations.Correlations.get_correlated_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_correlated_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for generating correlated samples.</span>

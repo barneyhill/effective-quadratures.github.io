@@ -149,6 +149,7 @@
 <span class="sd">            :float sampling-ratio: Denotes the extent of undersampling or oversampling required. For values equal to unity (default), the number of rows and columns of the associated Vandermonde-type matrix are equal.</span>
 <span class="sd">            :numpy.ndarray sample-points: A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</span>
 <span class="sd">            :numpy.ndarray sample-outputs: A numpy ndarray with shape (number_of_observations, 1) that corresponds to model evaluations at the sample points. Note that if ``sample-points`` is provided as an input, then the code expects ``sample-outputs`` too.</span>
+<span class="sd">            :numpy.ndarray sample-gradients: A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample gradient values over the parameter space.</span>
 <span class="sd">    :param dict solver_args: Optional arguments centered around the specific solver used for computing the coefficients.</span>
 
 <span class="sd">            :numpy.ndarray noise-level: The noise level to be used. Can take in both scalar- and vector-valued inputs.</span>
@@ -223,14 +224,29 @@
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;minimum-norm&#39;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="s1">&#39;monte-carlo&#39;</span>
             <span class="c1"># Now depending on user inputs, override these default values!</span>
+            <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s1">&#39;mesh&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mesh&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s1">&#39;sampling-ratio&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sampling-ratio&#39;</span><span class="p">))</span>
-                <span class="k">if</span> <span class="s1">&#39;subsampling-algorithm&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsampling_algorithm_name</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;mesh&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mesh&#39;</span><span class="p">)</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="s1">&#39;sampling-ratio&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sampling_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sampling-ratio&#39;</span><span class="p">))</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="s1">&#39;subsampling-algorithm&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">subsampling_algorithm_name</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">)</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="k">if</span> <span class="s1">&#39;sample-points&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample-points&#39;</span><span class="p">)</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="s1">&#39;user-defined&#39;</span>
-                <span class="k">if</span> <span class="s1">&#39;sample-outputs&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample-outputs&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;sample-outputs&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample-outputs&#39;</span><span class="p">)</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="s1">&#39;sample-gradients&#39;</span> <span class="ow">in</span> <span class="n">sampling_args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gradients</span> <span class="o">=</span> <span class="n">sampling_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample-gradients&#39;</span><span class="p">)</span>
+                    <span class="n">sampling_args_flag</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">sampling_args_flag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;An input value that you have specified is likely incorrect. Sampling arguments include: mesh, sampling-ratio, subsampling-algorithm, sample-points, sample-outputs and sample-gradients.&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_solver</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_subsampling_algorithm</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_points_and_weights</span><span class="p">()</span>
@@ -259,6 +275,10 @@
 
 <span class="sd">        :param Poly self:</span>
 <span class="sd">            An instance of the Poly object.</span>
+<span class="sd">        :param str filename:</span>
+<span class="sd">            The filename to write to.</span>
+<span class="sd">        :param bool tosay:</span>
+<span class="sd">            True will replace &quot;-&quot; signs with &quot;minus&quot; when writing to file for compatibility with os.say().</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">prec</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -472,10 +492,13 @@
                 <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;model values should be a column vector.&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model_evaluations</span> <span class="o">=</span> <span class="n">y</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">model_grads</span><span class="p">):</span>
-                    <span class="n">grad_values</span> <span class="o">=</span> <span class="n">evaluate_model_gradients</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quadrature_points</span><span class="p">,</span> <span class="n">model_grads</span><span class="p">,</span> <span class="s1">&#39;matrix&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">model_grads</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gradients</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="n">grad_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradients</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">grad_values</span> <span class="o">=</span> <span class="n">model_grads</span>
+                    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">model_grads</span><span class="p">):</span>
+                        <span class="n">grad_values</span> <span class="o">=</span> <span class="n">evaluate_model_gradients</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quadrature_points</span><span class="p">,</span> <span class="n">model_grads</span><span class="p">,</span> <span class="s1">&#39;matrix&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">grad_values</span> <span class="o">=</span> <span class="n">model_grads</span>
                 <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">grad_values</span><span class="o">.</span><span class="n">shape</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_gradient_evaluations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="o">*</span><span class="n">q</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
                 <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quadrature_weights</span><span class="p">))</span>

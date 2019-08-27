@@ -209,40 +209,6 @@ standard normal space, in which points are uncorrelated.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="equadratures.correlations.Correlations.get_uncorrelated_from_correlated">
-<code class="descname">get_uncorrelated_from_correlated</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.get_uncorrelated_from_correlated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.get_uncorrelated_from_correlated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for mapping correlated variables to a new standard space.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.correlations.Correlations" title="equadratures.correlations.Correlations"><em>Correlations</em></a>) – An instance of the Correlations object.</p></li>
-<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – A numpy ndarray of shape (N,M) where input marginals are organized along columns; M represents the number of correlated marginals</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>xu</strong>: A numpy.ndarray of shape (N, M), which contains standardized uncorrelated data. The transformation of each i-th input marginal is stored along the i-th column of the output matrix.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="equadratures.correlations.Correlations.get_uncorrelated_samples">
-<code class="descname">get_uncorrelated_samples</code><span class="sig-paren">(</span><em>N=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.get_uncorrelated_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.get_uncorrelated_samples" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for generating uncorrelated samples.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of uncorrelated samples required.</p></li>
-<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – Samples of uncorrelated points from the marginals; of shape (N,M)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>C</strong>: A numpy.ndarray of shape (N, M), which contains the uncorrelated samples.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="equadratures.correlations.Correlations.set_model">
 <code class="descname">set_model</code><span class="sig-paren">(</span><em>model=None</em>, <em>model_grads=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/correlations.html#Correlations.set_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.correlations.Correlations.set_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the coefficients of the polynomial.</p>
