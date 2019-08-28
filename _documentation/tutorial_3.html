@@ -58,30 +58,19 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers">Papers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#papers-theory-and-applications">Papers (theory and applications)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#get-in-touch">Get in touch</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">About us</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parameter.html">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis.html">Basis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="poly.html">Polynomial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributions.html">Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gaussian.html">Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="truncated_gaussian.html">Truncated-Gaussian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cauchy.html">Cauchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="beta.html">Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chebyshev.html">Chebyshev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gamma.html">Gamma</a></li>
-<li class="toctree-l3"><a class="reference internal" href="uniform.html">Uniform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="weibull.html">Weibull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rayleigh.html">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exponential.html">Exponential</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chisquared.html">Chi-squared</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="samples.html">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subspaces.html">Dimension reduction with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimisation.html">Optimisation with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynet.html">Deep learning with polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
@@ -137,22 +126,24 @@
       
   <div class="section" id="constructing-orthogonal-polynomials">
 <h1>Constructing orthogonal polynomials<a class="headerlink" href="#constructing-orthogonal-polynomials" title="Permalink to this headline">¶</a></h1>
-<p>In this tutorial we describe how one can construct orthogonal polynomials in Effective Quadratures. For starters, we consider Legendre polynomials—orthogonal with respect to the uniform weight function. We define a Parameter <span class="math notranslate nohighlight">\(\zeta\)</span> with <span class="math notranslate nohighlight">\(\rho(\zeta) = \mathcal{U}[-1,1]\)</span>.</p>
+<p>In this tutorial we describe how one can construct orthogonal polynomials in Effective Quadratures. For starters, we consider Legendre polynomials—orthogonal with respect to the uniform weight function. We define a Parameter <span class="math notranslate nohighlight">\(s\)</span> with <span class="math notranslate nohighlight">\(\rho(s) \sim \mathcal{U}[-1,1]\)</span>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<span class="n">zeta</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">order</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">lower</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;Uniform&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We restrict our attention to the first five orthogonal polynomials, where the parameterized matrix <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> has the form</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{P}\left(i,j\right)=\psi_{i}\left(\bar{\zeta}_{j}\right) \; \; \text{where} \; \; i=1, \ldots, p; \; j = 1, \ldots, N,\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is the number of points <span class="math notranslate nohighlight">\(\bar{\zeta}_{j}\)</span> discretizing the domain of <span class="math notranslate nohighlight">\(\zeta\)</span>, and <span class="math notranslate nohighlight">\(p\)</span> is the maximum polynomial order, set to 5. Plots of the polynomials are shown below.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">xo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">P</span> <span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">zeta</span><span class="o">.</span><span class="n">_getOrthoPoly</span><span class="p">(</span><span class="n">xo</span><span class="p">)</span>
+\[\mathbf{P}\left(i,j\right)=\psi_{i}\left(\lambda_{j}\right) \; \; \text{where} \; \; i=1, \ldots, p; \; j = 1, \ldots, N,\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the number of points <span class="math notranslate nohighlight">\(\lambda_{j}\)</span> discretizing the domain of <span class="math notranslate nohighlight">\(s\)</span>, and <span class="math notranslate nohighlight">\(p\)</span> is the maximum polynomial order, set to 5. Plots of the polynomials are shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;univariate&#39;</span><span class="p">)</span>
+<span class="n">myPoly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
+<span class="n">xo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">myPoly</span><span class="o">.</span><span class="n">get_poly</span><span class="p">(</span><span class="n">xo</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -162,25 +153,23 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="mi">3</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 3&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="mi">4</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 4&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="mi">5</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 5&#39;</span><span class="p">)</span>
-<span class="n">adjust_spines</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;expand&quot;</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\zeta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$s$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Polynomials&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Fig_05.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Figures/tutorial_3_fig_a.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/Fig_05.png"><img alt="../_images/Fig_05.png" src="../_images/Fig_05.png" style="width: 439.2px; height: 345.9px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_3_fig_a.png"><img alt="../_images/tutorial_3_fig_a.png" src="../_images/tutorial_3_fig_a.png" style="width: 356.7px; height: 330.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure. The first six Legendre polynomials</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>A few remarks are in order regarding this plot. Standard Legendre polynomials are orthogonal via</p>
 <div class="math notranslate nohighlight">
-\[\int_{-1}^{1}\psi_{i}\left(\zeta\right)\psi_{j}\left(\zeta\right)d\zeta=\frac{2\delta_{ij}}{2i+1},\]</div>
+\[\int_{-1}^{1}\psi_{i}\left(s \right)\psi_{j}\left(s \right)ds=\frac{2\delta_{ij}}{2i+1},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker delta. In Effective Quadratures, we modify all orthogonal polynomials such that the right hand side of this expression is unity when <span class="math notranslate nohighlight">\(i=j\)</span></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\frac{1}{2i+1} \int_{-1}^{1}\psi_{i}\left(\zeta\right)\psi_{j}\left(\zeta\right) d\zeta \\
-=\int_{-1}^{1}\frac{1}{\sqrt{2i+1}}\psi_{j}\left(\zeta\right)\frac{1}{\sqrt{2j+1}}\psi_{j}\left(\zeta\right)d\zeta \\
+\[\begin{split}\frac{1}{2i+1} \int_{-1}^{1}\psi_{i}\left(s\right)\psi_{j}\left(s\right) ds \\
+=\int_{-1}^{1}\frac{1}{\sqrt{2i+1}}\psi_{j}\left(s\right)\frac{1}{\sqrt{2j+1}}\psi_{j}\left(s\right)ds \\
 =\delta ij\end{split}\]</div>
 <p>Introducing these scaling factors, we now can plot the standard Legendre polynomials; these are reported in the Wikipedia <a class="reference external" href="https://en.wikipedia.org/wiki/Legendre_polynomials">entry</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">factor_0</span> <span class="o">=</span> <span class="mf">1.</span>
@@ -198,16 +187,14 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">factor_3</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="mi">3</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 3&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">factor_4</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="mi">4</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 4&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">factor_5</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="mi">5</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Order 5&#39;</span><span class="p">)</span>
-<span class="n">adjust_spines</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;expand&quot;</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\zeta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Polynomials&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Fig_06.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$s$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Scaled polynomials&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Figures/tutorial_3_fig_b.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../_images/Fig_06.png"><img alt="../_images/Fig_06.png" src="../_images/Fig_06.png" style="width: 376.2px; height: 277.2px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_3_fig_b.png"><img alt="../_images/tutorial_3_fig_b.png" src="../_images/tutorial_3_fig_b.png" style="width: 368.7px; height: 330.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure. The first six (normalized) Legendre polynomials</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div>
