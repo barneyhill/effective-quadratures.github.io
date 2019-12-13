@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>equadratures.subspaces &#8212;   v8.0 documentation</title>
+    <title>equadratures.subspaces &#8212;   v8.1 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../_documentation/index.html"><span><img src="../../_static/logo_white_font.png"></span>
            </a>
-        <span class="navbar-text navbar-version pull-left"><b>8.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>8.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -76,21 +76,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_8.html">Polynomials via compressive sensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_10.html">Nataf transform for correlated inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_11.html">Active subspaces with polynomial approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_17.html">Polynomial surrogate optimisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_documentation/tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -558,7 +548,7 @@
                 <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">maxcount</span><span class="p">:</span>
                     <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
                     <span class="n">yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">N</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
-                    <span class="k">return</span> <span class="n">Z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_subspace</span><span class="p">,</span> <span class="n">yz</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+                    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_subspace</span><span class="p">,</span> <span class="n">yz</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
             <span class="c1"># find constraints that impose lower and upper bounds on eps</span>
             <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
@@ -711,6 +701,14 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">M</span><span class="p">):</span>
             <span class="n">X_stnd</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">min_value</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">max_value</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span> <span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">X_stnd</span>
+<span class="k">def</span> <span class="nf">unstandardise</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">X_orig</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X_unstnd</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X_orig</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">min_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X_orig</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">X_unstnd</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">max_value</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span> <span class="o">+</span> <span class="n">min_value</span>
+    <span class="k">return</span> <span class="n">X_unstnd</span>
 <span class="k">def</span> <span class="nf">linear_program_ineq</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">size</span><span class="p">,))</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">b</span><span class="o">.</span><span class="n">size</span><span class="p">,))</span>

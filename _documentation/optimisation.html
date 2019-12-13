@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Optimisation with polynomials &#8212;   v8.0 documentation</title>
+    <title>Optimisation with polynomials &#8212;   v8.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="../_static/logo_white_font.png"></span>
            </a>
-        <span class="navbar-text navbar-version pull-left"><b>8.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>8.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Polynomial surrogate optimisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -185,10 +185,10 @@ Only <code class="docutils literal notranslate"><span class="pre">trust-constr</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Arguments for poly dictionary.
+<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Arguments for poly dictionary.
 :param Poly poly: An instance of the Poly class.
 :param float value: Value of the nonlinear constraint.</p></li>
-<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
+<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Additional custom callable arguments.
 :callable function: The constraint function to be called.
 :callable jac_function: The gradient (or derivative) of the constraint.
 :callable hess_function: The Hessian of the constraint function.</p></li>
@@ -206,10 +206,10 @@ will be used to approximate the derivative and a BFGS update will be used to app
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Arguments for poly dictionary.
+<li><p><strong>poly</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Arguments for poly dictionary.
 :param Poly poly: An instance of the Poly class.
 :param numpy.ndarray bounds: An array with two entries specifying the lower and upper bounds of the inequality. If there is no lower bound, set bounds[0] = -np.inf.If there is no upper bound, set bounds[1] = np.inf.</p></li>
-<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional custom callable arguments.
+<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Additional custom callable arguments.
 :callable function: The constraint function to be called.
 :callable jac_function: The gradient (or derivative) of the constraint.
 :callable hess_function: The Hessian of the constraint function.</p></li>
@@ -226,11 +226,11 @@ will be used to approximate the derivative and a BFGS update will be used to app
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>poly</strong> (<em>poly</em>) – A Poly object.</p></li>
-<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Optional arguments centered around the custom option.
+<li><p><strong>custom</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Optional arguments centered around the custom option.
 :callable function: The objective function to be called.
 :callable jac_function: The gradient (or derivative) of the objective.
 :callable hess_function: The Hessian of the objective function.</p></li>
-<li><p><strong>maximise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – A flag to specify if the user would like to maximise the function instead of minimising it.</p></li>
+<li><p><strong>maximise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – A flag to specify if the user would like to maximise the function instead of minimising it.</p></li>
 </ul>
 </dd>
 </dl>

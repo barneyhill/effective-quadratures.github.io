@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Dimension reduction with polynomials &#8212;   v8.0 documentation</title>
+    <title>Dimension reduction with polynomials &#8212;   v8.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="../_static/logo_white_font.png"></span>
            </a>
-        <span class="navbar-text navbar-version pull-left"><b>8.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>8.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Polynomial surrogate optimisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -139,9 +139,9 @@ approximation are used to compute the averaged outer product of the gradient cov
 where a Gauss-Newton optimisation problem is solved to compute both the polynomial coefficients and its subspace.</p></li>
 <li><p><strong>sample_points</strong> (<em>numpy.ndarray</em>) – A numpy ndarray with shape (number_of_observations, dimensions) that corresponds to a set of sample points over the parameter space.</p></li>
 <li><p><strong>sample_outputs</strong> (<em>numpy.ndarray</em>) – A numpy ndarray with shape (number_of_observations, 1) that corresponds to model evaluations at the sample points.</p></li>
-<li><p><strong>polynomial_degree</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The degree of the polynomial used in the subspace-based approximation.</p></li>
-<li><p><strong>subspace_dimension</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The dimension of the <em>active</em> subspace.</p></li>
-<li><p><strong>bootstrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Bootstrap trials for computing the dimension reducing subspace.</p></li>
+<li><p><strong>polynomial_degree</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The degree of the polynomial used in the subspace-based approximation.</p></li>
+<li><p><strong>subspace_dimension</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The dimension of the <em>active</em> subspace.</p></li>
+<li><p><strong>bootstrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Bootstrap trials for computing the dimension reducing subspace.</p></li>
 </ul>
 </dd>
 </dl>
@@ -205,7 +205,7 @@ by varying its coordinates along the inactive subspace.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>self</strong> (<a class="reference internal" href="#equadratures.subspaces.Subspaces" title="equadratures.subspaces.Subspaces"><em>Subspaces</em></a>) – An instance of the Subspaces object.</p></li>
-<li><p><strong>inactive_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of inactive samples required.</p></li>
+<li><p><strong>inactive_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of inactive samples required.</p></li>
 <li><p><strong>active_coordiantes</strong> (<em>numpy.ndarray</em>) – The active subspace coordinates.</p></li>
 </ul>
 </dd>

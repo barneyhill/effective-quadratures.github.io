@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Generating univariate quadrature rules &#8212;   v8.0 documentation</title>
+    <title>Generating univariate quadrature rules &#8212;   v8.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="../_static/logo_white_font.png"></span>
            </a>
-        <span class="navbar-text navbar-version pull-left"><b>8.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>8.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -78,21 +78,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Polynomial surrogate optimisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials for image classification</a></li>
 </ul>
 </li>
 </ul>
@@ -165,6 +154,23 @@
 <a class="reference internal image-reference" href="../_images/tutorial_2_fig_a.png"><img alt="../_images/tutorial_2_fig_a.png" src="../_images/tutorial_2_fig_a.png" style="width: 332.4px; height: 269.09999999999997px;" /></a>
 <p class="caption"><span class="caption-text">Figure. A comparison of order 4 Gauss-Legendre quadrature points (circles) with order 4 Gauss-Legendre-Lobatto points (squares) and Gauss-Legendre-Radau (triangles).</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+<p>To verify the accuracy of these points, we use the same code as above.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">lower</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">lower</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">)</span>
+<span class="n">s4</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">lower</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+
+<span class="n">myPoly2</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
+<span class="n">myPoly3</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">s3</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
+<span class="n">myPoly4</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">s4</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;numerical-integration&#39;</span><span class="p">)</span>
+
+<span class="n">integral2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="mi">2</span>  <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights2</span> <span class="p">,</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">points2</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">integral3</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="mi">2</span>  <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights3</span> <span class="p">,</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">points3</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">integral4</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="mi">2</span>  <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights4</span> <span class="p">,</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">points4</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">integral2</span><span class="p">,</span> <span class="n">integral3</span><span class="p">,</span> <span class="n">integral4</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="mf">3.1428571428571375</span> <span class="mf">3.142857142857139</span> <span class="mf">3.1428571428571535</span>
+</pre></div>
+</div>
+<p>The full source code for this tutorial can be found <a class="reference external" href="https://github.com/Effective-Quadratures/Effective-Quadratures/blob/master/source/_documentation/codes/tutorial_2.py">here.</a></p>
 </div>
 
 
