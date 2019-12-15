@@ -15,7 +15,8 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Polynomial least squares approximations" href="tutorial_7.html" />
+    <link rel="next" title="Bayesian polynomial regression" href="tutorial_7.html" />
+    <link rel="prev" title="Multi-index sets" href="tutorial_5.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -79,16 +80,9 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
@@ -191,6 +185,7 @@
 <p>Now we use the univariate basis in the polyreg class.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myBasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Univariate&#39;</span><span class="p">)</span>
 <span class="n">poly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">myParameters</span><span class="p">,</span> <span class="n">myBasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> <span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample-points&#39;</span><span class="p">:</span><span class="n">x_train</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span><span class="n">y_train</span><span class="p">}</span> <span class="p">)</span>
+<span class="n">poly</span><span class="o">.</span><span class="n">set_model</span><span class="p">()</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
 

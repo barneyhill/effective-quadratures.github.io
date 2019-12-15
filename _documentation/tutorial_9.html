@@ -15,8 +15,6 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Higher order Sobol’ indices" href="tutorial_9b.html" />
-    <link rel="prev" title="Polynomials via compressive sensing" href="tutorial_8.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +52,7 @@
      href="index.html">Explore <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
@@ -73,25 +71,15 @@
 <li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Defining a parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
@@ -126,7 +114,7 @@
       
   <div class="section" id="computing-sobol-sensitivity-indices">
 <h1>Computing Sobol’ (sensitivity) indices<a class="headerlink" href="#computing-sobol-sensitivity-indices" title="Permalink to this headline">¶</a></h1>
-<p>In many computational problems there are a few key inputs that actually dictate the state of the output. Computing the Sobol indices of the inputs is one approach to determine which inputs are the <em>drivers</em>. Typically computation of the Sobol indices involves a large number of samples – significantly more than required to get the variance in the data. However as shown in Blatman et al. [1], using orthogonal polynomials these can be computed with relative ease. In this notebook we demonstrate how we can compute these indices using effective quadratures.</p>
+<p>In many computational problems there are a few key inputs that actually dictate the state of the output. Computing the Sobol’ indices of the inputs is one approach to determine which inputs are the <em>drivers</em>. Typically computation of the Sobol’ indices involves a large number of samples – significantly more than required to get the variance in the data. However as shown in Blatman et al. [1], using orthogonal polynomials these can be computed with relative ease. In this notebook we demonstrate how we can compute these indices using effective quadratures.</p>
 <p>We consider the well-known piston problem from Kenett et al. [2] that is a non-linear, seven-dimensional problem that outputs the piston cycle time given various piston parameters. These parameters and their bounds are shown in the table below.</p>
 <table class="colwidths-given docutils align-center" id="id4">
 <caption><span class="caption-text">Model input parameters for the piston problem.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
@@ -178,9 +166,9 @@
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[V=\frac{S}{2k}\left(\sqrt{A^{2}+4k\frac{P_{0}V_{0}}{T_{0}}T_{a}}-A\right),\]</div>
-<p>and <span class="math notranslate nohighlight">\(A=P_{0}S+19.62M-\frac{kV_{0}}{S}\)</span>. The estimated <em>normalized</em> Sobol indices from Owen et al. [3] are given to be:</p>
+<p>and <span class="math notranslate nohighlight">\(A=P_{0}S+19.62M-\frac{kV_{0}}{S}\)</span>. The estimated <em>unnormalized</em> Sobol’ indices (denoted <span class="math notranslate nohighlight">\(\tau_i^2\)</span>) from Kenett et al. [2] are given to be:</p>
 <table class="colwidths-given docutils align-center" id="id5">
-<caption><span class="caption-text">Normalized Sobol’ indices (see [3] for further details).</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Unnormalized Sobol’ indices (see [3] for further details).</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 22%" />
 <col style="width: 11%" />
@@ -203,7 +191,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(10^2 \tau^{(2)} \; \text{indices}\)</span></p></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(10^2 \tau^{2} \; \text{indices}\)</span></p></td>
 <td><p>0.073</p></td>
 <td><p>1.088</p></td>
 <td><p>0.626</p></td>
@@ -214,7 +202,10 @@
 </tr>
 </tbody>
 </table>
-<p>Note that these values are effectively the Sobol index multiplied by the variance. See [3] for further details.</p>
+<p>These values measure the effect of varying each of the 7 input parameters on the output, the piston cycle time <span class="math notranslate nohighlight">\(C\)</span>. Dividing these values by the variance of the output gives the normalised Sobol’ indices. For example, the first order normalised Sobol’ index for the <span class="math notranslate nohighlight">\(i^{th}\)</span> input parameter is</p>
+<div class="math notranslate nohighlight">
+\[S_i = \frac{\tau_i^2}{\sigma^2}\]</div>
+<p>See Section 2.2 in [3] for further details. We wish to use Effective Quadratures to compute these values for the piston problem.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -239,64 +230,64 @@
         <span class="k">return</span> <span class="n">C</span>
 </pre></div>
 </div>
-<p>We will opt for a total order basis set with effective quadrature subsampling!</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mybasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Total order&#39;</span><span class="p">)</span>
-<span class="n">Pleastsquares</span> <span class="o">=</span> <span class="n">Polylsq</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">mybasis</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="s1">&#39;tensor&#39;</span><span class="p">,</span> <span class="n">optimization</span><span class="o">=</span><span class="s1">&#39;greedy-qr&#39;</span><span class="p">,</span> <span class="n">oversampling</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<p>We will opt for a total order basis set with qr subsampling!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mybasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
+<span class="n">mypoly</span>  <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">mybasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span><span class="n">sampling_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mesh&#39;</span><span class="p">:</span><span class="s1">&#39;tensor-grid&#39;</span><span class="p">,</span> <span class="s1">&#39;subsampling-algorithm&#39;</span><span class="p">:</span><span class="s1">&#39;qr&#39;</span><span class="p">,</span> <span class="s1">&#39;sampling-ratio&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Now (and this is the important part), we wish to ascertain how many model evaluations will be required for computing these sensitivities. The objective is for these to be orders of magnitude lower than other methods for computing Sobol’ indices.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">mybasis</span><span class="o">.</span><span class="n">cardinality</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mypoly</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">cardinality</span><span class="p">)</span>
 <span class="o">&gt;&gt;</span> <span class="mi">120</span>
 </pre></div>
 </div>
-<p>Excellent! So the number of model evaluations we will require is 120! Now lets compute the coefficients and ascertain which of the variables above are the most important. P</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pleastsquares</span><span class="o">.</span><span class="n">computeCoefficients</span><span class="p">(</span><span class="n">piston</span><span class="p">)</span>
-<span class="n">Sleastsquares</span> <span class="o">=</span> <span class="n">Pleastsquares</span><span class="o">.</span><span class="n">getStatistics</span><span class="p">()</span>
+<p>Excellent! So the number of model evaluations we will require is 120! Now lets compute the coefficients and get the Sobol indices to ascertain which of the variables above are the most important.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mypoly</span><span class="o">.</span><span class="n">set_model</span><span class="p">(</span><span class="n">piston</span><span class="p">)</span>
+<span class="n">mean</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">mypoly</span><span class="o">.</span><span class="n">get_mean_and_variance</span><span class="p">()</span>
+<span class="n">sobol</span> <span class="o">=</span> <span class="n">mypoly</span><span class="o">.</span><span class="n">get_sobol_indices</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Printing the output to the screen, we obtain</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Sleastsquares</span><span class="o">.</span><span class="n">getSobol</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)):</span>
-        <span class="nb">print</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Sleastsquares</span><span class="o">.</span><span class="n">variance</span>
+<p>For the <em>unnormalised</em> Sobol’ indices we obtain</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sobol</span><span class="p">[(</span><span class="n">i</span><span class="p">,)])</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">var</span><span class="p">)</span>
 
-<span class="o">&gt;&gt;</span> <span class="mf">0.0790729230512</span>
-<span class="o">&gt;&gt;</span> <span class="mf">1.04006909416</span>
-<span class="o">&gt;&gt;</span> <span class="mf">0.570479600289</span>
-<span class="o">&gt;&gt;</span> <span class="mf">0.047655149298</span>
-<span class="o">&gt;&gt;</span> <span class="mf">0.00307211809197</span>
-<span class="o">&gt;&gt;</span> <span class="mf">5.74465327578e-05</span>
-<span class="o">&gt;&gt;</span> <span class="mf">0.00180048511613</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">0.0790729230512</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">1.04006909416</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">0.570479600289</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">0.047655149298</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">0.00307211809197</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">5.74465327578e-05</span>
+      <span class="o">&gt;&gt;</span> <span class="mf">0.00180048511613</span>
 </pre></div>
 </div>
-<p>which are similar to the values obtained by Owen. To generate a plot, one simply uses the code below.</p>
+<p>which are similar to the values obtained by Owen. Next, we plot the <em>normalized</em> Sobol’ indices with the code below.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">data_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.10</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sobol</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">sobol</span><span class="p">[(</span><span class="n">i</span><span class="p">,)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">adjust_spines</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">])</span>
+<span class="c1">#adjust_spines(ax, [&#39;left&#39;, &#39;bottom&#39;])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Parameters&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;First order Sobol indices&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;First order Sobol&#39; indices&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">xTickMarks</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$M$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$S$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$V_0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$P_0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$T_a$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$T_0$&#39;</span><span class="p">]</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">data_1</span><span class="o">+</span><span class="mf">0.10</span><span class="p">)</span>
 <span class="n">xtickNames</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xTickMarks</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">xtickNames</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Sobol.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Figures/tutorial_9_fig_a.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-center" id="id6">
-<a class="reference internal image-reference" href="../_images/Sobol.png"><img alt="../_images/Sobol.png" src="../_images/Sobol.png" style="width: 752.8000000000001px; height: 559.2px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_9_fig_a.png"><img alt="../_images/tutorial_9_fig_a.png" src="../_images/tutorial_9_fig_a.png" style="width: 738.4000000000001px; height: 546.4px;" /></a>
 <p class="caption"><span class="caption-text">Figure. First order Sobol’ indices for the piston problem.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
-<p>More generally, if one wanted to obtain higher order Sobol’ indices, one can use the following code.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sobol_info</span> <span class="o">=</span> <span class="n">Sleastsquares</span><span class="o">.</span><span class="n">getSobol</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sobol_info</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="nb">str</span><span class="p">(</span><span class="s1">&#39;Parameter numbers: &#39;</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;, Sobol index value: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<p>We can also obtain higher order Sobol indices, which tell us about the importance of interaction between input parameters. For example, for the <span class="math notranslate nohighlight">\(2^{nd}\)</span> order indices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sobol_2nd</span> <span class="o">=</span> <span class="n">mypoly</span><span class="o">.</span><span class="n">get_sobol_indices</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sobol_2nd</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;Parameter numbers: &#39;</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;, Sobol&#39; index value: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>This concludes this notebook on the computation of Sobol’ indices.</p>
+<p>This concludes this notebook on the computation of Sobol’ indices. The full source code for this tutorial can be found <a class="reference external" href="https://github.com/Effective-Quadratures/Effective-Quadratures/blob/master/source/_documentation/codes/tutorial_9.py">here</a>.</p>
 <p><strong>References</strong></p>
 <dl class="footnote brackets">
 <dt class="label" id="id1"><span class="brackets">1</span></dt>

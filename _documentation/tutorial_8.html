@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Surrogate-Based Optimisation with Polynomials" href="tutorial_17.html" />
+    <link rel="next" title="Computing Sobol’ (sensitivity) indices" href="tutorial_9.html" />
     <link rel="prev" title="Bayesian polynomial regression" href="tutorial_7.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Sparse and tensor grid quadrature rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
 </ul>
 </li>
@@ -167,17 +168,16 @@
 <a class="reference internal image-reference" href="../_images/tutorial_8_fig_b.png"><img alt="../_images/tutorial_8_fig_b.png" src="../_images/tutorial_8_fig_b.png" style="width: 666.0px; height: 526.0px;" /></a>
 </div>
 <p>The figures above show us the coefficient magnitude (log base-10 scale) and the corresponding quadrature points. Now, let us try to obtain the same result using SPAM. This can be easily done in Effective Quadratures. We start by declaring a sparse grid multi-index.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sparse</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Sparse grid&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">growth_rule</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sparse</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;sparse-grid&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">growth_rule</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then we proceed to compute the coefficients using the SPAM. The calls to the Polyint subroutine are unchanged, apart from the basis.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sparse</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Sparse grid&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">growth_rule</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">)</span>
-<span class="n">mySparsePoly</span> <span class="o">=</span> <span class="n">Polyint</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="n">sparse</span><span class="p">)</span>
-<span class="n">mySparsePoly</span><span class="o">.</span><span class="n">computeCoefficients</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myPoly</span> <span class="o">=</span> <span class="n">Polyint</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="n">sparse</span><span class="p">)</span>
+<span class="n">myPoly</span><span class="o">.</span><span class="n">set_model</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>And again, for the plots we have:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">max_order</span> <span class="o">=</span> <span class="n">twoDgrid</span><span class="p">(</span><span class="n">mySparsePoly</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">mySparsePoly</span><span class="o">.</span><span class="n">multi_index</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">max_order</span> <span class="o">=</span> <span class="n">twoDgrid</span><span class="p">(</span><span class="n">myPoly</span><span class="o">.</span><span class="n">get_coefficients</span><span class="p">(),</span> <span class="n">myPoly</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">get_elements</span><span class="p">())</span>
 <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -191,7 +191,7 @@
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;neither&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;proportional&#39;</span><span class="p">,</span>
         <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.0f</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Pseudo_2.png&#39;</span><span class="p">,</span>   <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
 
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -202,24 +202,19 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\zeta_2$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;FigureDD.png&#39;</span> <span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mySparsePoly</span><span class="o">.</span><span class="n">quadraturePoints</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="o">&gt;&gt;</span> <span class="mi">1421</span>
 </pre></div>
 </div>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="../_images/Pseudo_2.png"><img alt="../_images/Pseudo_2.png" src="../_images/Pseudo_2.png" style="width: 513.6px; height: 407.09999999999997px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_8_fig_c.png"><img alt="../_images/tutorial_8_fig_c.png" src="../_images/tutorial_8_fig_c.png" style="width: 363.0px; height: 264.3px;" /></a>
 </div>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="../_images/FigureDD.png"><img alt="../_images/FigureDD.png" src="../_images/FigureDD.png" style="width: 496.0px; height: 364.40000000000003px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_8_fig_d.png"><img alt="../_images/tutorial_8_fig_d.png" src="../_images/tutorial_8_fig_d.png" style="width: 444.40000000000003px; height: 351.20000000000005px;" /></a>
 </div>
-<p>The total number of points in the sparse grid is 1421 compared to 10,201 in the full tensor grid; the savings is evident. SPAM leverages the anistropic nature of the coefficients to deliver nearly the same level of approximation.</p>
+<p>The total number of points in the sparse grid is 1421 compared to 10,201 in the full tensor grid; the savings is evident. SPAM leverages the anistropic nature of the coefficients to deliver nearly the same level of approximation. The full source code for this tutorial can be found <a class="reference external" href="https://github.com/Effective-Quadratures/Effective-Quadratures/blob/master/source/_documentation/codes/tutorial_8.py">here.</a></p>
 <p><strong>References</strong></p>
-<dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets">1</span></dt>
-<dd><p>Constantine, P. G., Eldred, M. S. and Phipps, E. T., (2012) Sparse pseudospectral approximation method. Computer Methods in Applied Mechanics and Engineering 229: 1-12.</p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p>Constantine, P. G., Eldred, M. S. and Phipps, E. T., (2012) Sparse pseudospectral approximation method. Computer Methods in Applied Mechanics and Engineering 229: 1-12.</p></li>
+</ul>
 </div>
 
 
