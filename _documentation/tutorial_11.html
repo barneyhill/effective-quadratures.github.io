@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Polynomial variable projection" href="tutorial_12.html" />
-    <link rel="prev" title="Nataf transform for correlated inputs" href="tutorial_10.html" />
+    <link rel="next" title="Surrogate-based optimisation with polynomials" href="tutorial_17.html" />
+    <link rel="prev" title="Computing Sobol’ (sensitivity) indices" href="tutorial_9.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -78,21 +78,13 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Active subspaces with polynomial approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -210,105 +202,92 @@ f \left(\mathbf{x}\right) \approx g\left(\mathbf{U}_\text{active}^T\mathbf{x} \r
 <p>where <span class="math notranslate nohighlight">\(g\)</span> is a lower dimensional function.</p>
 <p><strong>Code Implementation</strong></p>
 <p>We look at a compressor fan design problem. The 25 design variables can be viewed as inputs to the function, where the CFD efficiency of the blade design is seen as the output. Now we attempt to use a 2-degree polynomial active subspace model to reach dimension reduction and find a 2D active subspace.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="k">import</span> <span class="n">ConvexHull</span><span class="p">,</span> <span class="n">convex_hull_plot_2d</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">axes3d</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;X.dat&#39;</span><span class="p">)</span>
-<span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;Y.dat&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../data/design_parameters.dat&#39;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../data/non_dimensionalized_efficiency.dat&#39;</span><span class="p">)</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Normalised efficiency&#39;</span>
 </pre></div>
 </div>
-<p>This dataset contains 554 pairs of inputs (designs of blades) and outputs (CFD-evaluataed efficiency). The dimension of inputs is 25 (25D design space). Using variable projection, we wish to find a surrogate model for this relationship in 2D. All input vectors are put in X.dat, while the outputs are in Y.dat. They are stored as variables X and fX respectively.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">p</span><span class="o">=</span><span class="mi">2</span>
+<p>This dataset contains 554 pairs of inputs (designs of blades) and outputs (CFD-evaluataed efficiency). The dimension of inputs is 25 (25D design space). All input vectors are in X , while the outputs are in y.</p>
+<p>The first order of business is to construct a global quadratic model</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">myparameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]</span>
+<span class="n">mybasis</span> <span class="o">=</span> <span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;total-order&#39;</span><span class="p">)</span>
+<span class="n">mypoly</span> <span class="o">=</span> <span class="n">Poly</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">myparameters</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="n">mybasis</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;least-squares&#39;</span><span class="p">,</span> \
+      <span class="n">sampling_args</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mesh&#39;</span><span class="p">:</span> <span class="s1">&#39;user-defined&#39;</span><span class="p">,</span> <span class="s1">&#39;sample-points&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">,</span> <span class="s1">&#39;sample-outputs&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">})</span>
+<span class="n">mypoly</span><span class="o">.</span><span class="n">set_model</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><span class="math notranslate nohighlight">\(n\)</span> stands for the dimensionality of the active subspace. This indicates the active subspace <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> found would be of <span class="math notranslate nohighlight">\(25\times 2\)</span>. <span class="math notranslate nohighlight">\(p\)</span> stands for the degree of polynomial basis terms.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">listing</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">listing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="n">Object</span><span class="o">=</span><span class="n">Basis</span><span class="p">(</span><span class="s1">&#39;Total order&#39;</span><span class="p">,</span><span class="n">listing</span><span class="p">)</span>
-
-<span class="c1">#Establish n Parameter objects</span>
-<span class="n">params</span><span class="o">=</span><span class="p">[]</span>
-<span class="n">P</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">p</span><span class="p">,</span><span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span><span class="n">lower</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
-
-<span class="c1">#Use the params list to establish the Poly object</span>
-<span class="n">Polybasis</span><span class="o">=</span><span class="n">Poly</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">Object</span><span class="p">)</span>
-<span class="p">[</span><span class="n">eigs</span><span class="p">,</span> <span class="n">eigVecs</span><span class="p">]</span><span class="o">=</span><span class="n">computeActiveSubspaces</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<p>Next, we compute the active subspace</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mysubspace</span> <span class="o">=</span> <span class="n">Subspaces</span><span class="p">(</span><span class="n">full_space_poly</span><span class="o">=</span><span class="n">mypoly</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;active-subspace&#39;</span><span class="p">)</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">mysubspace</span><span class="o">.</span><span class="n">get_subspace</span><span class="p">()</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">mysubspace</span><span class="o">.</span><span class="n">get_eigenvalues</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>When the eigenvectors are calculated we can obtain the active subspace and use it for data visualisation.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="o">=</span><span class="p">[[</span> <span class="mf">0.00516216</span><span class="p">,</span>  <span class="mf">0.04112609</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.03252687</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.051099</span>  <span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.00581692</span><span class="p">,</span>  <span class="mf">0.07217146</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.00987772</span><span class="p">,</span>  <span class="mf">0.03119806</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.05858704</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03244601</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.01428118</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05230511</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.1623095</span> <span class="p">,</span>  <span class="mf">0.2072276</span> <span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.3283939</span> <span class="p">,</span>  <span class="mf">0.40349012</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.6241481</span> <span class="p">,</span>  <span class="mf">0.25910419</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.54341045</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.00826396</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.00473819</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08955527</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.06157155</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03425097</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.10538732</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.10090391</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.23248244</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.46835899</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.30954273</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.66814152</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.02354317</span><span class="p">,</span>  <span class="mf">0.04322685</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.00773911</span><span class="p">,</span>  <span class="mf">0.03261493</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.00163526</span><span class="p">,</span>  <span class="mf">0.09699416</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.00643778</span><span class="p">,</span>  <span class="mf">0.01850486</span><span class="p">],</span>
-   <span class="p">[</span><span class="o">-</span><span class="mf">0.00950668</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03398397</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.02127018</span><span class="p">,</span>  <span class="mf">0.03193002</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.03069474</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.07206712</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.03907251</span><span class="p">,</span>  <span class="mf">0.00717337</span><span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.06740341</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0766393</span> <span class="p">],</span>
-   <span class="p">[</span> <span class="mf">0.05573985</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.04064798</span><span class="p">]]</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">active1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span> <span class="n">X</span> <span class="p">,</span> <span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
-<span class="n">active2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span> <span class="n">X</span> <span class="p">,</span> <span class="n">U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.mlab</span> <span class="k">import</span> <span class="n">griddata</span>
-<span class="k">def</span> <span class="nf">grid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">resX</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">resY</span><span class="o">=</span><span class="mi">40</span><span class="p">):</span>
-    <span class="s2">&quot;Convert 3 column data to matplotlib grid&quot;</span>
-    <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">resX</span><span class="p">)</span>
-    <span class="n">yi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">resY</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">interp</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="n">active1</span><span class="p">,</span> <span class="n">active2</span><span class="p">,</span> <span class="n">fX</span><span class="p">)</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">cax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">active1</span><span class="p">,</span> <span class="n">active2</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">fX</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;neither&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="s1">&#39;proportional&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Active variable 1, $\mathbf{XU_</span><span class="si">{1}</span><span class="s1">}$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Active variable 2, $\mathbf{XU_</span><span class="si">{2}</span><span class="s1">}$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
-<span class="n">adjust_spines</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Efficiency along $\mathbf{U_</span><span class="si">{1}</span><span class="s1">}$ and $\mathbf{U_</span><span class="si">{2}</span><span class="s1">}$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<p>and plot the eigenvalues to determine how many <em>active</em> variables we require.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Eigenvalues (log-scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Design parameters&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="../_images/DR.png"><img alt="../_images/DR.png" src="../_images/DR.png" style="width: 403.0px; height: 292.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/tutorial_11_fig_a.png"><img alt="../_images/tutorial_11_fig_a.png" src="../_images/tutorial_11_fig_a.png" style="width: 393.59999999999997px; height: 232.2px;" /></a>
 </div>
+<p>We can then project all the samples we have within the design space onto the first few dimensions of the active subspace.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">true_dimensions</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">W</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">true_dimensions</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/tutorial_11_fig_b.png"><img alt="../_images/tutorial_11_fig_b.png" src="../_images/tutorial_11_fig_b.png" style="width: 390.9px; height: 232.2px;" /></a>
+</div>
+<p>And for two dimensions</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">true_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">W</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">true_dimensions</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">u</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;u1&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;u2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/tutorial_11_fig_c.png"><img alt="../_images/tutorial_11_fig_c.png" src="../_images/tutorial_11_fig_c.png" style="width: 476.7px; height: 474.0px;" /></a>
+</div>
+<p>Finally, we can also compute the zonotope associated with the 2D projection.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">W</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="n">true_dimensions</span><span class="p">]</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">mysubspace</span><span class="o">.</span><span class="n">get_zonotope_vertices</span><span class="p">()</span>
+<span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">simplex</span> <span class="ow">in</span> <span class="n">hull</span><span class="o">.</span><span class="n">simplices</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">simplex</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="n">simplex</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/tutorial_11_fig_d.png"><img alt="../_images/tutorial_11_fig_d.png" src="../_images/tutorial_11_fig_d.png" style="width: 548.6999999999999px; height: 400.8px;" /></a>
+</div>
+<p>The full source code for this tutorial can be found <a class="reference external" href="https://github.com/Effective-Quadratures/Effective-Quadratures/blob/master/source/_documentation/codes/tutorial_11.py">here.</a></p>
 <p><strong>References</strong></p>
-<dl class="footnote brackets">
-<dt class="label" id="id1"><span class="brackets">1</span></dt>
-<dd><p>Constantine, P. G. (2015) Active subspaces: Emerging ideas for dimension reduction in parameter studies, Volume 2, SIAM, 2015.</p>
-</dd>
-<dt class="label" id="id2"><span class="brackets">2</span></dt>
-<dd><p>Seshadri, P., Shahpar, S., Constantine, P., Parks, G., Adams, M. (2018) Turbomachinery active subspace performance maps. Journal of Turbomachinery, 140(4), 041003. <a class="reference external" href="http://turbomachinery.asmedigitalcollection.asme.org/article.aspx?articleid=2668256">Paper</a></p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p>Constantine, P. G. (2015) Active subspaces: Emerging ideas for dimension reduction in parameter studies, Volume 2, SIAM, 2015.</p></li>
+<li><p>Seshadri, P., Shahpar, S., Constantine, P., Parks, G., Adams, M. (2018) Turbomachinery active subspace performance maps. Journal of Turbomachinery, 140(4), 041003. <a class="reference external" href="http://turbomachinery.asmedigitalcollection.asme.org/article.aspx?articleid=2668256">Paper</a></p></li>
+</ul>
 </div>
 
 
