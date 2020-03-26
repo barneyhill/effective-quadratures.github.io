@@ -117,9 +117,9 @@
       
   <h1>Source code for equadratures.distributions.rayleigh</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;The Rayleigh distribution.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">equadratures.distributions.template</span> <span class="k">import</span> <span class="n">Distribution</span>
+<span class="kn">from</span> <span class="nn">equadratures.distributions.template</span> <span class="kn">import</span> <span class="n">Distribution</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rayleigh</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">rayleigh</span>
 <span class="n">RECURRENCE_PDF_SAMPLES</span> <span class="o">=</span> <span class="mi">8000</span>
 <div class="viewcode-block" id="Rayleigh"><a class="viewcode-back" href="../../../_documentation/rayleigh.html#equadratures.distributions.rayleigh.Rayleigh">[docs]</a><span class="k">class</span> <span class="nc">Rayleigh</span><span class="p">(</span><span class="n">Distribution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -128,7 +128,7 @@
 <span class="sd">    :param double scale:</span>
 <span class="sd">		Scale parameter of the Rayleigh distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -221,7 +221,7 @@
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>

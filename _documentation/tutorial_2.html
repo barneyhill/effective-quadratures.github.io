@@ -81,7 +81,11 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials for image classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -118,12 +122,12 @@
 <p>There is an intimate relationship between orthogonal polynomials and quadrature points. In this tutorial, we demonstrate how one can use Effective Quadratures to compute univariate quadrature rules. For multivariate quadrature points and weights, please check out the tutorials on <em>Sparse and tensor grid quadrature rules</em>.</p>
 <p>Consider the task of integrating the function</p>
 <div class="math notranslate nohighlight">
-\[I = \int_{-1}^{-1} f\left( s \right) \rho \left( s \right) ds\]</div>
+\[I = \int_{-1}^{1} f\left( s \right) \rho \left( s \right) ds\]</div>
 <p>where the measure <span class="math notranslate nohighlight">\(\rho \left( s \right)\)</span> is the uniform distribution over <span class="math notranslate nohighlight">\([-1,1]\)</span>. Our task is to numerically approximate this integral using a quadrature rule, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[I \approx 2 \sum_{i=1}^{N} f\left( \lambda_{i} \right) \omega_i\]</div>
 <p>where the pair <span class="math notranslate nohighlight">\(\left\{ \lambda_{i} , \omega_i  \right\}_{i=1}^{N}\)</span> represents an N-point quadrature rule. The constant <span class="math notranslate nohighlight">\(2\)</span> arises because we are integrating over the range of 2 and our quadrature weights sum up to <span class="math notranslate nohighlight">\(1\)</span>. To obtain such points in Effective Quadratures, one uses the following commands.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">order</span> <span class="o">=</span> <span class="mi">4</span>
@@ -186,7 +190,7 @@
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>

@@ -83,6 +83,8 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
@@ -118,7 +120,7 @@
   <div class="section" id="sparse-and-tensor-grid-quadrature-rules">
 <h1>Sparse and tensor grid quadrature rules<a class="headerlink" href="#sparse-and-tensor-grid-quadrature-rules" title="Permalink to this headline">¶</a></h1>
 <p>This tutorial replicates part of Figure 5 from Constantine’s 2012 CMAME paper [1], <em>Sparse Pseudospectral Approximation Method</em>. This paper demonstrates how sparse grids should be used to compute coefficients for polynomial approximations by evaluating the model on a sparse grid as opposed to a full tensor grid.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
@@ -230,7 +232,7 @@
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>

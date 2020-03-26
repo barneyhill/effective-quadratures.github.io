@@ -78,21 +78,14 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +122,7 @@
 <p>Perform unconstrained or constrained optimisation.</p>
 <dl class="class">
 <dt id="equadratures.optimisation.Optimisation">
-<em class="property">class </em><code class="descclassname">equadratures.optimisation.</code><code class="descname">Optimisation</code><span class="sig-paren">(</span><em>method='trust-constr'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">equadratures.optimisation.</code><code class="descname">Optimisation</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class performs unconstrained or constrained optimisation of poly objects or custom functions
 using scipy.optimize.minimize or an in-house trust-region method.
 :param string method: A string specifying the method that will be used for optimisation. All of the available choices come from scipy.optimize.minimize (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">click here</a> for a list of methods and further information). In the case of general constrained optimisation, the options are <code class="docutils literal notranslate"><span class="pre">COBYLA</span></code>, <code class="docutils literal notranslate"><span class="pre">SLSQP</span></code>, and <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>. The default is <code class="docutils literal notranslate"><span class="pre">trust-constr</span></code>.</p>
@@ -238,16 +231,23 @@ will be used to approximate the derivative and a BFGS update will be used to app
 
 <dl class="method">
 <dt id="equadratures.optimisation.Optimisation.optimise">
-<code class="descname">optimise</code><span class="sig-paren">(</span><em>x0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.optimise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.optimise" title="Permalink to this definition">¶</a></dt>
+<code class="descname">optimise</code><span class="sig-paren">(</span><em>x0</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/optimisation.html#Optimisation.optimise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.optimisation.Optimisation.optimise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs optimisation on a specified function, provided the objective has been added using ‘add_objective’ method
 and constraints have been added using the relevant method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x0</strong> (<em>numpy.ndarray</em>) – Starting point for optimiser.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x0</strong> (<em>numpy.ndarray</em>) – Starting point for optimiser.</p></li>
+<li><p><strong>del_k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – initial trust-region radius for <code class="docutils literal notranslate"><span class="pre">trust-region</span></code> or <code class="docutils literal notranslate"><span class="pre">omorf</span></code> methods</p></li>
+<li><p><strong>delmin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – minimum allowable trust-region radius for <code class="docutils literal notranslate"><span class="pre">trust-region</span></code> or <code class="docutils literal notranslate"><span class="pre">omorf</span></code> methods</p></li>
+<li><p><strong>delmax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – maximum allowable trust-region radius for <code class="docutils literal notranslate"><span class="pre">trust-region</span></code> or <code class="docutils literal notranslate"><span class="pre">omorf</span></code> methods</p></li>
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – reduced dimension for <code class="docutils literal notranslate"><span class="pre">omorf</span></code> method</p></li>
+<li><p><strong>subspace_method</strong> (<em>string</em>) – subspace method for <code class="docutils literal notranslate"><span class="pre">omorf</span></code> method with options <code class="docutils literal notranslate"><span class="pre">variable-projection</span></code> or <code class="docutils literal notranslate"><span class="pre">active-subspaces</span></code></p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>sol</strong>: An object containing the optimisation result. Important attributes are: the solution array <code class="docutils literal notranslate"><span class="pre">x</span></code>, a Boolean flag <code class="docutils literal notranslate"><span class="pre">success</span></code> indicating
-if the optimiser exited successfully, and a doc-string <code class="docutils literal notranslate"><span class="pre">message</span></code> describing the cause of the termination.</p>
+<dd class="field-even"><p><strong>sol</strong>: An object containing the optimisation result. Important attributes are: the solution array <code class="docutils literal notranslate"><span class="pre">x</span></code>, and a Boolean flag <code class="docutils literal notranslate"><span class="pre">success</span></code> indicating
+if the optimiser exited successfully.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -269,7 +269,7 @@ if the optimiser exited successfully, and a doc-string <code class="docutils lit
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>

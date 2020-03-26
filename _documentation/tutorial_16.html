@@ -15,8 +15,6 @@
     <link rel="shortcut icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Surrogate-Based Optimisation with Polynomials" href="tutorial_17.html" />
-    <link rel="prev" title="Deep learning via polynomials" href="tutorial_15.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +52,7 @@
      href="index.html">Explore <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Effective Quadratures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#code">Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#workshops">Workshops</a></li>
@@ -73,26 +71,19 @@
 <li class="toctree-l2"><a class="reference internal" href="correlated.html">Correlation mapping for polynomials</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Defining a parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -140,7 +131,7 @@
 <p>It can be shown that given <span class="math notranslate nohighlight">\(g_i(.)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_i\)</span> at sufficient locations <span class="math notranslate nohighlight">\(s_i\)</span>, we can compute <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>. We refer readers to [1] for further details on this.</p>
 <p>Why is this method advantageous to direct estimation? We place an assumption on the scalar field, which we call <strong>localized scalar-field influence</strong>. In essence, a field quantity at a certain location is unlikely to be affected strongly by a perturbation far from it. An example would be a subsonic flow field, where small changes in geometry should cause small disturbances far away, provided that the flow physics do not change. This notion then translates to <em>anisotropy</em> in the field quantities: the node quantity can only be affected strongly by nearby perturbations, implying that it is approximately constant with respect to faraway perturbation. This notion does not exist for the corresponding integral qois, because it should, in general, depend on the whole field. Because of the low-dimensional characteristics of the field, ridge approximations can be made at a lower cost; armed with the field ridge approximations, we can extend them to approximate integral qois, with no further data required.</p>
 <p>Let’s illustrate this concept with the code implementation of an example from [1]. We study the shape design of the NACA0012 profile in a subsonic flow, parameterized by 50 Hicks-Henne bumps on the surface, and compare two approaches to approximating the dimension reducing subspaces (<span class="math notranslate nohighlight">\(\mathbf{U}\)</span>) of lift and drag coefficients: the embedded ridge approach—approximating the field quantity first—and direct approach.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">equadratures</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;Data/bumps&#39;</span><span class="p">)</span>
@@ -284,7 +275,7 @@
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>

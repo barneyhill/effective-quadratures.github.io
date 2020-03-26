@@ -78,21 +78,14 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Generating univariate quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Constructing orthogonal polynomials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_4.html">Computing moments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4b.html">Multi-index sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Sparse and tensor grid quadrature rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6a.html">Polynomial regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression for time varying data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Polynomial least squares approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Polynomials via compressive sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_5.html">Multi-index sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_6.html">Polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_7.html">Bayesian polynomial regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_8.html">Sparse and tensor grid quadrature rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_9.html">Computing Sobol’ (sensitivity) indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_9b.html">Higher order Sobol’ indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_10.html">Nataf transform for correlated inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_11.html">Active subspaces with polynomial approximations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_12.html">Polynomial variable projection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_14.html">Vector-valued dimension reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_15.html">Deep learning via polynomials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_16.html">Embedded Ridge Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-Based Optimisation with Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_17.html">Surrogate-based optimisation with polynomials</a></li>
 </ul>
 </li>
 </ul>
@@ -128,7 +121,7 @@
 <span id="dimension-reduction-with-polynomials"></span><h1>Dimension reduction with polynomials<a class="headerlink" href="#module-equadratures.subspaces" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="equadratures.subspaces.Subspaces">
-<em class="property">class </em><code class="descclassname">equadratures.subspaces.</code><code class="descname">Subspaces</code><span class="sig-paren">(</span><em>method</em>, <em>full_space_poly=None</em>, <em>sample_points=None</em>, <em>sample_outputs=None</em>, <em>polynomial_degree=2</em>, <em>subspace_dimension=2</em>, <em>bootstrap=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">equadratures.subspaces.</code><code class="descname">Subspaces</code><span class="sig-paren">(</span><em>method</em>, <em>full_space_poly=None</em>, <em>sample_points=None</em>, <em>sample_outputs=None</em>, <em>polynomial_degree=2</em>, <em>subspace_dimension=2</em>, <em>bootstrap=False</em>, <em>subspace_init=None</em>, <em>max_iter=1000</em>, <em>tol=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/equadratures/subspaces.html#Subspaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#equadratures.subspaces.Subspaces" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class defines a subspaces object. It can be used for polynomial-based subspace dimension reduction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -147,7 +140,7 @@ where a Gauss-Newton optimisation problem is solved to compute both the polynomi
 </dl>
 <p><strong>Sample constructor initialisations</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">equadratures</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">equadratures</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Active subspaces with a global order 2 polynomial.</span>
 <span class="n">mysubspace</span> <span class="o">=</span> <span class="n">Subspaces</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;active-subspace&#39;</span><span class="p">,</span> <span class="n">sample_points</span><span class="o">=</span><span class="n">X_red</span><span class="p">,</span> <span class="n">sample_outputs</span><span class="o">=</span><span class="n">Y_red</span><span class="p">)</span>
@@ -284,7 +277,7 @@ This routine has been adapted from Paul Constantine’s zonotope_vertices() func
     </p>
     <p>
         &copy; Copyright 2016-2019 by Effective Quadratures.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.0.<br/>
     </p>
   </div>
 </footer>
